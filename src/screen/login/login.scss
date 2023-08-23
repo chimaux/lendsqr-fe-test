@@ -1,0 +1,287 @@
+// IMPORTS
+@import "../../variables.scss";
+
+@font-face {
+  font-family: "AvenirBold";
+  src: url("../../fonts/avirnirReplica/Metropolis-Bold.otf") format("otf");
+
+  /* Add more font formats if necessary */
+}
+
+@font-face {
+  font-family: "AvenirRegular";
+
+  src: url("../../fonts/avirnirReplica/Metropolis-Regular.otf") format("otf");
+  /* Add more font formats if necessary */
+}
+@font-face {
+  font-family: "AvenirMedium";
+
+  src: url("../../fonts/avirnirReplica/Metropolis-Medium.otf") format("otf");
+  /* Add more font formats if necessary */
+}
+
+// BREAK POINTS
+@mixin respond($breakpoint) {
+  @if ($breakpoint == medium) {
+    @media (max-width: 900px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == small) {
+    @media (max-width: 600px) {
+      @content;
+    }
+  }
+}
+
+// CONTAINER STYLE
+.container {
+  padding: 0 50px 0 50px;
+  @include respond(medium) {
+    padding: 0 30px 0 30px;
+  }
+  @include respond(small) {
+    padding: 0 20px 0 20px;
+  }
+}
+// CONTAINER STYLE ENDS HERE
+
+// LOGO STYLE STARTS HERE
+
+.logoDiv {
+  display: flex;
+  height: 130px;
+
+  align-items: center;
+  .logo {
+    width: $logo-width;
+    height: $logo-height;
+  }
+}
+
+// LOGO STYLE ENDS HERE
+
+.mainDiv {
+  display: grid;
+  height: 500px;
+
+  grid-template-columns: auto auto;
+  @include respond(medium) {
+    height: 300px;
+    margin-top: 100px;
+  }
+  @include respond(small) {
+    grid-template-columns: auto;
+    height: 300px;
+  }
+}
+
+// LOGIN IMAGE STYLE STARTS HERE
+.bigImage {
+  background-image: url(./images/signin.png);
+  margin-top: 50px;
+  min-width: 200px;
+  background-size: contain;
+  background-position: left top;
+  background-repeat: no-repeat;
+
+  @include respond(medium) {
+    margin-top: 50px;
+  }
+  @include respond(small) {
+    display: none;
+  }
+}
+// LOGIN IMAGE STYLE ENDS HERE
+
+//  FORM STYLE STARTS HERE
+.formDiv {
+  display: flex;
+  justify-content: end;
+
+  @include respond(small) {
+    justify-content: start;
+  }
+  .formSubContainer {
+   
+
+    .focus{
+        border:1px solid #39cdcc;
+     
+        border-radius: 6px;
+        box-shadow: 0 0 4px #39cdcc;
+       
+    }
+    .blur{
+        border: 2px solid rgba(84, 95, 125, 0.15);
+    }
+    
+    width: 80%;
+    // @include respond(medium) {
+    //   width: 100%;
+    // }
+    @include respond(small) {
+      width: 100%;
+    }
+    .welcome {
+      color: $primary-color;
+      font-family: "AvenirBold", sans-serif;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      @include respond(medium) {
+        font-size: 30px;
+      }
+      @include respond(small) {
+        font-size: 20px;
+      }
+    }
+
+    .details {
+      color: #545f7d;
+      font-family: "AvenirRegular", sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 50px;
+
+      @include respond(medium) {
+        font-size: 16px;
+      }
+      @include respond(small) {
+        font-size: 16px;
+        margin-bottom: 70px;
+      }
+    }
+    .loginInput1 {
+        overflow: hidden;
+      position: relative;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      width: 70%;
+      border-radius: 5px;
+  
+      background: #fff;
+      margin-bottom: 20px;
+
+      @include respond(medium) {
+        height: 40px;
+        width: 100%;
+      }
+      @include respond(small) {
+        width: 100%;
+        height: 30px;
+      }
+      .show {
+        position: absolute;
+        right: 10px;
+        color: #39cdcc;
+        text-align: center;
+        font-family: "AvenirRegular", sans-serif;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        @include respond(medium) {
+          font-size: 11px;
+        }
+        @include respond(small) {
+          font-size: 11px;
+        }
+      }
+    }
+    .loginInput2 {
+      width: 90%;
+      height: inherit;
+      border: none;
+      padding-left: 10px;
+      padding-right: 70px;
+      color: #545f7d;
+      font-family: "AvenirRegular", sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    .loginInput2:focus {
+      outline: none;
+    }
+
+    .forgot {
+      color: #39cdcc;
+      font-family: "AvenirRegular", sans-serif;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      cursor: pointer;
+
+
+      @include respond(medium) {
+        font-size: 11px;
+      }
+      @include respond(small) {
+        font-size: 11px;
+      }
+    }
+    .forgot a{
+        text-decoration: none;
+        color: #39cdcc;
+      }
+
+    .loginButton {
+        // CONTAINER STYLE
+      background-color: #39cdcc;
+      position: relative;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 70%;
+      border-radius: 5px;
+      border: 2px solid #39cdcc;
+      margin-top: 20px;
+// TEXT STYLE
+      color: #fff;
+      font-family: "AvenirMedium", sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      cursor: pointer;
+     
+      @include respond(medium) {
+        height: 40px;
+        width: 100%;
+        font-size: 12px;
+      }
+      @include respond(small) {
+        width: 100%;
+        height: 30px;
+        font-size: 12px;
+      }
+
+
+ 
+
+
+    }
+  }
+}
+
+
+
+//  FORM STYLE ENDS HERE
