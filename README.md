@@ -1,3 +1,8 @@
+# LENDSQR FRONTEND ENGINEERING TEST
+.This the live link to the project on vercel 
+https://ugorji-chimaeze-promise-lendsqr-fe-test.vercel.app/
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
