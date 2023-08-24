@@ -1,5 +1,5 @@
 import React from "react";
-import { UseGlobalContext } from "../Context";
+// import { UseGlobalContext } from "../Context";
 import TopNavigation from "./topNavigation/TopNavigation";
 import './layout.scss'
 
@@ -9,7 +9,10 @@ interface LayoutProps {
 
 
 const Layout : React.FC<LayoutProps> = ({ children }) => {
-  const { setIsLogged } = UseGlobalContext();
+  // const { 
+    // setIsLogged 
+  // } = 
+  // UseGlobalContext();
   return (
     <div className="body">
       <TopNavigation/>
