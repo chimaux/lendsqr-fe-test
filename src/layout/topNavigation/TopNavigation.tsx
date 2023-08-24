@@ -14,7 +14,7 @@ const TopNavigation: React.FC = () => {
   // PASSWORD STATE ENDS HERE
 
   // SHOW PASSWORD STATE STARTS HERE
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword] = useState<boolean>(false);
   // SHOW PASSWORD STATE ENDS HERE
 
   // ISFOCUSED STATE STARTS HERE
