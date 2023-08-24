@@ -1,11 +1,14 @@
-import Authentication from "./layout/Authentication"
-
+import Authentication from "./Authentication"
+import './app.scss'
 
 function App() {
 
 
   return (
-<Authentication/>
+   
+      <Authentication/>
+    
+
   )
 }
 

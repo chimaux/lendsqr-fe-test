@@ -37,6 +37,9 @@
 
 // CONTAINER STYLE
 .container {
+  position: relative;
+  height: 100vh;
+
   padding: 0 50px 0 50px;
   @include respond(medium) {
     padding: 0 30px 0 30px;
@@ -79,7 +82,7 @@
 
 // LOGIN IMAGE STYLE STARTS HERE
 .bigImage {
-  background-image: url(./images/signin.png);
+  background-image: url(../../images/signin.png);
   margin-top: 50px;
   min-width: 200px;
   background-size: contain;
@@ -104,19 +107,49 @@
     justify-content: start;
   }
   .formSubContainer {
-   
-
-    .focus{
-        border:1px solid #39cdcc;
+    .emailError {
+      overflow: hidden;
+      position: relative;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      width: 70%;
      
-        border-radius: 6px;
-        box-shadow: 0 0 4px #39cdcc;
-       
+      margin-bottom: 20px;
+
+      background-color: #f0b1bb;
+      color: #eb405d;
+      font-family: "AvenirRegular", sans-serif;
+      font-size: 20px;
+
+      border-radius: 5px;
+      border: 1px solid #ff7fa9;
+
+      @include respond(medium) {
+        font-size: 16px;
+        width: 100%;
+      }
+      @include respond(small) {
+        font-size: 16px;
+        
+        width: 100%;
+      }
+      p{
+        padding-left: 10px;
+      }
     }
-    .blur{
-        border: 2px solid rgba(84, 95, 125, 0.15);
+
+    .focus {
+      border: 1px solid #39cdcc;
+
+      border-radius: 6px;
+      box-shadow: 0 0 4px #39cdcc;
     }
-    
+    .blur {
+      border: 2px solid rgba(84, 95, 125, 0.15);
+    }
+
     width: 80%;
     // @include respond(medium) {
     //   width: 100%;
@@ -153,11 +186,11 @@
       }
       @include respond(small) {
         font-size: 16px;
-        margin-bottom: 70px;
+     
       }
     }
     .loginInput1 {
-        overflow: hidden;
+      overflow: hidden;
       position: relative;
       height: 50px;
       display: flex;
@@ -165,17 +198,17 @@
       flex-shrink: 0;
       width: 70%;
       border-radius: 5px;
-  
+
       background: #fff;
       margin-bottom: 20px;
 
       @include respond(medium) {
-        height: 40px;
+        height: 45px;
         width: 100%;
       }
       @include respond(small) {
         width: 100%;
-        height: 30px;
+        height: 40px;
       }
       .show {
         position: absolute;
@@ -202,6 +235,7 @@
       width: 90%;
       height: inherit;
       border: none;
+      outline: none;
       padding-left: 10px;
       padding-right: 70px;
       color: #545f7d;
@@ -226,7 +260,6 @@
       text-transform: uppercase;
       cursor: pointer;
 
-
       @include respond(medium) {
         font-size: 11px;
       }
@@ -234,13 +267,13 @@
         font-size: 11px;
       }
     }
-    .forgot a{
-        text-decoration: none;
-        color: #39cdcc;
-      }
+    .forgot a {
+      text-decoration: none;
+      color: #39cdcc;
+    }
 
     .loginButton {
-        // CONTAINER STYLE
+      // CONTAINER STYLE
       background-color: #39cdcc;
       position: relative;
       height: 50px;
@@ -252,7 +285,7 @@
       border-radius: 5px;
       border: 2px solid #39cdcc;
       margin-top: 20px;
-// TEXT STYLE
+      // TEXT STYLE
       color: #fff;
       font-family: "AvenirMedium", sans-serif;
       font-size: 14px;
@@ -262,26 +295,26 @@
       letter-spacing: 1.2px;
       text-transform: uppercase;
       cursor: pointer;
-     
+
       @include respond(medium) {
-        height: 40px;
+        height: 45px;
         width: 100%;
         font-size: 12px;
       }
       @include respond(small) {
         width: 100%;
-        height: 30px;
+        height: 40px;
         font-size: 12px;
       }
-
-
- 
-
-
     }
   }
 }
 
-
+.chat {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+}
 
 //  FORM STYLE ENDS HERE
