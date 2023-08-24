@@ -1,11 +1,18 @@
 import React from "react";
 import { UseGlobalContext } from "../Context";
+import TopNavigation from "./topNavigation/TopNavigation";
+import './layout.scss'
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode; // Define the type of children
+}
+
+
+const Layout : React.FC<LayoutProps> = ({ children }) => {
   const { setIsLogged } = UseGlobalContext();
   return (
-    <div>
-      <button onClick={() => setIsLogged((prev => !prev))}>top</button>
+    <div className="body">
+      <TopNavigation/>
       {children}
       <p>bottom</p>
     </div>
