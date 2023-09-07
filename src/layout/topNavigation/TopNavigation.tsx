@@ -7,8 +7,12 @@ import { BiSolidDownArrow } from "react-icons/bi";
 import { FiMoreVertical } from "react-icons/fi";
 import bell from "../../images/bell.png";
 import avatar from "../../images/avatar.png";
+import More from "./component/more/More";
+import { UseGlobalContext } from "../../Context";
 
 const TopNavigation: React.FC = () => {
+  const { moreOpen, setMoreopen, setBtnOff, btnOff } = UseGlobalContext();
+
   // PASSWORD STATE STARTS HERE
   const [password, setPassword] = useState<string>("");
   // PASSWORD STATE ENDS HERE
@@ -34,7 +38,7 @@ const TopNavigation: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="overall">
       <div className="topNavContainer1">
         {/* LOGO STARTS HERE */}
         <div className="logoDiv">
@@ -42,14 +46,10 @@ const TopNavigation: React.FC = () => {
           <div className="menuIcon">
             <HiOutlineMenu size={25} />
           </div>
-
-
         </div>
         {/* LOGO ENDS HERE */}
 
-
-<div className="rightTopNav">
-    
+        <div className="rightTopNav">
           {/* SEARCH INPUT */}
           <div
             className={`search1 ${isFocused === true ? "focus" : "blur"}`}
@@ -73,29 +73,45 @@ const TopNavigation: React.FC = () => {
           {/* SEARCH INPUT ENDS*/}
 
           {/* USER TAB */}
-        <div className="topNav2">
-          <div className="topNav2b">
-            <div>
-              <a href="#">docs</a>
-            </div>
-            <div className="space-x">
-              <img src={bell} alt=" " className="bell" />
-            </div>
-            <div className="space-x">
-              <img src={avatar} alt=" " className="avatar" />
-            </div>
-            
-            <div className="avatarRole">
+          <div className="topNav2">
+            <div className="topNav2b">
+              <div>
+                <a href="#">docs</a>
+              </div>
+              <div className="space-x">
+                <img src={bell} alt=" " className="bell" />
+              </div>
+              <div className="space-x">
+                <img src={avatar} alt=" " className="avatar" />
+              </div>
+
+              <button
+                className="avatarRole moreBtn"
+                disabled={btnOff}
+                onClick={() => {
+                  setMoreopen((prev) => !prev);
+                  setBtnOff(true);
+                }}
+              >
                 <div>Chima</div>
-             <BiSolidDownArrow size={18} className="space-x3"/>
+                <BiSolidDownArrow size={18} className="space-x3" />
+              </button>
             </div>
+
+            <button
+              className="moreBtn "
+              disabled={btnOff}
+              onClick={() => {
+                setMoreopen((prev) => !prev);
+                setBtnOff(true);
+              }}
+            >
+              <FiMoreVertical size={24} className="moreIcon" />
+            </button>
           </div>
-
-          <FiMoreVertical size={24} className="moreIcon"/>
-
         </div>
-</div>
       </div>
+      {moreOpen === true ? <More /> : ""}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 // import { UseGlobalContext } from "../Context";
 import TopNavigation from "./topNavigation/TopNavigation";
 import './layout.scss'
+import SideNavigation from "./sideNavigation/SideNavigation";
 
 interface LayoutProps {
   children: React.ReactNode; // Define the type of children
@@ -16,8 +17,12 @@ const Layout : React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="body">
       <TopNavigation/>
-      {children}
-      <p>bottom</p>
+      <div className="container2">
+        <SideNavigation />
+      <div className="child">{children}</div>
+      </div>
+   
+   
     </div>
   );
 };

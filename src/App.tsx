@@ -1,15 +1,13 @@
-import Authentication from "./Authentication"
-import './app.scss'
+import Authentication from "./Authentication";
+import "./app.scss";
+
 
 function App() {
-
-
   return (
-   
-      <Authentication/>
-    
-
-  )
+    <div>
+ <Authentication /> 
+    </div>
+  );
 }
 
-export default App
+export default App;
