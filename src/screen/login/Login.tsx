@@ -6,6 +6,7 @@ import { UseGlobalContext } from "../../Context";
 
 import { Sentry } from "react-activity";
 import "react-activity/dist/library.css";
+import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const { setIsLogged } = UseGlobalContext();
@@ -92,9 +93,12 @@ const emailHandler =(e:React.ChangeEvent<HTMLInputElement>) =>{
       </div>
 
       {/* LOGO STARTS HERE */}
-      <div className="logoDiv">
+      <Link to="/dashboard">
+            <div className="logoDiv">
         <img src={logo} alt="lendsqr" className="logo" />
       </div>
+      </Link>
+
       {/* LOGO ENDS HERE */}
 
       <div className="mainDiv">

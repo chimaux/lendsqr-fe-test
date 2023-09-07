@@ -7,7 +7,6 @@
   /* Add more font formats if necessary */
 }
 
-
 @font-face {
   font-family: "AvenirMedium";
 
@@ -28,212 +27,208 @@
     }
   }
 }
+.overall {
 
-.topNavContainer1 {
-  // LOGO STYLE STARTS HERE
-  display: flex;
-  
-  @include respond(medium) {
-    justify-content: space-between;
-  }
-
-  .logoDiv {
+  background: #FFF;
+  box-shadow: 3px 0px 20px 0px rgba(0, 0, 0, 0.04); 
+  .topNavContainer1 {
+    // LOGO STYLE STARTS HERE
     display: flex;
-    // background-color: green;
-    
-    width: 30%;
-    height: 80px;
-    flex-shrink: 0;
-    padding-left: 20px;
-    // background-color: green;
-    align-items: center;
-    @include respond(small) {
+    z-index: 800;
+    @include respond(medium) {
+      justify-content: space-between;
+    }
+
+    .logoDiv {
+      display: flex;
+      // background-color: green;
+
+      width: 30%;
+      height: 80px;
+      flex-shrink: 0;
+      padding-left: 20px;
+      // background-color: green;
+      align-items: center;
+      @include respond(small) {
         width: 10%;
       }
-    .logo {
-      width: $logo-width;
-      height: $logo-height;
-      
+      .logo {
+        width: $logo-width;
+        height: $logo-height;
+
+        @include respond(medium) {
+          display: none;
+        }
+      }
+      @include respond(small) {
+        padding-left: 10px;
+      }
+    }
+
+    .menuIcon {
+      display: none;
+
+      @include respond(medium) {
+        display: block;
+        margin-top: 5px;
+      }
+    }
+    // LOGO STYLE ENDS HERE
+  }
+}
+
+.rightTopNav {
+  display: flex;
+  width: 100%;
+  // background-color: #c41097;
+  align-items: center;
+  justify-content: space-between;
+
+  .topNav2 {
+    // background-color: red;
+    width: 100%;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    @include respond(medium) {
+      width: unset;
+      margin-left: 70px;
+    }
+    @include respond(small) {
+      width: unset;
+      margin-left: unset;
+    }
+    .topNav2b {
+      display: flex;
+      align-items: center;
+      a{
+        color: #213f7d;
+      }
+      .space-x {
+        margin-left: 20px;
+      }
+      .space-x2 {
+        margin-left: 10px;
+      }
+      .space-x3 {
+        margin-left: 5px;
+      }
+      .avatarRole {
+        margin-left: 10px;
+        display: flex;
+        color: #213f7d;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        cursor: pointer;
+      }
+      .bell {
+        width: 24px;
+      }
+      .avatar {
+        width: 30px;
+      }
       @include respond(medium) {
         display: none;
       }
-
     }
-    @include respond(small) {
-      padding-left: 10px;
+    .moreBtn{
+      all: unset;
     }
-
+    .moreIcon {
+      display: none;
+      @include respond(medium) {
+        display: block;
+        cursor: pointer;
+      }
+    }
   }
 
-  .menuIcon {
-    display: none;
+  .search1 {
+    overflow: hidden;
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 5px;
+
+    background: #ffffff;
 
     @include respond(medium) {
-      display: block;
-      margin-top: 5px;
+      
+      width: 100%;
+      margin-left: 70px;
+    }
+    @include respond(small) {
+      width: 100%;
+      height: 35px;
+      
+      margin: 0 50px 0 5px;
+    }
+    .searchIcon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      right: 10px;
+      background-color: #39cdcc;
+      height: inherit;
+      width: 100px;
+      color: #fff;
+      text-align: center;
+      font-family: "AvenirRegular", sans-serif;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      @include respond(medium) {
+        font-size: 11px;
+        width: 80px;
+      }
+      @include respond(small) {
+        font-size: 11px;
+        width: 80px;
+      }
+    }
+    .search2 {
+      width: 100%;
+      height: inherit;
+      border: none;
+      outline: none;
+      padding-left: 10px;
+      padding-right: 70px;
+      // background-color: red;
+      color: #545f7d;
+      font-family: "AvenirRegular", sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+
+      @include respond(medium) {
+        padding-right: 50px;
+      }
+      @include respond(small) {
+        padding-right: 30px;
+      }
     }
   }
-  // LOGO STYLE ENDS HERE
 
+  .focus {
+    border: 1px solid #39cdcc;
 
-}
-
-
-.rightTopNav{
-    display:flex;
-    width: 100%;
-    // background-color: #c41097;
-    align-items: center;
-    justify-content: space-between;
-    
-   
-
-
-
-
-
-    .topNav2 {
-        // background-color: red;
-        width: 100%;
-        padding-right: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: end;
-        @include respond(medium) {
-            width: unset;
-            margin-left: 70px;
-          }
-        @include respond(small) {
-            width: unset;
-            margin-left:unset;
-          }
-        .topNav2b {
-          display: flex;
-          align-items: center;
-          .space-x {
-            margin-left: 20px;
-          }
-          .space-x2 {
-            margin-left: 10px;
-          }
-          .space-x3 {
-            margin-left: 5px;
-          }
-          .avatarRole {
-            
-            margin-left: 10px;
-            display: flex;
-
-      
-            
-          }
-          .bell {
-            width: 24px;
-          }
-          .avatar {
-            width: 30px;
-      
-          }
-          @include respond(medium) {
-            display: none;
-            
-          }
-        }
-        .moreIcon{
-            display: none;
-            @include respond(medium) {
-                display: block;
-               
-              }
-    
-        }
-      }
-    
-    
-      .search1 {
-        overflow: hidden;
-        position: relative;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        border-radius: 5px;
-    
-        background: #ffffff;
-    
-        @include respond(medium) {
-          height: 35px;
-          width: 100%;
-          margin-left: 70px;
-        
-        }
-        @include respond(small) {
-          width: 100%;
-          height: 30px;
-          margin: 0 50px 0 5px ;
-          
-        }
-        .searchIcon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          right: 10px;
-          background-color: #39cdcc;
-          height: inherit;
-          width: 100px;
-          color: #fff;
-          text-align: center;
-          font-family: "AvenirRegular", sans-serif;
-          font-size: 12px;
-          font-style: normal;
-          font-weight: 600;
-          line-height: normal;
-          letter-spacing: 1.2px;
-          text-transform: uppercase;
-          cursor: pointer;
-          @include respond(medium) {
-            font-size: 11px;
-            width: 70px;
-          }
-          @include respond(small) {
-            font-size: 11px;
-            width: 50px;
-          }
-        }
-        .search2 {
-          width: 100%;
-          height: inherit;
-          border: none;
-          outline: none;
-          padding-left: 10px;
-          padding-right: 70px;
-          // background-color: red;
-          color: #545f7d;
-          font-family: "AvenirRegular", sans-serif;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
-    
-          @include respond(medium) {
-            padding-right: 50px;
-          }
-          @include respond(small) {
-            padding-right: 30px;
-          }
-        }
-      }
-    
-      .focus {
-        border: 1px solid #39cdcc;
-    
-        border-radius: 6px;
-        box-shadow: 0 0 4px #39cdcc;
-        @include respond(small) {
-          box-shadow: 0 0 2px #39cdcc;
-        }
-      }
-      .blur {
-        border: 2px solid rgba(84, 95, 125, 0.15);
-      }
+    border-radius: 6px;
+    box-shadow: 0 0 4px #39cdcc;
+    @include respond(small) {
+      box-shadow: 0 0 2px #39cdcc;
+    }
+  }
+  .blur {
+    border: 2px solid rgba(84, 95, 125, 0.15);
+  }
 }

@@ -1,0 +1,64 @@
+
+// BREAK POINTS
+@mixin respond($breakpoint) {
+  @if ($breakpoint == medium) {
+    @media (max-width: 900px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == small) {
+    @media (max-width: 600px) {
+      @content;
+    }
+  }
+}
+
+.moreContainer {
+  margin-top: -10px;
+  margin-right: 40px;
+  right: 0;
+  z-index: 999;
+  position: absolute;
+  float: right;
+  padding: 10px 10px 0 10px;
+  height: fit-content;
+  background-color: #fff;
+  border: 1px solid #fbfbfb;
+  border-radius: 6px;
+  box-shadow: 0 0 2px #dedfdf;
+   outline: unset;
+
+
+   @include respond(medium) {
+    display: block;
+  }
+
+
+
+  div div{
+    display: flex;
+    align-items: center;
+  }
+.icon{
+    color: #213f7d;
+    margin-right: 3px;
+}
+
+  .moreText {
+    cursor: pointer;
+    color: #213f7d;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 7px;
+  }
+  div:nth-child(3){
+    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    margin-left: 4px;
+  }
+
+
+}

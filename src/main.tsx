@@ -12,5 +12,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <App />
     </GlobalContext>
     </Router>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
