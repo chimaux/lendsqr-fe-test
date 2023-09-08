@@ -68,15 +68,17 @@
 .mainDiv {
   display: grid;
   height: 500px;
-
   grid-template-columns: auto auto;
+  grid-column-gap: 150px;
   @include respond(medium) {
     height: 300px;
     margin-top: 100px;
+    grid-column-gap: 100px;
   }
   @include respond(small) {
     grid-template-columns: auto;
     height: 300px;
+    grid-column-gap: unset;
   }
 }
 
@@ -84,7 +86,7 @@
 .bigImage {
   background-image: url(../../images/signin.png);
   margin-top: 50px;
-  min-width: 200px;
+  min-width: 300px;
   background-size: contain;
   background-position: left top;
   background-repeat: no-repeat;
@@ -103,6 +105,7 @@
   display: flex;
   justify-content: end;
 
+
   @include respond(small) {
     justify-content: start;
   }
@@ -110,7 +113,7 @@
     .emailError {
       overflow: hidden;
       position: relative;
-      height: 50px;
+      height: 30px;
       display: flex;
       align-items: center;
       flex-shrink: 0;
@@ -121,17 +124,49 @@
       background-color: #f0b1bb;
       color: #eb405d;
       font-family: "AvenirRegular", sans-serif;
-      font-size: 20px;
+      font-size: 15px;
 
       border-radius: 5px;
       border: 1px solid #ff7fa9;
 
       @include respond(medium) {
-        font-size: 16px;
+        font-size: 14px;
         width: 100%;
       }
       @include respond(small) {
-        font-size: 16px;
+        font-size: 14px;
+        
+        width: 100%;
+      }
+      p{
+        padding-left: 10px;
+      }
+    }
+    .emailGood{
+      overflow: hidden;
+      position: relative;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      width: 70%;
+     
+      margin-bottom: 20px;
+
+      background-color: #FBFBFB;
+      color: #FBFBFB;
+      font-family: "AvenirRegular", sans-serif;
+      font-size: 16px;
+
+      border-radius: 5px;
+      border: 1px solid #FBFBFB;
+
+      @include respond(medium) {
+        font-size: 14px;
+        width: 100%;
+      }
+      @include respond(small) {
+        font-size: 14px;
         
         width: 100%;
       }
@@ -150,7 +185,8 @@
       border: 2px solid rgba(84, 95, 125, 0.15);
     }
 
-    width: 80%;
+    width: 100%;
+ 
     // @include respond(medium) {
     //   width: 100%;
     // }
@@ -179,7 +215,7 @@
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-      margin-bottom: 50px;
+      
 
       @include respond(medium) {
         font-size: 16px;

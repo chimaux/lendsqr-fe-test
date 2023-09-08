@@ -103,7 +103,7 @@ const emailHandler =(e:React.ChangeEvent<HTMLInputElement>) =>{
 
       <div className="mainDiv">
         {/* BACKGROUND IMAGE STARTS HERE */}
-        <div className="bigImage"></div>
+        <div className="bigImage"></div> 
         {/* BACKGROUND IMAGE ENDS HERE */}
 
         {/* FORM STARTS HERE */}
@@ -112,7 +112,10 @@ const emailHandler =(e:React.ChangeEvent<HTMLInputElement>) =>{
       
             <span className="welcome">Welcome!</span>
             <p className="details">Enter details to login.</p>
-            {!isValidEmail && <div className="emailError"><p>Please enter a valid email address.</p></div>}
+            {!isValidEmail ? <div className="emailError"><p>Please enter a valid email address.</p></div>
+          :  
+          <div className="emailGood"><p>Please enter a valid email address.</p></div>
+          }
             <form onSubmit={handleSubmit}>
               {/* EMAIL INPUT */}
               <div

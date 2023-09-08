@@ -120,7 +120,8 @@ useEffect(() => {
 }, []);
 
   return (
-    <div className="overallContainer hide-scrollbar TabDesign">
+<div className="overallContainer TabDesign">
+<div className="overallContainer2 hide-scrollbar ">
       <div className="switchOrganization">
         <img className="icon" src={briefCase} alt=" " />
         <span className="text">Switch Organization</span>
@@ -175,6 +176,7 @@ useEffect(() => {
         ))}
       </div>
     </div>
+</div>
   );
 };
 
