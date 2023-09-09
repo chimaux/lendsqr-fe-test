@@ -870,6 +870,7 @@ const User = () => {
     <th><div className="thead">STATUS<img className="icon" src={filter} alt=" " /></div></th>
   </tr>
 </thead>
+
 <tbody>
     
 {

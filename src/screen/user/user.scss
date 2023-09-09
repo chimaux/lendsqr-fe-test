@@ -107,35 +107,40 @@
   -ms-overflow-style: none; /* Internet Explorer */
   max-height: 400px; /* Set a maximum height for the table body */
   overflow-y: scroll; /* Add vertical scrollbar to the container */
+
+  @include respond(medium) {
+    padding: 15px;
+  }
+  @include respond(small) {
+    padding: 10px;
+  }
+
   table {
+    display: table;
     width: 100%;
     border-collapse: collapse;
 
-tr{
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-
-
-  
-}
-
-
+ 
 
     tr .thead {
       display: flex;
-      min-width: 100px;
+      width: 100%;
+      
       align-items: center;
       padding-bottom: 40px;
+     
       
       color: #545f7d;
-
 
       font-size: 12px;
       font-style: normal;
       font-weight: 600;
       line-height: normal;
       text-transform: uppercase;
+      @include respond(medium) {
+        min-width:200px;
+      }
+   
       .icon {
         width: 16px;
         height: 16px;
@@ -153,8 +158,8 @@ tr{
       height: 30px;
       flex-shrink: 0;
       border-radius: 100px;
-      background: rgba(233,178,0,0.1);
-      color: #E9B200; 
+      background: rgba(233, 178, 0, 0.1);
+      color: #e9b200;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -162,11 +167,11 @@ tr{
     }
     tr .active {
       width: 70px;
-      height: 30px; 
+      height: 30px;
       flex-shrink: 0;
       border-radius: 100px;
-      background: rgba(57,205,98,0.1);
-      color: #39CD62; 
+      background: rgba(57, 205, 98, 0.1);
+      color: #39cd62;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -174,11 +179,11 @@ tr{
     }
     tr .blacklist {
       width: 100px;
-      height: 30px; 
+      height: 30px;
       flex-shrink: 0;
       border-radius: 100px;
-      background: rgba(228,3,59,0.1);
-      color: #E4033B; 
+      background: rgba(228, 3, 59, 0.1);
+      color: #e4033b;
       display: flex;
       align-items: center;
       justify-content: center;

@@ -17,7 +17,7 @@
 // BREAK POINTS
 @mixin respond($breakpoint) {
   @if ($breakpoint == medium) {
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
       @content;
     }
   }

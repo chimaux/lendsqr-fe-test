@@ -18,7 +18,7 @@ export const Context = createContext<MyType>({} as MyType);
 
 export const GlobalContext = ({ children }: { children: ReactNode }) => {
 
-  const [ isLogged,setIsLogged] = useState(true);
+  const [ isLogged,setIsLogged] = useState(false);
   const [ moreOpen,setMoreopen] = useState(false);
     // BTN OPEN STATE STARTS HERE
     const [btnOff, setBtnOff] = useState<boolean>(false);
