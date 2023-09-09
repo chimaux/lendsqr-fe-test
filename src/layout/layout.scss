@@ -1,4 +1,15 @@
-
+@mixin respond($breakpoint) {
+    @if ($breakpoint == medium) {
+      @media (max-width: 900px) {
+        @content;
+      }
+    }
+    @if ($breakpoint == small) {
+      @media (max-width: 600px) {
+        @content;
+      }
+    }
+  }
 
 
 .container2{
@@ -10,6 +21,16 @@
         padding: 50px;
       
         width: 78%;
+
+
+        
+  @include respond(medium) {
+    padding: 30px;
+    width: 90%;
+  }
+  @include respond(small) {
+    padding: 20px;
+  }
         // background-color: aquamarine;
     }
 }

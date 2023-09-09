@@ -103,28 +103,35 @@
 
   padding: 20px;
   overflow-x: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer */
+  // scrollbar-width: none; /* Firefox */
+  // -ms-overflow-style: none; /* Internet Explorer */
   max-height: 400px; /* Set a maximum height for the table body */
   overflow-y: scroll; /* Add vertical scrollbar to the container */
+
+  @include respond(medium) {
+    padding: 15px;
+  }
+  @include respond(small) {
+    padding: 10px;
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
+  
 
 tr{
   display: table;
-  width: 100%;
-  table-layout: fixed;
+ 
 
 
-  
 }
 
 
 
     tr .thead {
       display: flex;
-      min-width: 100px;
+  
       align-items: center;
       padding-bottom: 40px;
       

@@ -15,7 +15,7 @@
 
 
 .overallContainer2 {
-  min-width: 250px;
+  // min-width: 250px;
   padding-left: 0px;
   height: 100vh;
   overflow-y: scroll;
@@ -29,6 +29,7 @@ display: none;
     padding-top: 30px;
     padding-bottom: 50px;
     padding-left: 20px;
+    padding-right: 10px;
     cursor: pointer;
 
     .text {
@@ -48,6 +49,7 @@ display: none;
     padding-left: 20px;
     outline: unset;
     cursor: pointer;
+   
     .text {
       color: #213f7d;
       font-size: 16px;
