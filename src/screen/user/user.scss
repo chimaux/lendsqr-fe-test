@@ -6,17 +6,17 @@
 }
 
 @mixin respond($breakpoint) {
-    @if ($breakpoint == medium) {
-      @media (max-width: 900px) {
-        @content;
-      }
-    }
-    @if ($breakpoint == small) {
-      @media (max-width: 600px) {
-        @content;
-      }
+  @if ($breakpoint == medium) {
+    @media (max-width: 900px) {
+      @content;
     }
   }
+  @if ($breakpoint == small) {
+    @media (max-width: 600px) {
+      @content;
+    }
+  }
+}
 
 .userText {
   color: #213f7d;
@@ -35,36 +35,35 @@
   min-width: 70%;
   flex-wrap: wrap;
   @include respond(medium) {
-    grid-template-columns:auto auto;
+    grid-template-columns: auto auto;
     grid-gap: 15px;
   }
   @include respond(small) {
-    grid-template-columns:auto;
+    grid-template-columns: auto;
     grid-row-gap: 15px;
   }
 
   .headTabs {
-   width: 180px;
+    width: 180px;
     height: 150px;
-  flex-shrink: 0;
+    flex-shrink: 0;
     border-radius: 4px;
     border: 1px solid rgba(33, 63, 125, 0.06);
     background: #fff;
     box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
     padding: 15px 20px;
-    
+
     margin-top: 20px;
     margin-right: 20px;
 
     @include respond(medium) {
-        margin-top: 15px;
-        margin-right: 15px;
-    
-      }
-      @include respond(small) {
-        margin-top: 15px;
-        margin-right: 15px;
-      }
+      margin-top: 15px;
+      margin-right: 15px;
+    }
+    @include respond(small) {
+      margin-top: 15px;
+      margin-right: 15px;
+    }
 
     .icon {
       width: 40px;
@@ -78,7 +77,7 @@
       line-height: normal;
       text-transform: uppercase;
       font-weight: 600;
-      line-height: normal; 
+      line-height: normal;
       margin: 20px 0;
     }
     .number {
@@ -92,15 +91,123 @@
   }
 }
 
-.secondContainer{
+.secondContainer {
   margin-top: 30px;
-  min-width: 500px;
-height: 640px;
-flex-shrink: 0; 
-border-radius: 4px;
-border: 1px solid rgba(33, 63, 125, 0.06);
-background: #FFF;
-box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04); 
+  // min-width: 500px;
+  // height: 640px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  background: #fff;
+  box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
+
+  padding: 20px;
+  overflow-x: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer */
+  max-height: 400px; /* Set a maximum height for the table body */
+  overflow-y: scroll; /* Add vertical scrollbar to the container */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+tr{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+
+
+  
 }
 
 
+
+    tr .thead {
+      display: flex;
+      min-width: 100px;
+      align-items: center;
+      padding-bottom: 40px;
+      
+      color: #545f7d;
+
+
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      text-transform: uppercase;
+      .icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        margin-left: 15px;
+      }
+    }
+
+    tr .tdata2 {
+      text-transform: none;
+    }
+
+    tr .pending {
+      width: 90px;
+      height: 30px;
+      flex-shrink: 0;
+      border-radius: 100px;
+      background: rgba(233,178,0,0.1);
+      color: #E9B200; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.8px;
+    }
+    tr .active {
+      width: 70px;
+      height: 30px; 
+      flex-shrink: 0;
+      border-radius: 100px;
+      background: rgba(57,205,98,0.1);
+      color: #39CD62; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.8px;
+    }
+    tr .blacklist {
+      width: 100px;
+      height: 30px; 
+      flex-shrink: 0;
+      border-radius: 100px;
+      background: rgba(228,3,59,0.1);
+      color: #E4033B; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.8px;
+    }
+
+    tr .tdata {
+      display: flex;
+      align-items: center;
+      color: #545f7d;
+      justify-content: space-between;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      text-transform: uppercase;
+
+      .icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+    }
+    .tableData td {
+      min-width: 100px;
+      border: none;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+    }
+  }
+}
