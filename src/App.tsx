@@ -1,11 +1,11 @@
-import Authentication from "./Authentication";
+import Router from "./Router";
 import "./app.scss";
 
 
 function App() {
   return (
     <div>
- <Authentication /> 
+<Router/>
     </div>
   );
 }
