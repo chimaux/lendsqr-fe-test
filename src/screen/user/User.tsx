@@ -8,6 +8,10 @@ import tabIcon2 from "./images/tabIcon2.png";
 import tabIcon3 from "./images/tabIcon3.png";
 import tabIcon4 from "./images/tabIcon4.png";
 import filter from './images/filterBtn.png'
+import nextInactive from './images/nextBtnInactive.png'
+import nextActive from './images/nextBtnActive.png'
+import prevInactive from './images/prevBtnInactive.png'
+import prevActive from './images/prevBtnActive.png'
 import more from './images/more.png'
 
 
@@ -875,7 +879,7 @@ function Items({ usersData }: { usersData: any[] }) {
           <td><span className="tdata">{item.email}</span></td>
           <td><span className="tdata">{item.phoneno}</span></td>
           <td><span className="tdata">i{item.datejoined}</span></td>
-          <td><div className="tdata "><div className={`tdata2 ${item.status === "inactive" ? "inactive": item.status === "active" ? "active" : item.status === "pending" ? "pending" : "blacklist" }`}>{item.status}</div><img className="icon" src={more} alt=" " /></div></td>
+          <td><div className="tdata "><div className={`tdata2 ${item.status === "inactive" ? "inactive": item.status === "active" ? "activee" : item.status === "pending" ? "pending" : "blacklist" }`}>{item.status}</div><img className="icon" src={more} alt=" " /></div></td>
         </tr>
         ))
       }
@@ -919,14 +923,21 @@ function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
       <Items usersData={usersData} />
       <ReactPaginate
         breakLabel="..."
-        nextLabel="next >"
+        nextLabel={<img className="icon" src={nextActive} alt=" " />}
         onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
         pageCount={pageCount}
-        previousLabel="< previous"
+        
+        previousLabel={<img className="icon" src={prevActive} alt=" " />}
         renderOnZeroPageCount={null}
         activeClassName="active"
         containerClassName="paginationContainer"
+        previousClassName="previousLi"
+        pageClassName="previousLi"
+        // pageLinkClassName="eachPageNum"
+        nextClassName="previousLi"
+        breakClassName="previousLi"
       />
     </>
   );
@@ -1003,7 +1014,7 @@ const User = () => {
 </div> */}
 
 
-<PaginatedItems itemsPerPage={4} />
+<PaginatedItems itemsPerPage={10} />
     </Layout>
   );
 };

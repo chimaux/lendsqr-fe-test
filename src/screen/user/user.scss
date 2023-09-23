@@ -195,7 +195,7 @@ tbody{
     justify-content: center;
     letter-spacing: 0.8px;
   }
-  tr .active {
+  tr .activee {
     width: 70px;
     height: 30px;
     flex-shrink: 0;
@@ -261,12 +261,31 @@ tbody{
 }
 
 .active{
-  color: red;
-  border: 2px solid blue;
+  color: #545F7D;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal; 
 }
 .paginationContainer{
   display: flex;
   // background-color: #545f7d;
  justify-content: space-between;
+ align-items: center;
  width: 600px;
+}
+.previousLi{
+  list-style-type: none;
+}
+.icon{
+  width: 24px;
+  height: 24px;
+}
+.eachPageNum{
+  cursor: pointer;
+  color: #979DAF;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal; 
 }
