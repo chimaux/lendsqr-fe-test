@@ -2,8 +2,12 @@ import React, {
   useState,
   createContext,
   useContext,
-  ReactNode
+  ReactNode,
+  useEffect
 } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 type MyType = {
   isLogged: boolean;
@@ -18,11 +22,28 @@ export const Context = createContext<MyType>({} as MyType);
 
 export const GlobalContext = ({ children }: { children: ReactNode }) => {
 
+  const navigate = useNavigate()
+
   const [ isLogged,setIsLogged] = useState(false);
   const [ moreOpen,setMoreopen] = useState(false);
     // BTN OPEN STATE STARTS HERE
     const [btnOff, setBtnOff] = useState<boolean>(false);
     // BTN OPEN STATE ENDS HERE
+
+    const initialPageLoad = ()=>{
+      isLogged === true ? navigate("/user"): navigate("/");
+      console.log(isLogged,"Chima")
+     }
+
+    useEffect(()=>{
+      initialPageLoad();
+    },[isLogged]);
+
+
+
+
+
+
 
 const store = {
   isLogged,

@@ -57,6 +57,7 @@ display: none;
       font-weight: 400;
       line-height: normal;
       margin: 0 5px;
+      
     }
   }
   .dashBoard:focus {
@@ -81,6 +82,11 @@ display: none;
     font-weight: 400;
     line-height: normal;
     padding-left: 20px;
+  }
+
+
+  .linkStyle{
+    text-decoration: none;
   }
 }
 .hide-scrollbar {

@@ -17,90 +17,111 @@ const custemersItem = [
   {
     title: "Users",
     icon: users ,
+    navlink: "/user" ,
   },
   {
     title: "Guarantors",
     icon:  guarantor ,
+    navlink: "#",
   },
   {
     title: "Loans",
     icon: loan ,
+    navlink: "#",
   },
   {
     title: "Decision Models",
-    icon:  decision ,
+    icon:  decision,
+    navlink: "#",
   },
   {
     title: "Savings",
     icon:  savings ,
+    navlink:"#"
   },
   {
     title: "Loan Request",
-    icon:  loanR ,
+    icon:  loan ,
+    navlink:"#"
   },
   {
     title: "Whitelist",
     icon: whiteL ,
+    navlink:"#"
   },
   {
     title: "Karma",
     icon: whiteL ,
+    navlink:"#"
   },
 ];
 const businessItem = [
   {
     title: "Organization",
     icon: users ,
+    navlink:"#"
   },
   {
     title: "Loan Products",
     icon:  guarantor ,
+    navlink:"#"
   },
   {
     title: "Savings Products",
     icon: loan ,
+    navlink:"#"
   },
   {
     title: "Fees and Charges",
     icon:  decision ,
+    navlink:"#"
   },
   {
     title: "Transactions",
     icon:  savings ,
+    navlink:"#"
   },
   {
     title: "Loan Request",
     icon:  loanR ,
+    navlink:"#"
   },
   {
     title: "Services",
     icon: whiteL ,
+    navlink:"#"
   },
   {
     title: "Service Account",
     icon: whiteL ,
+    navlink:"#"
   },
   {
     title: "Settlements",
     icon: whiteL ,
+    navlink:"#"
   },
   {
     title: "Reports",
     icon: whiteL ,
+    navlink:"#"
   },
 ];
 const settingsItem = [
   {
     title: "Organization",
     icon: users ,
+    navlink:"#"
   },
   {
     title: "Loan Products",
     icon:  guarantor ,
+    navlink:"#"
   },
   {
     title: "Savings Products",
     icon: loan ,
+    navlink:"#"
   },
 
 ];
@@ -128,9 +149,10 @@ useEffect(() => {
         <img className="icon2" src={arrowdown} alt=" " />
       </div>
 
-      <Link to="/dashboard">
+      <Link to="/dashboard" className="linkStyle">
       <div className="dashBoard"
-        tabIndex={-1} ref={popupRef}
+        tabIndex={-1}
+         ref={undefined}
       >
         <img className="icon" src={house} alt=" " />
         <span className="text">Dashboard</span>
@@ -141,14 +163,18 @@ useEffect(() => {
       <div>
         <p className="customers">CUSTOMERS</p>
         {custemersItem.map((item,index) => (
+          <Link to={`${item.navlink}`} className="linkStyle">
           <div className="dashBoard"
           key={index.toString()}
+   
           tabIndex={index === 0 ? 0 : -1} 
           ref={index === 0 ? popupRef : undefined} 
+
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>
           </div>
+          </Link>
         ))}
       </div>
       <div>

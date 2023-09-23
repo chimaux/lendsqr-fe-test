@@ -71,14 +71,14 @@ const emailHandler =(e:React.ChangeEvent<HTMLInputElement>) =>{
   // LOGIN FUNCTION
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
+    // console.log("Username:", username);
+    // console.log("Password:", password);
     if (isValidEmail) {
       setActivityIndicator((prev)=>!prev);
       // SIMULATING LOGING DELAY
       setTimeout(() => {
         setActivityIndicator((prev)=>!prev);
-        setIsLogged((prev)=>!prev)
+        setIsLogged(true)
       }, 3000);
     }
 
