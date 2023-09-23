@@ -8,9 +8,9 @@ import tabIcon2 from "./images/tabIcon2.png";
 import tabIcon3 from "./images/tabIcon3.png";
 import tabIcon4 from "./images/tabIcon4.png";
 import filter from './images/filterBtn.png'
-import nextInactive from './images/nextBtnInactive.png'
+// import nextInactive from './images/nextBtnInactive.png'
 import nextActive from './images/nextBtnActive.png'
-import prevInactive from './images/prevBtnInactive.png'
+// import prevInactive from './images/prevBtnInactive.png'
 import prevActive from './images/prevBtnActive.png'
 import more from './images/more.png'
 
