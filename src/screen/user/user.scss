@@ -269,10 +269,11 @@ tbody{
 }
 .paginationContainer{
   display: flex;
-  // background-color: #545f7d;
+  //  background-color: #8586888e;
  justify-content: space-between;
  align-items: center;
  width: 250px;
+ padding-left: 0;
 }
 .previousLi{
   list-style-type: none;
@@ -292,4 +293,14 @@ tbody{
 .pagination{
   display: flex;
   justify-content:space-between;
+
+
+  @include respond(medium) {
+    display:flex;
+    flex-direction: column-reverse;
+  
+
+
+  }
+
 }
