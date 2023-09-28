@@ -22,7 +22,7 @@ const custemersItem = [
   {
     title: "Guarantors",
     icon:  guarantor ,
-    navlink: "#",
+    navlink: "/guarantors",
   },
   {
     title: "Loans",
@@ -59,7 +59,7 @@ const businessItem = [
   {
     title: "Organization",
     icon: users ,
-    navlink:"#"
+    navlink:"/organization"
   },
   {
     title: "Loan Products",
@@ -180,6 +180,7 @@ useEffect(() => {
       <div>
         <p className="customers">BUSINESS</p>
         {businessItem.map((item,index) => (
+            <Link to={`${item.navlink}`} className="linkStyle">
           <div className="dashBoard"
           key={index.toString()}
           tabIndex={-1} ref={undefined}
@@ -187,6 +188,7 @@ useEffect(() => {
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>
           </div>
+          </Link>
         ))}
       </div>
       <div>

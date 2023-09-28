@@ -13,6 +13,7 @@ import nextActive from './images/nextBtnActive.png'
 // import prevInactive from './images/prevBtnInactive.png'
 import prevActive from './images/prevBtnActive.png'
 import more from './images/more.png'
+import PaginationDropdown from "./paginationDropdown/PaginationDropdown";
 
 
 const items = [
@@ -921,7 +922,9 @@ function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
   return (
     <>
       <Items usersData={usersData} />
-      <ReactPaginate
+<div className="pagination">
+  <PaginationDropdown />
+<ReactPaginate
         breakLabel="..."
         nextLabel={<img className="icon" src={nextActive} alt=" " />}
         onPageChange={handlePageClick}
@@ -932,13 +935,16 @@ function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
         previousLabel={<img className="icon" src={prevActive} alt=" " />}
         renderOnZeroPageCount={null}
         activeClassName="active"
+        activeLinkClassName="active"
+    
         containerClassName="paginationContainer"
         previousClassName="previousLi"
-        pageClassName="previousLi"
-        // pageLinkClassName="eachPageNum"
+        pageClassName="eachLI"
+        pageLinkClassName="eachPageNum"
         nextClassName="previousLi"
-        breakClassName="previousLi"
+        breakClassName="previousLi eachPageNum"
       />
+</div>
     </>
   );
 }
@@ -964,55 +970,6 @@ const User = () => {
         ))}
       </div>
 {/* HEAD TABS ENDS HERE*/}
-
-{/* <div className="secondContainer">
-
-
-
-  
-<table >
-
-<thead>
-
-<tr className="tr">
-
-
-<th ><div className="thead">ORGANIZATION<img className="icon" src={filter} alt=" " /></div></th>
-<th ><div className="thead">USERNAME<img className="icon" src={filter} alt=" " /></div></th>
-<th><div className="thead">EMAIL<img className="icon" src={filter} alt=" " /></div></th>
-<th><div className="thead">PHONE NUMBER<img className="icon" src={filter} alt=" " /></div></th>
-<th><div className="thead">DATE JOINED<img className="icon" src={filter} alt=" " /></div></th>
-<th><div className="thead">STATUS<img className="icon" src={filter} alt=" " /></div></th>
-
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-    
-    {
-        usersData.map((item,index)=>(
-          <tr key={index.toString()} id={`data${index}`} className="tableData">
-          <td><span className="tdata">{item.organization}</span></td>
-          <td><span className="tdata">{item.username}</span></td>
-          <td><span className="tdata">{item.email}</span></td>
-          <td><span className="tdata">{item.phoneno}</span></td>
-          <td><span className="tdata">i{item.datejoined}</span></td>
-          <td><div className="tdata "><div className={`tdata2 ${item.status === "inactive" ? "inactive": item.status === "active" ? "active" : item.status === "pending" ? "pending" : "blacklist" }`}>{item.status}</div><img className="icon" src={more} alt=" " /></div></td>
-        </tr>
-        ))
-      }
-    </tbody>
-
-
-  </table>
-
-
-</div> */}
-
 
 <PaginatedItems itemsPerPage={10} />
     </Layout>

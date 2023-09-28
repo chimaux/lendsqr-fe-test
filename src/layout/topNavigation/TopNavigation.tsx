@@ -57,8 +57,8 @@ const TopNavigation: React.FC = () => {
             onBlur={() => handleBlur()}
           >
             <input
-              type={showPassword == true ? "text" : "password"}
-              placeholder="Password"
+              type="text" 
+              placeholder="Search"
               className="search2"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
