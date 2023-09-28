@@ -18,7 +18,7 @@ const TopNavigation: React.FC = () => {
   // PASSWORD STATE ENDS HERE
 
   // SHOW PASSWORD STATE STARTS HERE
-  const [showPassword] = useState<boolean>(false);
+  // const [showPassword] = useState<boolean>(false);
   // SHOW PASSWORD STATE ENDS HERE
 
   // ISFOCUSED STATE STARTS HERE
@@ -57,8 +57,8 @@ const TopNavigation: React.FC = () => {
             onBlur={() => handleBlur()}
           >
             <input
-              type={showPassword == true ? "text" : "password"}
-              placeholder="Password"
+              type="text" 
+              placeholder="Search"
               className="search2"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

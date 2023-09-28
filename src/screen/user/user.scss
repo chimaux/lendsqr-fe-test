@@ -272,10 +272,14 @@ tbody{
   // background-color: #545f7d;
  justify-content: space-between;
  align-items: center;
- width: 600px;
+ width: 250px;
 }
 .previousLi{
   list-style-type: none;
+}
+.eachLI{
+  list-style-type: none;
+  color: #979DAF;
 }
 .icon{
   width: 24px;
@@ -283,9 +287,9 @@ tbody{
 }
 .eachPageNum{
   cursor: pointer;
-  color: #979DAF;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal; 
+}
+
+.pagination{
+  display: flex;
+  justify-content:space-between;
 }

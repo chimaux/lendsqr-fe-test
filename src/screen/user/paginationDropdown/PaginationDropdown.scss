@@ -1,0 +1,26 @@
+.Pagincontainer {
+  // margin-top: 5px;
+  color: #545f7d;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+
+  .box {
+    height: 20px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 4px;
+    background: rgba(33, 63, 125, 0.1);
+.span{
+    font-weight: 600;
+}
+    .icon{
+        width: 14px;
+        height: 14px;
+    }
+  }
+}
