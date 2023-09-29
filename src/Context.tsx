@@ -16,6 +16,8 @@ type MyType = {
   setMoreopen:React.Dispatch<React.SetStateAction<boolean>>;
   btnOff: boolean;
   setBtnOff:React.Dispatch<React.SetStateAction<boolean>>;
+  linesPerPage: number;
+  setLinesPerPage:React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const Context = createContext<MyType>({} as MyType);
@@ -39,7 +41,9 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
       initialPageLoad();
     },[isLogged]);
 
-
+// PAGINATION CONFIGURATION STARTS HERE
+const [linesPerPage, setLinesPerPage] = useState(10);
+// PAGINATION CONFIGURATION ENDS HERE
 
 
 
@@ -51,7 +55,9 @@ const store = {
   moreOpen,
   setMoreopen,
   btnOff, 
-  setBtnOff
+  setBtnOff,
+  linesPerPage, 
+  setLinesPerPage
 }
   return (
     <Context.Provider value={store}>
