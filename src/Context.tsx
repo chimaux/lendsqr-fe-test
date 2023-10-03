@@ -28,7 +28,7 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
 
   const navigate = useNavigate()
 
-  const [ isLogged,setIsLogged] = useState(false);
+  const [ isLogged,setIsLogged] = useState(true);
   const [ moreOpen,setMoreopen] = useState(false);
     // BTN OPEN STATE STARTS HERE
     const [btnOff, setBtnOff] = useState<boolean>(false);
@@ -48,7 +48,7 @@ const [linesPerPage, setLinesPerPage] = useState(10);
 // PAGINATION CONFIGURATION ENDS HERE
 
 // PAGE NAME FOR SIDE NAVIGATION STARTS HERE
-const [pageName,setPageName] =useState("")
+const [pageName,setPageName] =useState("Users")
 // PAGE NAME FOR SIDE NAVIGATION ENDS HERE
 
 

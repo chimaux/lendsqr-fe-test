@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import "./sideNavigation.scss";
+import { Link } from "react-router-dom";
+import { UseGlobalContext } from "../../Context";
+
+// CUSTOMERS ICONS
 import briefCase from "./images/briefcase 1.png";
 import arrowdown from "./images/np_next_2236826_000000 2.png";
 import house from "./images/home 1.png";
@@ -8,10 +12,28 @@ import guarantor from "./images/users 1.png";
 import loan from "./images/sack 1.png";
 import decision from "./images/handshake-regular 1.png";
 import savings from "./images/piggy-bank 1.png";
-import loanR from "./images/LoanR.png";
 import whiteL from "./images/user-check 1.png";
-import { Link } from "react-router-dom";
-import { UseGlobalContext } from "../../Context";
+import karma from "./images/karma.png";
+// BUSINESSES ICONS
+import loanProduct from "./images/loanProduct.png";
+import savingProduct from "./images/savingProduct.png"
+import feesCharges from "./images/feesCharge.png"
+import transaction from "./images/transaction.png"
+import service from "./images/service.png"
+import  serviceAccount from "./images/serviceAccount.png"
+import  settlement from "./images/settlement.png"
+import  report from "./images/report.png"
+
+// REPORT ICONS
+
+import preference from "./images/preference.png"
+import feesPricing from "./images/feesPricing.png"
+import auditLog from "./images/auditLogs.png"
+import systemMessages from "./images/systemMessage.png"
+
+
+
+
 
 
 const custemersItem = [
@@ -42,7 +64,7 @@ const custemersItem = [
   },
   {
     title: "Loan Request",
-    icon:  loan ,
+    icon:  loanProduct ,
     navlink:"#"
   },
   {
@@ -52,76 +74,76 @@ const custemersItem = [
   },
   {
     title: "Karma",
-    icon: whiteL ,
+    icon: karma ,
     navlink:"#"
   },
 ];
 const businessItem = [
   {
     title: "Organization",
-    icon: users ,
+    icon: briefCase,
     navlink:"/organization"
   },
   {
     title: "Loan Products",
-    icon:  guarantor ,
+    icon:  loanProduct ,
     navlink:"#"
   },
   {
     title: "Savings Products",
-    icon: loan ,
+    icon: savingProduct ,
     navlink:"#"
   },
   {
     title: "Fees and Charges",
-    icon:  decision ,
+    icon:  feesCharges ,
     navlink:"#"
   },
   {
     title: "Transactions",
-    icon:  savings ,
-    navlink:"#"
-  },
-  {
-    title: "Loan Request",
-    icon:  loanR ,
+    icon:  transaction ,
     navlink:"#"
   },
   {
     title: "Services",
-    icon: whiteL ,
+    icon: service ,
     navlink:"#"
   },
   {
     title: "Service Account",
-    icon: whiteL ,
+    icon: serviceAccount ,
     navlink:"#"
   },
   {
     title: "Settlements",
-    icon: whiteL ,
+    icon: settlement ,
     navlink:"#"
   },
   {
     title: "Reports",
-    icon: whiteL ,
+    icon: report ,
     navlink:"#"
   },
 ];
 const settingsItem = [
   {
     title: "Preferences",
-    icon: users ,
+    icon: preference ,
     navlink:"#"
   },
   {
     title: "Fees and Pricing",
-    icon:  guarantor ,
+    icon:  feesPricing ,
     navlink:"#"
   },
   {
     title: "Audit Logs",
-    icon: loan ,
+    icon: auditLog ,
+    navlink:"#"
+  },
+  {
+    title: "Systems Messages",
+    icon: systemMessages ,
     navlink:"#"
   },
 
