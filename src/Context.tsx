@@ -18,6 +18,8 @@ type MyType = {
   setBtnOff:React.Dispatch<React.SetStateAction<boolean>>;
   linesPerPage: number;
   setLinesPerPage:React.Dispatch<React.SetStateAction<number>>;
+  pageName: string;
+  setPageName:React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const Context = createContext<MyType>({} as MyType);
@@ -45,7 +47,9 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
 const [linesPerPage, setLinesPerPage] = useState(10);
 // PAGINATION CONFIGURATION ENDS HERE
 
-
+// PAGE NAME FOR SIDE NAVIGATION STARTS HERE
+const [pageName,setPageName] =useState("")
+// PAGE NAME FOR SIDE NAVIGATION ENDS HERE
 
 
 
@@ -57,7 +61,9 @@ const store = {
   btnOff, 
   setBtnOff,
   linesPerPage, 
-  setLinesPerPage
+  setLinesPerPage,
+  pageName,
+  setPageName
 }
   return (
     <Context.Provider value={store}>
