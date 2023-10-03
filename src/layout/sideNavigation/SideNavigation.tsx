@@ -11,6 +11,7 @@ import savings from "./images/piggy-bank 1.png";
 import loanR from "./images/LoanR.png";
 import whiteL from "./images/user-check 1.png";
 import { Link } from "react-router-dom";
+import { UseGlobalContext } from "../../Context";
 
 
 const custemersItem = [
@@ -109,17 +110,17 @@ const businessItem = [
 ];
 const settingsItem = [
   {
-    title: "Organization",
+    title: "Preferences",
     icon: users ,
     navlink:"#"
   },
   {
-    title: "Loan Products",
+    title: "Fees and Pricing",
     icon:  guarantor ,
     navlink:"#"
   },
   {
-    title: "Savings Products",
+    title: "Audit Logs",
     icon: loan ,
     navlink:"#"
   },
@@ -128,9 +129,8 @@ const settingsItem = [
 
 const SideNavigation: React.FC = () => {
 
-
-
-
+  const {pageName,setPageName } = UseGlobalContext();
+console.log(pageName," :page name")
 
 const popupRef = useRef<HTMLDivElement>(null);
 
@@ -151,9 +151,9 @@ useEffect(() => {
 
       <Link to="/dashboard" className="linkStyle">
       <div className="dashBoard"
-      
-        tabIndex={-1}
-         ref={undefined}
+       onClick={()=> setPageName("dashboard")}
+        tabIndex={1}
+        ref={pageName === "dashboard" ? popupRef : undefined} 
       >
         <img className="icon" src={house} alt=" " />
         <span className="text">Dashboard</span>
@@ -167,9 +167,12 @@ useEffect(() => {
           <Link to={`${item.navlink}`} className="linkStyle">
           <div className="dashBoard"
           key={index.toString()}
-        
-          tabIndex={index === 0 ? 0 : -1} 
-          ref={index === 0 ? popupRef : undefined} 
+         onClick={()=> setPageName(item.title)}
+
+          tabIndex={1} 
+          // tabIndex={index === 0 ? 0 : -1} 
+          ref={pageName === item.title ? popupRef : undefined} 
+    
 
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
@@ -183,8 +186,10 @@ useEffect(() => {
         {businessItem.map((item,index) => (
             <Link to={`${item.navlink}`} className="linkStyle">
           <div className="dashBoard"
+          onClick={()=> setPageName(item.title)}
           key={index.toString()}
-          tabIndex={-1} ref={undefined}
+          tabIndex={1} 
+          ref={pageName === item.title ? popupRef : undefined} 
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>
@@ -197,7 +202,7 @@ useEffect(() => {
         {settingsItem.map((item,index) => (
           <div className="dashBoard"
           key={index.toString()}
-          tabIndex={-1} ref={undefined}
+          tabIndex={1} ref={pageName === item.title ? popupRef : undefined} 
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>

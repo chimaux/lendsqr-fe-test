@@ -9,7 +9,7 @@ import "react-activity/dist/library.css";
 import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
-  const { setIsLogged } = UseGlobalContext();
+  const { setIsLogged,setPageName  } = UseGlobalContext();
 
   // USERNAME STATE STARTS HERE
 
@@ -79,6 +79,7 @@ const emailHandler =(e:React.ChangeEvent<HTMLInputElement>) =>{
       setTimeout(() => {
         setActivityIndicator((prev)=>!prev);
         setIsLogged(true)
+        setPageName("Users")
       }, 3000);
     }
 
