@@ -175,6 +175,7 @@ const SideNavigation: React.FC = () => {
   const {pageName,setPageName } = UseGlobalContext();
 
   const [myIndex, setMyIndex] = useState<number>()
+  const [sideSection, setSideSection] = useState<string>("")
 
 const popupRef = useRef<HTMLDivElement>(null);
 
@@ -212,7 +213,7 @@ useEffect(() => {
           <div className="dashBoard"
           key={index.toString()}
          onClick={()=> setPageName(item.title)}
-         onMouseEnter={()=>{setMyIndex(index)}}
+         onMouseEnter={()=>{setMyIndex(index); setSideSection("customers")}}
          onMouseLeave={()=>{setMyIndex(-1)}}
           tabIndex={1} 
           // tabIndex={index === 0 ? 0 : -1} 
@@ -225,7 +226,7 @@ useEffect(() => {
 
             <div 
             // className={`myDisplay tooltip${index}`}>
-            className={`${myIndex === index && item.tooltip.length > 0 ? `tooltip${index}`:"myDisplay"}`}>
+            className={`${myIndex === index && item.tooltip.length > 0 && sideSection === "customers" ? `tooltip${index}`:"myDisplay"}`}>
              {item.tooltip}
             </div>
           </div>
@@ -241,13 +242,13 @@ useEffect(() => {
           key={index.toString()}
           tabIndex={1} 
           ref={pageName === item.title ? popupRef : undefined} 
-          onMouseEnter={()=>{setMyIndex(index)}}
+          onMouseEnter={()=>{setMyIndex(index); setSideSection("business")}}
           onMouseLeave={()=>{setMyIndex(-1)}}
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>
             <div 
-            className={`${myIndex === index && item.tooltip.length > 0 ? `tooltip2${index}`:"myDisplay"}`}>
+            className={`${myIndex === index && item.tooltip.length > 0  && sideSection === "business" ? `tooltip2${index}`:"myDisplay"}`}>
              {item.tooltip}
             </div>
           </div>
@@ -260,13 +261,13 @@ useEffect(() => {
           <div className="dashBoard"
           key={index.toString()}
           tabIndex={1} ref={pageName === item.title ? popupRef : undefined} 
-          onMouseEnter={()=>{setMyIndex(index)}}
+          onMouseEnter={()=>{setMyIndex(index); setSideSection("settings")}}
           onMouseLeave={()=>{setMyIndex(-1)}}
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>
             <div 
-            className={`${myIndex === index && item.tooltip.length > 0 ? `tooltip3${index}`:"myDisplay"}`}>
+            className={`${myIndex === index && item.tooltip.length > 0  && sideSection === "settings"  ? `tooltip3${index}`:"myDisplay"}`}>
              {item.tooltip}
             </div>
           </div>
