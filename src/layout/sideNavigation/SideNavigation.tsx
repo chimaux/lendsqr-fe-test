@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./sideNavigation.scss";
 import { Link } from "react-router-dom";
 import { UseGlobalContext } from "../../Context";
@@ -41,110 +41,131 @@ const custemersItem = [
     title: "Users",
     icon: users ,
     navlink: "/user" ,
+    tooltip:"View and manages users's detail.",
   },
   {
     title: "Guarantors",
     icon:  guarantor ,
     navlink: "/guarantors",
+    tooltip:"See list of guarantors",
   },
   {
     title: "Loans",
     icon: loan ,
     navlink: "#",
+    tooltip:"View and manage your user's loan.",
   },
   {
     title: "Decision Models",
     icon:  decision,
     navlink: "#",
+    tooltip:"Setup and manage your users decision loan settings.",
   },
   {
     title: "Savings",
     icon:  savings ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
   {
     title: "Loan Request",
     icon:  loanProduct ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"Approve or decline your user's loan request.",
   },
   {
     title: "Whitelist",
     icon: whiteL ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"Whitelist special borrowers.",
   },
   {
     title: "Karma",
     icon: karma ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
 ];
 const businessItem = [
   {
     title: "Organization",
     icon: briefCase,
-    navlink:"/organization"
+    navlink:"/organization",
+    tooltip:"View and manage organisation",
   },
   {
     title: "Loan Products",
     icon:  loanProduct ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"Create, view, and manage your loan product.",
   },
   {
     title: "Savings Products",
     icon: savingProduct ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
   {
     title: "Fees and Charges",
     icon:  feesCharges ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
   {
     title: "Transactions",
     icon:  transaction ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"View all transactions by users, done on your app.",
   },
   {
     title: "Services",
     icon: service ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"View your prepaid service account and charges.",
   },
   {
     title: "Service Account",
     icon: serviceAccount ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
   {
     title: "Settlements",
     icon: settlement ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
   {
     title: "Reports",
     icon: report ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"Gain access to useful reports and business insights.",
   },
 ];
 const settingsItem = [
   {
     title: "Preferences",
     icon: preference ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
   {
     title: "Fees and Pricing",
     icon:  feesPricing ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
   {
     title: "Audit Logs",
     icon: auditLog ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"Track your team and users activities",
   },
   {
     title: "Systems Messages",
     icon: systemMessages ,
-    navlink:"#"
+    navlink:"#",
+    tooltip:"",
   },
 
 ];
@@ -152,7 +173,8 @@ const settingsItem = [
 const SideNavigation: React.FC = () => {
 
   const {pageName,setPageName } = UseGlobalContext();
-console.log(pageName," :page name")
+
+  const [myIndex, setMyIndex] = useState<number>()
 
 const popupRef = useRef<HTMLDivElement>(null);
 
@@ -190,7 +212,8 @@ useEffect(() => {
           <div className="dashBoard"
           key={index.toString()}
          onClick={()=> setPageName(item.title)}
-
+         onMouseEnter={()=>{setMyIndex(index)}}
+         onMouseLeave={()=>{setMyIndex(-1)}}
           tabIndex={1} 
           // tabIndex={index === 0 ? 0 : -1} 
           ref={pageName === item.title ? popupRef : undefined} 
@@ -199,6 +222,12 @@ useEffect(() => {
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>
+
+            <div 
+            // className={`myDisplay tooltip${index}`}>
+            className={`${myIndex === index && item.tooltip.length > 0 ? `tooltip${index}`:"myDisplay"}`}>
+             {item.tooltip}
+            </div>
           </div>
           </Link>
         ))}
@@ -212,9 +241,15 @@ useEffect(() => {
           key={index.toString()}
           tabIndex={1} 
           ref={pageName === item.title ? popupRef : undefined} 
+          onMouseEnter={()=>{setMyIndex(index)}}
+          onMouseLeave={()=>{setMyIndex(-1)}}
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>
+            <div 
+            className={`${myIndex === index && item.tooltip.length > 0 ? `tooltip2${index}`:"myDisplay"}`}>
+             {item.tooltip}
+            </div>
           </div>
           </Link>
         ))}
@@ -225,9 +260,15 @@ useEffect(() => {
           <div className="dashBoard"
           key={index.toString()}
           tabIndex={1} ref={pageName === item.title ? popupRef : undefined} 
+          onMouseEnter={()=>{setMyIndex(index)}}
+          onMouseLeave={()=>{setMyIndex(-1)}}
           >
             <img className="icon" src={item.icon} alt={`Image ${index}`} />
             <span className="text">{item.title}</span>
+            <div 
+            className={`${myIndex === index && item.tooltip.length > 0 ? `tooltip3${index}`:"myDisplay"}`}>
+             {item.tooltip}
+            </div>
           </div>
         ))}
       </div>

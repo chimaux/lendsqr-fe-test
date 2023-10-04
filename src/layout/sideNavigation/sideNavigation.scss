@@ -11,16 +11,13 @@
   }
 }
 
-
-
-
 .overallContainer2 {
   min-width: 250px;
   padding-left: 0px;
   height: 100vh;
   overflow-y: scroll;
   @include respond(medium) {
-display: none;
+    display: none;
   }
 
   .switchOrganization {
@@ -42,6 +39,7 @@ display: none;
     }
   }
   .dashBoard {
+    position: relative;
     display: flex;
     align-items: center;
     height: 50px;
@@ -49,7 +47,7 @@ display: none;
     padding-left: 20px;
     outline: unset;
     cursor: pointer;
-   
+
     .text {
       color: #213f7d;
       font-size: 16px;
@@ -57,7 +55,198 @@ display: none;
       font-weight: 400;
       line-height: normal;
       margin: 0 5px;
-      
+    }
+    .myDisplay {
+      display: none;
+    }
+    .tooltip0 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip1 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip2 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip3 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip4 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip5 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip6 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip7 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip20 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip21 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip22 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip23 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip24 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip25 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip26 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip27 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip28 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip30 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip31 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip32 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+    }
+    .tooltip33 {
+      position: absolute;
+      top: -10px;
+      background-color: #213f7d;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
     }
   }
   .dashBoard:focus {
@@ -65,6 +254,12 @@ display: none;
     background-color: #f3fcfc;
     border-left: 4px solid #39cdcc;
     padding-left: 16px;
+  }
+  .dashBoard:hover {
+    opacity: 100%;
+    background-color: #f3fcfc;
+    // border-left: 4px solid #39cdcc;
+    // padding-left: 16px;
   }
   .icon {
     width: 16px;
@@ -84,8 +279,7 @@ display: none;
     padding-left: 20px;
   }
 
-
-  .linkStyle{
+  .linkStyle {
     text-decoration: none;
   }
 }
