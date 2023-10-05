@@ -1,5 +1,4 @@
 import {useState}  from "react"
-
 import ReactPaginate from 'react-paginate';
 import "./user.scss";
 import Layout from "../../layout/Layout";
