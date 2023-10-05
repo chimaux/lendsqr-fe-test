@@ -276,7 +276,7 @@ const MobileSideNav: React.FC = () => {
             </Link>
           ))}
         </div>
-        <div>
+        <div className="last">
           <p className="customers">SETTINGS</p>
           {settingsItem.map((item, index) => (
             <div
