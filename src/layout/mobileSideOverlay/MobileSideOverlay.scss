@@ -1,0 +1,32 @@
+@mixin respond($breakpoint) {
+    @if ($breakpoint == medium) {
+      @media (max-width: 1024px) {
+        @content;
+      }
+    }
+    @if ($breakpoint == small) {
+      @media (max-width: 600px) {
+        @content;
+      }
+    }
+  }
+
+  .overlay{
+    position:fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 999;
+    display: none;
+    cursor: pointer;
+
+
+  }
+
+  @include respond(medium) {
+    .visibility{
+        display: block;
+      }
+  }

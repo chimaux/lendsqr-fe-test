@@ -12,7 +12,9 @@
   }
 
 
-.container2{
+.body{
+  position: relative;
+  .container2{
     display: flex;
     justify-content: center;
     // background-color: burlywood;
@@ -33,4 +35,5 @@
   }
         // background-color: aquamarine;
     }
+}
 }

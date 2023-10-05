@@ -11,7 +11,7 @@ import More from "./component/more/More";
 import { UseGlobalContext } from "../../Context";
 
 const TopNavigation: React.FC = () => {
-  const { moreOpen, setMoreopen, setBtnOff, btnOff } = UseGlobalContext();
+  const { moreOpen, setMoreopen, setBtnOff, btnOff, setShowMobileNav } = UseGlobalContext();
 
   // PASSWORD STATE STARTS HERE
   const [password, setPassword] = useState<string>("");
@@ -43,7 +43,9 @@ const TopNavigation: React.FC = () => {
         {/* LOGO STARTS HERE */}
         <div className="logoDiv">
           <img src={logo} alt="lendsqr" className="logo" />
-          <div className="menuIcon">
+          <div className="menuIcon"
+           onClick={()=>setShowMobileNav(true)}
+          >
             <HiOutlineMenu size={25} />
           </div>
         </div>

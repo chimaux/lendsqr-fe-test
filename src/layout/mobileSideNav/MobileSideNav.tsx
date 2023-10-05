@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./sideNavigation.scss";
+import "./MobileSideNav.scss";
 import { Link } from "react-router-dom";
 import { UseGlobalContext } from "../../Context";
-
+import logo from "./images/logo.png"
+import MobileSideOverlay from "../mobileSideOverlay/MobileSideOverlay";
 // CUSTOMERS ICONS
 import briefCase from "./images/briefcase 1.png";
 import arrowdown from "./images/np_next_2236826_000000 2.png";
@@ -30,7 +31,7 @@ import preference from "./images/preference.png";
 import feesPricing from "./images/feesPricing.png";
 import auditLog from "./images/auditLogs.png";
 import systemMessages from "./images/systemMessage.png";
-import { IoIosLogOut } from "react-icons/io";
+
 
 const custemersItem = [
   {
@@ -165,7 +166,7 @@ const settingsItem = [
   },
 ];
 
-const SideNavigation: React.FC = () => {
+const MobileSideNav: React.FC = () => {
   const { pageName, setPageName } = UseGlobalContext();
 
   const [myIndex, setMyIndex] = useState<number>();
@@ -180,8 +181,10 @@ const SideNavigation: React.FC = () => {
   }, []);
 
   return (
-    <div className="TabDesign">
+    <MobileSideOverlay>
+    <div className="mobileNavContainer">
       <div className="overallContainer2 hide-scrollbar ">
+      <img className="logo" src={logo} alt=" " />
         <div className="switchOrganization">
           <img className="icon" src={briefCase} alt=" " />
           <span className="text">Switch Organization</span>
@@ -306,15 +309,10 @@ const SideNavigation: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="logoutItem">
-        <div className="logout">
-          <IoIosLogOut className="icon"  />
-          Logout
-        </div>
-        <div className="version">v1.2.0</div>
-      </div>
+
     </div>
+    </MobileSideOverlay>
   );
 };
 
-export default SideNavigation;
+export default MobileSideNav;

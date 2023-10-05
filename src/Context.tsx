@@ -20,6 +20,8 @@ type MyType = {
   setLinesPerPage:React.Dispatch<React.SetStateAction<number>>;
   pageName: string;
   setPageName:React.Dispatch<React.SetStateAction<string>>;
+  showMobileNav: boolean;
+  setShowMobileNav:React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const Context = createContext<MyType>({} as MyType);
@@ -53,6 +55,10 @@ const [linesPerPage, setLinesPerPage] = useState(10);
 const [pageName,setPageName] =useState("")
 // PAGE NAME FOR SIDE NAVIGATION ENDS HERE
 
+// SHOW MOBILE SIDE NAVIGATION STARTS HERE
+const [showMobileNav,setShowMobileNav] =useState<boolean>(false)
+// SHOW MOBILE SIDE NAVIGATION ENDS HERE
+
 
 
 const store = {
@@ -65,7 +71,9 @@ const store = {
   linesPerPage, 
   setLinesPerPage,
   pageName,
-  setPageName
+  setPageName,
+  showMobileNav,
+  setShowMobileNav
 }
   return (
     <Context.Provider value={store}>
