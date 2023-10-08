@@ -1,0 +1,162 @@
+// BREAK POINTS
+@mixin respond($breakpoint) {
+  @if ($breakpoint == medium) {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == small) {
+    @media (max-width: 600px) {
+      @content;
+    }
+  }
+}
+
+.filterContainer {
+  position: absolute;
+  width: 270px;
+  height: 580px;
+  flex-shrink: 0;
+  margin-top: 80px;
+  border-radius: 4px;
+  border: 1px solid rgba(84, 95, 125, 0.14);
+  background: #fff;
+  box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
+  padding: 40px 20px;
+  z-index: 999;
+
+  .inputContainer {
+    margin-bottom: 20px;
+    .title {
+      color: #545f7d;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+
+      margin-bottom: 10px;
+    }
+
+    .search1 {
+      overflow: hidden;
+      position: relative;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      border-radius: 5px;
+
+      background: #ffffff;
+
+      @include respond(medium) {
+        width: 100%;
+        margin-left: 70px;
+      }
+      @include respond(small) {
+        width: 100%;
+        height: 35px;
+
+        margin: 0 50px 0 5px;
+      }
+      .searchIcon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: 10px;
+        height: inherit;
+        margin-right: 10px;
+        color: #fff;
+        text-align: center;
+        font-family: "AvenirRegular", sans-serif;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        @include respond(medium) {
+          font-size: 11px;
+          width: 80px;
+        }
+        @include respond(small) {
+          font-size: 11px;
+          width: 80px;
+        }
+        .arrowDown {
+          width: 20px;
+        }
+      }
+      .search2 {
+        width: 100%;
+        height: inherit;
+        border: none;
+        outline: none;
+        padding-left: 10px;
+        padding-right: 10px;
+        //  background-color: red;
+        color: #545f7d;
+        font-family: "AvenirRegular", sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+
+        @include respond(medium) {
+          padding-right: 50px;
+        }
+        @include respond(small) {
+          padding-right: 30px;
+        }
+      }
+    }
+
+    .focus {
+      border: 1px solid #39cdcc;
+
+      border-radius: 6px;
+      box-shadow: 0 0 2px #39cdcc;
+      @include respond(small) {
+        box-shadow: 0 0 2px #39cdcc;
+      }
+    }
+    .blur {
+      border: 2px solid rgba(84, 95, 125, 0.15);
+    }
+  }
+
+  .filterBtnContainer {
+    margin-top: 30px;
+    display: flex;
+
+    .resetBtn {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 98px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1px solid #545f7d;
+      color: #545f7d;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .filterBtn {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 98px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1px solid #39cdcc;
+      background: #39cdcc;
+      margin-left: 20px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}

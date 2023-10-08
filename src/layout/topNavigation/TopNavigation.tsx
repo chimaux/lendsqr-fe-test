@@ -13,13 +13,6 @@ import { UseGlobalContext } from "../../Context";
 const TopNavigation: React.FC = () => {
   const { moreOpen, setMoreopen, setBtnOff, btnOff, setShowMobileNav } = UseGlobalContext();
 
-  // PASSWORD STATE STARTS HERE
-  const [password, setPassword] = useState<string>("");
-  // PASSWORD STATE ENDS HERE
-
-  // SHOW PASSWORD STATE STARTS HERE
-  // const [showPassword] = useState<boolean>(false);
-  // SHOW PASSWORD STATE ENDS HERE
 
   // ISFOCUSED STATE STARTS HERE
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -52,6 +45,7 @@ const TopNavigation: React.FC = () => {
         {/* LOGO ENDS HERE */}
 
         <div className="rightTopNav">
+          
           {/* SEARCH INPUT */}
           <div
             className={`search1 ${isFocused === true ? "focus" : "blur"}`}
@@ -62,8 +56,6 @@ const TopNavigation: React.FC = () => {
               type="text" 
               placeholder="Search"
               className="search2"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <div className="searchIcon">

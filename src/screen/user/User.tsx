@@ -1,4 +1,4 @@
-import {useState}  from "react"
+import {Dispatch, useState}  from "react"
 import ReactPaginate from 'react-paginate';
 import "./user.scss";
 import Layout from "../../layout/Layout";
@@ -14,6 +14,7 @@ import prevActive from './images/prevBtnActive.png'
 import more from './images/more.png'
 import PaginationDropdown from "./paginationDropdown/PaginationDropdown";
 import { UseGlobalContext } from "../../Context";
+import FilterComponent from "./filterComponent/FilterComponent";
 
 
 const items = [
@@ -856,14 +857,22 @@ const tabContent = [
   },
 ];
 // const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+// { showFilter }: { showFilter: Dispatch<React.SetStateAction<boolean>>}
 
-
-function Items({ usersData }: { usersData: any[] }) {
+function Items({ usersData ,setShowFilter, showFilter}: { usersData: any[],setShowFilter: Dispatch<React.SetStateAction<boolean>>,showFilter:boolean }) {
+ 
+  const showFilterBoxHandler=()=>{
+    setShowFilter((prev)=> !prev)
+ }
+ 
   return (
+    
     <>
 <div className="secondContainer">
-
-{/* <div className="filterContainer">gogogo</div> */}
+{
+    showFilter &&
+<FilterComponent/>
+}
 <table >
 
 <thead>
@@ -871,12 +880,29 @@ function Items({ usersData }: { usersData: any[] }) {
 <tr className="tr">
 
 
-<th ><div className="thead">ORGANIZATION<img className="icon" src={filter} alt=" " /></div></th>
-<th ><div className="thead">USERNAME<img className="icon" src={filter} alt=" " /></div></th>
-<th><div className="thead">EMAIL<img className="icon" src={filter} alt=" " /></div></th>
-<th><div className="thead">PHONE NUMBER<img className="icon" src={filter} alt=" " /></div></th>
-<th><div className="thead">DATE JOINED<img className="icon" src={filter} alt=" " /></div></th>
-<th><div className="thead">STATUS<img className="icon" src={filter} alt=" " /></div></th>
+<th >
+  <div
+   onClick={showFilterBoxHandler}
+  className="thead">
+    ORGANIZATION
+    <img  className="icon" src={filter} alt=" " />
+    </div>
+  </th>
+<th >  <div
+   onClick={showFilterBoxHandler}
+  className="thead">USERNAME<img className="icon" src={filter} alt=" " /></div></th>
+<th>  <div
+   onClick={showFilterBoxHandler}
+  className="thead">EMAIL<img className="icon" src={filter} alt=" " /></div></th>
+<th>  <div
+   onClick={showFilterBoxHandler}
+  className="thead">PHONE NUMBER<img className="icon" src={filter} alt=" " /></div></th>
+<th>  <div
+   onClick={showFilterBoxHandler}
+  className="thead">DATE JOINED<img className="icon" src={filter} alt=" " /></div></th>
+<th>  <div
+   onClick={showFilterBoxHandler}
+  className="thead">STATUS<img className="icon" src={filter} alt=" " /></div></th>
 
 
 </tr>
@@ -935,11 +961,19 @@ function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
   };
 
 
+  const { setShowFilter, setBtnOff2, btnOff2,showFilter} = UseGlobalContext();
 
   return (
+    
     <>
     
-      <Items usersData={usersData} />
+      <Items 
+      usersData={usersData} 
+      setShowFilter={setShowFilter} 
+      setBtnOff2={setBtnOff2} 
+      btnOff2={btnOff2} 
+      showFilter={showFilter} 
+      />
 <div className="pagination">
   <PaginationDropdown 
   {...paginationProbs}
@@ -973,7 +1007,8 @@ function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
 
 
 const User = () => {
-  const { linesPerPage } = UseGlobalContext();
+
+  const { linesPerPage} = UseGlobalContext();
   return (
     <Layout>
       <div className="userText">Users</div>
