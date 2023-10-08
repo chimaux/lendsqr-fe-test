@@ -22,6 +22,10 @@ type MyType = {
   setPageName:React.Dispatch<React.SetStateAction<string>>;
   showMobileNav: boolean;
   setShowMobileNav:React.Dispatch<React.SetStateAction<boolean>>;
+  showFilter: boolean;
+  setShowFilter:React.Dispatch<React.SetStateAction<boolean>>;
+  btnOff2: boolean;
+  setBtnOff2:React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const Context = createContext<MyType>({} as MyType);
@@ -59,6 +63,13 @@ const [pageName,setPageName] =useState("")
 const [showMobileNav,setShowMobileNav] =useState<boolean>(false)
 // SHOW MOBILE SIDE NAVIGATION ENDS HERE
 
+// SHOW FILTER STARTS HERE
+const [showFilter,setShowFilter] =useState<boolean>(false)
+// SHOW FILTER ENDS HERE
+// SHOW FILTER STARTS HERE
+const [  btnOff2,setBtnOff2] =useState<boolean>(false)
+// SHOW FILTER ENDS HERE
+
 
 
 const store = {
@@ -73,13 +84,17 @@ const store = {
   pageName,
   setPageName,
   showMobileNav,
-  setShowMobileNav
+  setShowMobileNav,
+  showFilter,
+  setShowFilter,
+  btnOff2,
+  setBtnOff2
 }
   return (
     <Context.Provider value={store}>
       {children}
     </Context.Provider>
-  );
+  )
 };
 
 export const UseGlobalContext = () => useContext(Context);
