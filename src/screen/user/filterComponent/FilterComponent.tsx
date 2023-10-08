@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./FilterComponent.scss"
 import arrowDown from "./images/arrowDown.png"
-import { UseGlobalContext } from "../../../Context";
+// import { UseGlobalContext } from "../../../Context";
 
 
 
@@ -9,7 +9,7 @@ import { UseGlobalContext } from "../../../Context";
 const FilterComponent:React.FC=()=>{
 
 
-    const { setShowFilter, setBtnOff2}= UseGlobalContext()
+    // const { setShowFilter, setBtnOff2}= UseGlobalContext()
   // ISFOCUSED STATE STARTS HERE
   const [isFocused, setIsFocused] = useState<number[]>([]);
   // ISFOCUSED STATE ENDS HERE
@@ -36,14 +36,7 @@ const FilterComponent:React.FC=()=>{
   }, []);
 
    
-const handleBlur2 =()=>{
-  setShowFilter((prev)=> !prev)
 
-  setTimeout(() => {
-    setBtnOff2(false)
-  }, 200);
-  
-}
 
 
 
