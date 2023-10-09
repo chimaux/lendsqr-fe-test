@@ -961,7 +961,7 @@ function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
   };
 
 
-  const { setShowFilter, setBtnOff2, btnOff2,showFilter} = UseGlobalContext();
+  const { setShowFilter,showFilter} = UseGlobalContext();
 
   return (
     
@@ -970,8 +970,6 @@ function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
       <Items 
       usersData={usersData} 
       setShowFilter={setShowFilter} 
-      setBtnOff2={setBtnOff2} 
-      btnOff2={btnOff2} 
       showFilter={showFilter} 
       />
 <div className="pagination">
