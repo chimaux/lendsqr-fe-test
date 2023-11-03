@@ -1,1016 +1,366 @@
-import {Dispatch, useState}  from "react"
-import ReactPaginate from 'react-paginate';
+import { Dispatch, useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import "./user.scss";
 import Layout from "../../layout/Layout";
 import tabIcon1 from "./images/tabIcon.png";
 import tabIcon2 from "./images/tabIcon2.png";
 import tabIcon3 from "./images/tabIcon3.png";
 import tabIcon4 from "./images/tabIcon4.png";
-import filter from './images/filterBtn.png'
+import filter from "./images/filterBtn.png";
 // import nextInactive from './images/nextBtnInactive.png'
-import nextActive from './images/nextBtnActive.png'
+import nextActive from "./images/nextBtnActive.png";
 // import prevInactive from './images/prevBtnInactive.png'
-import prevActive from './images/prevBtnActive.png'
-import more from './images/more.png'
+import prevActive from "./images/prevBtnActive.png";
+import more from "./images/more.png";
 import PaginationDropdown from "./paginationDropdown/PaginationDropdown";
 import { UseGlobalContext } from "../../Context";
 import FilterComponent from "./filterComponent/FilterComponent";
-
-
-const items = [
-  {
-    organization:"Lendsqr1",
-    username:"Adedeji1",
-    email:"adedeji@lendsqr.com1",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:01 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr2",
-    username:"Adedeji2",
-    email:"adedeji@lendsqr.com2",
-    phoneno:"08078903722",
-    datejoined:"May 15, 2020 10:02 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr3",
-    username:"Adedej3",
-    email:"adedeji@lendsqr.com3",
-    phoneno:"08078903723",
-    datejoined:"May 15, 2020 10:00 AM3",
-    status:"active",
-  },
-  {
-    organization:"Lendsqr4",
-    username:"Adedeji4",
-    email:"adedeji@lendsqr.com4",
-    phoneno:"08078903724",
-    datejoined:"May 15, 2020 10:04 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr3",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"blacklisted",
-  },
-  {
-    organization:"Lendsqr4",
-    username:"Adedeji4",
-    email:"adedeji@lendsqr.com4",
-    phoneno:"08078903724",
-    datejoined:"May 15, 2020 10:04 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr5",
-    username:"Adedeji5",
-    email:"adedeji@lendsqr.com5",
-    phoneno:"08078903725",
-    datejoined:"May 15, 2020 10:05 AM",
-    status:"inactive",
-  },
-  {
-    organization:"Lendsqr6",
-    username:"Adedeji6",
-    email:"adedeji@lendsqr.com6",
-    phoneno:"08078903726",
-    datejoined:"May 15, 2020 10:06 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr7",
-    username:"Adedeji7",
-    email:"adedeji@lendsqr.com7",
-    phoneno:"08078903727",
-    datejoined:"May 15, 2020 10:07 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr8",
-    username:"Adedeji8",
-    email:"adedeji@lendsqr.com8",
-    phoneno:"08078903728",
-    datejoined:"May 15, 2020 10:08 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr9",
-    username:"Adedeji9",
-    email:"adedeji@lendsqr.com9",
-    phoneno:"08078903729",
-    datejoined:"May 15, 2020 10:09 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr10",
-    username:"Adedeji10",
-    email:"adedeji@lendsqr.com10",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:10 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-  {
-    organization:"Lendsqr",
-    username:"Adedeji",
-    email:"adedeji@lendsqr.com",
-    phoneno:"08078903721",
-    datejoined:"May 15, 2020 10:00 AM",
-    status:"pending",
-  },
-]
-
-const itemsLengths = items.length;
-
-interface paginationComponentProps {
-  itemsLength: number;
-}
-
-const paginationProbs: paginationComponentProps = {
-  // itemsLength:2,
- itemsLength:itemsLengths,
-};
-
-
-
-
-const tabContent = [
-  {
-    icon: tabIcon1,
-    title: "USERS",
-    number: "2,453",
-  },
-  {
-    icon: tabIcon2,
-    title: "ACTIVE USERS",
-    number: "2,453",
-  },
-  {
-    icon: tabIcon3,
-    title: "USERS WITH LOANS",
-    number: "2,453",
-  },
-  {
-    icon: tabIcon4,
-    title: "USERS WITH SAVINGS",
-    number: "2,453",
-  },
-];
-// const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-// { showFilter }: { showFilter: Dispatch<React.SetStateAction<boolean>>}
-
-function Items({ usersData ,setShowFilter, showFilter}: { usersData: any[],setShowFilter: Dispatch<React.SetStateAction<boolean>>,showFilter:boolean }) {
- 
-  const showFilterBoxHandler=()=>{
-    setShowFilter((prev)=> !prev)
- }
- 
-  return (
-    
-    <>
-<div className="secondContainer">
-{
-    showFilter &&
-<FilterComponent/>
-}
-<table >
-
-<thead>
-
-<tr className="tr">
-
-
-<th >
-  <div
-   onClick={showFilterBoxHandler}
-  className="thead">
-    ORGANIZATION
-    <img  className="icon" src={filter} alt=" " />
-    </div>
-  </th>
-<th >  <div
-   onClick={showFilterBoxHandler}
-  className="thead">USERNAME<img className="icon" src={filter} alt=" " /></div></th>
-<th>  <div
-   onClick={showFilterBoxHandler}
-  className="thead">EMAIL<img className="icon" src={filter} alt=" " /></div></th>
-<th>  <div
-   onClick={showFilterBoxHandler}
-  className="thead">PHONE NUMBER<img className="icon" src={filter} alt=" " /></div></th>
-<th>  <div
-   onClick={showFilterBoxHandler}
-  className="thead">DATE JOINED<img className="icon" src={filter} alt=" " /></div></th>
-<th>  <div
-   onClick={showFilterBoxHandler}
-  className="thead">STATUS<img className="icon" src={filter} alt=" " /></div></th>
-
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-    {
-       usersData && usersData.map((item,index)=>(
-          <tr key={index.toString()} id={`data${index}`} className="tableData">
-          <td><span className="tdata">{item.organization}</span></td>
-          <td><span className="tdata">{item.username}</span></td>
-          <td><span className="tdata">{item.email}</span></td>
-          <td><span className="tdata">{item.phoneno}</span></td>
-          <td><span className="tdata">i{item.datejoined}</span></td>
-          <td><div className="tdata "><div className={`tdata2 ${item.status === "inactive" ? "inactive": item.status === "active" ? "activee" : item.status === "pending" ? "pending" : "blacklist" }`}>{item.status}</div><img className="icon" src={more} alt=" " /></div></td>
-        </tr>
-        ))
-      }
-    </tbody>
-
-
-  </table>
-
-
-</div>
-
-
-    </>
-  );
-}
-
-function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
-  const [itemOffset, setItemOffset] = useState(0);
-
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
-  const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const usersData = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
-
-  // Invoke when user click to request another page.
-  const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
-  };
-
-
-  const { setShowFilter,showFilter} = UseGlobalContext();
-
-  return (
-    
-    <>
-    
-      <Items 
-      usersData={usersData} 
-      setShowFilter={setShowFilter} 
-      showFilter={showFilter} 
-      />
-<div className="pagination">
-  <PaginationDropdown 
-  {...paginationProbs}
-  />
-<ReactPaginate
-        breakLabel="..."
-        nextLabel={<img className="icon" src={nextActive} alt=" " />}
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={2}
-        pageCount={pageCount}
-        
-        previousLabel={<img className="icon" src={prevActive} alt=" " />}
-        renderOnZeroPageCount={null}
-        activeClassName="active"
-        activeLinkClassName="active"
-    
-        containerClassName="paginationContainer"
-        previousClassName="previousLi"
-        pageClassName="eachLI"
-        pageLinkClassName="eachPageNum"
-        nextClassName="previousLi"
-        breakClassName="previousLi eachPageNum"
-      />
-</div>
-    </>
-  );
-}
-
-
+import Dexie from "dexie";
+import { useLiveQuery } from "dexie-react-hooks";
 
 
 const User = () => {
 
-  const { linesPerPage} = UseGlobalContext();
+  const userDB = new Dexie("user_database");
+
+  userDB.version(2).stores({
+    customersData:
+      "++id,user_id,organization,username,email,phone_number,date_joined,status,full_name,users_tier,amount,bank_name,bank_account_number,bvn,gender,marital_status,children,type_of_residence,education,employment,sector_of_employment,duration_of_employment,office_email,monthly_income,loan_repayment,twitter,facebook,instagram",
+    guarantorsTable:
+      "++id,user_id,guarantor_name,guarantor_phone_number,guarantor_email,guarantor_relationship",
+  });
+  
+  
+  
+  const customersData1 = userDB.table("customersData");
+  
+  const items = useLiveQuery(() => customersData1.toArray(), []);
+  const itemsLengths = items?.length === undefined ? 1 : items.length;
+  
+  interface paginationComponentProps {
+    itemsLength: number;
+  }
+  
+  const paginationProbs: paginationComponentProps = {
+    // itemsLength:2,
+    itemsLength: itemsLengths,
+  };
+  
+  // USERS, ACTIVE USERS, USERS WITH LOANS, USERS WITH SAVINGS
+  const tabContent = [
+    {
+      icon: tabIcon1,
+      title: "USERS",
+      number: "2,453",
+    },
+    {
+      icon: tabIcon2,
+      title: "ACTIVE USERS",
+      number: "2,453",
+    },
+    {
+      icon: tabIcon3,
+      title: "USERS WITH LOANS",
+      number: "2,453",
+    },
+    {
+      icon: tabIcon4,
+      title: "USERS WITH SAVINGS",
+      number: "2,453",
+    },
+  ];
+  
+  
+  function Items({
+    usersData,
+    setShowFilter,
+    showFilter,
+  }: {
+    usersData: any[] | undefined;
+    setShowFilter: Dispatch<React.SetStateAction<boolean>>;
+    showFilter: boolean;
+  }) {
+    const showFilterBoxHandler = () => {
+      setShowFilter((prev) => !prev);
+    };
+  
+    return (
+      <>
+        <div className="secondContainer">
+          {showFilter && <FilterComponent />}
+          <table>
+            <thead>
+              <tr className="tr">
+                <th>
+                  <div onClick={showFilterBoxHandler} className="thead">
+                    ORGANIZATION
+                    <img className="icon" src={filter} alt=" " />
+                  </div>
+                </th>
+                <th>
+                  {" "}
+                  <div onClick={showFilterBoxHandler} className="thead">
+                    USERNAME
+                    <img className="icon" src={filter} alt=" " />
+                  </div>
+                </th>
+                <th>
+                  {" "}
+                  <div onClick={showFilterBoxHandler} className="thead">
+                    EMAIL
+                    <img className="icon" src={filter} alt=" " />
+                  </div>
+                </th>
+                <th>
+                  {" "}
+                  <div onClick={showFilterBoxHandler} className="thead">
+                    PHONE NUMBER
+                    <img className="icon" src={filter} alt=" " />
+                  </div>
+                </th>
+                <th>
+                  {" "}
+                  <div onClick={showFilterBoxHandler} className="thead">
+                    DATE JOINED
+                    <img className="icon" src={filter} alt=" " />
+                  </div>
+                </th>
+                <th>
+                  {" "}
+                  <div onClick={showFilterBoxHandler} className="thead">
+                    STATUS
+                    <img className="icon" src={filter} alt=" " />
+                  </div>
+                </th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              {usersData &&
+                usersData.map((item, index) => (
+                  <tr
+                    key={index.toString()}
+                    id={`data${index}`}
+                    className="tableData"
+                  >
+                    <td>
+                      <span className="tdata">{item.organization}</span>
+                    </td>
+                    <td>
+                      <span className="tdata">{item.username}</span>
+                    </td>
+                    <td>
+                      <span className="tdata">{item.email}</span>
+                    </td>
+                    <td>
+                      <span className="tdata">{item.phone_number}</span>
+                    </td>
+                    <td>
+                      <span className="tdata">{item.date_joined}</span>
+                    </td>
+                    <td>
+                      <div className="tdata ">
+                        <div
+                          className={`tdata2 ${
+                            item.status === "inactive"
+                              ? "inactive"
+                              : item.status === "active"
+                              ? "activee"
+                              : item.status === "pending"
+                              ? "pending"
+                              : "blacklist"
+                          }`}
+                        >
+                          {item.status}
+                        </div>
+                        <img className="icon" src={more} alt=" " />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </>
+    );
+  }
+  
+  function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
+    // Here we use item offsets; we could also use page offsets
+    // following the API or data you're working with.
+    const [itemOffset, setItemOffset] = useState(0);
+  
+    // Simulate fetching items from another resources.
+    // (This could be items from props; or items loaded in a local state
+    // from an API endpoint with useEffect and useState)
+    const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    const usersData = items?.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(items?.length === undefined ? 1 : items.length / itemsPerPage);
+  
+    // Invoke when user click to request another page.
+    const handlePageClick = (event: { selected: number }) => {
+      const newLength = items?.length === undefined ? 1 : items.length
+      const newOffset = (event.selected * itemsPerPage) % newLength;
+      console.log(
+        `User requested page number ${event.selected}, which is offset ${newOffset}`
+      );
+      setItemOffset(newOffset);
+    };
+  
+    const { setShowFilter, showFilter } = UseGlobalContext();
+  
+    return (
+      <>
+        <Items
+          usersData={usersData}
+          setShowFilter={setShowFilter}
+          showFilter={showFilter}
+        />
+        <div className="pagination">
+          <PaginationDropdown {...paginationProbs} />
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<img className="icon" src={nextActive} alt=" " />}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={2}
+            pageCount={pageCount}
+            previousLabel={<img className="icon" src={prevActive} alt=" " />}
+            renderOnZeroPageCount={null}
+            activeClassName="active"
+            activeLinkClassName="active"
+            containerClassName="paginationContainer"
+            previousClassName="previousLi"
+            pageClassName="eachLI"
+            pageLinkClassName="eachPageNum"
+            nextClassName="previousLi"
+            breakClassName="previousLi eachPageNum"
+          />
+        </div>
+      </>
+    );
+  }
+  
+
+
+
+
+
+
+
+
+
+
+  const [check_if_DB_exist, setcheck_if_DB_exist] = useState<boolean>();
+
+
+
+  const customersData = userDB.table("customersData");
+  const guarantorsTable = userDB.table("guarantorsTable");
+
+  const customerDataList = useLiveQuery(() => customersData.toArray(), []);
+  const customerGuarantorsList = useLiveQuery(() => guarantorsTable.toArray(), []);
+
+
+  // CHECK IF INDEX DB CONTAINS DATA UP TO 500
+  const test_for_db = () => {
+    console.log(customerDataList, "list list");
+
+    if (
+      customerDataList?.length === 500 &&
+      customerGuarantorsList?.length === 500
+    ) {
+      setcheck_if_DB_exist(true);
+      console.log("true meme");
+    } else if (
+      customerDataList?.length === 0 &&
+      customerGuarantorsList?.length === 0
+    ) {
+      setcheck_if_DB_exist(false);
+      console.log("false meme");
+    }
+    console.log(check_if_DB_exist, " you sure!!");
+  };
+
+  useEffect(() => {
+    test_for_db();
+  }, [customerDataList?.length]);
+
+// LOAD 500 USER DATA INTO INDEX DB
+  useEffect(() => {
+    if (check_if_DB_exist === false) {
+      const customersData = userDB.table("customersData");
+      const guarantorsTable = userDB.table("guarantorsTable");
+
+      let i = 1;
+      const loop = setInterval(() => {
+        const addCDL = async (val: number) => {
+          await customersData.add({
+            user_id: `xxxx${val}`,
+            organization: `Lenders${val}`,
+            username: `kemi${val}`,
+            email: `kemi@gmail.com${val}`,
+            phone_number: `09076543566${val}`,
+            date_joined: `22-10-2023${val}`,
+            status: `${val <= 150 ? "pending" : val > 150 && val <= 300 ? "active" :  val > 300 && val < 450 ? "inactive": "blacklist"}`,
+            full_name: `Kemi Fumilayo${val}`,
+            users_tier: `${val < 150 ? "2" : val > 400 ? "1" : "3"}`,
+            amount: `200000${val}`,
+            bank_name: `${
+              val < 150
+                ? "Providus Bank"
+                : val > 400
+                ? "Zenith Bank"
+                : "Union Bank"
+            }`,
+            bank_account_number: `098765467${val}`,
+            bvn: `767656563${val}`,
+            gender: `${val < 150 ? "m" : "f"}`,
+            marital_status: `${val < 150 ? "Single" : "Married"}`,
+            children: `0${val}`,
+            type_of_residence: `${
+              val < 150 ? "Parents house" : "Personal apartment"
+            }`,
+            education: `${val < 150 ? "PHD" : val > 400 ? "BSC" : "HND"}`,
+            employment: `${val < 150 ? "yes" : "no"}`,
+            sector_of_employment: `Finance${val}`,
+            duration_of_employment: `${
+              val < 150 ? "2" : val > 400 ? "3" : "5"
+            }`,
+            office_email: `kemioffice@gmail.com${val}`,
+            monthly_income: `60,000 - 80,000${val}`,
+            loan_repayment: `30000${val}`,
+            twitter: `twitter.com/kemis${val}`,
+            facebook: `facebook.com/kemis${val}`,
+            instagram: `instagram.com/kemis${val}`,
+          });
+          await guarantorsTable.add({
+            user_id: `xxxx${val}`,
+            guarantor_name: `Shola Fumilayo${val}`,
+            guarantor_phone_number: `0908788876${val}`,
+            guarantor_email: `shola111@gmail.com${val}`,
+            guarantor_relationship: `${val < 150 ? "brother" : "sister"}`,
+          });
+        };
+        addCDL(i);
+        console.log(i);
+        i++;
+        if (i === 501) {
+          clearTimeout(loop);
+        }
+      }, 10);
+      return () => {
+        clearTimeout(loop);
+      };
+    }
+  }, [check_if_DB_exist]);
+
+  const { linesPerPage } = UseGlobalContext();
   return (
     <Layout>
       <div className="userText">Users</div>
-{/* HEAD TABS STARTS HERE*/}
+      {/* HEAD TABS STARTS HERE*/}
       <div className="tabs">
         {tabContent.map((item, index) => (
           <div className="headTabs" key={index.toString()}>
@@ -1023,13 +373,11 @@ const User = () => {
           </div>
         ))}
       </div>
-{/* HEAD TABS ENDS HERE*/}
+      {/* HEAD TABS ENDS HERE*/}
 
-<PaginatedItems itemsPerPage={linesPerPage} />
+      <PaginatedItems itemsPerPage={linesPerPage} />
     </Layout>
   );
 };
-
-
 
 export default User;

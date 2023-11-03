@@ -28,29 +28,29 @@ const PaginationDropdown: React.FC<childProbs> =({itemsLength})=> {
         { show === true ? <img className="icon" src={arrowup} alt=" " /> : <img className="icon" src={arrowdown} alt=" " />}
         <div className={`dropDown ${show === true ? "dropDownActive":""}`}>
  <div 
- onClick={()=> setLinesPerPage(20)}
- className='number'>
-20
- </div>
- <div 
-  onClick={()=> setLinesPerPage(40)}
- className='number'>
-40
- </div>
- <div 
-  onClick={()=> setLinesPerPage(60)}
- className='number'>
-60
- </div>
- <div 
-  onClick={()=> setLinesPerPage(80)}
- className='number'>
-80
- </div>
- <div 
-  onClick={()=> setLinesPerPage(100)}
+ onClick={()=> setLinesPerPage(100)}
  className='number'>
 100
+ </div>
+ <div 
+  onClick={()=> setLinesPerPage(200)}
+ className='number'>
+200
+ </div>
+ <div 
+  onClick={()=> setLinesPerPage(300)}
+ className='number'>
+300
+ </div>
+ <div 
+  onClick={()=> setLinesPerPage(400)}
+ className='number'>
+400
+ </div>
+ <div 
+  onClick={()=> setLinesPerPage(500)}
+ className='number'>
+500
  </div>
 
         </div>
