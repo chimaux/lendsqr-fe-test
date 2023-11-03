@@ -203,10 +203,10 @@ const SideNavigation: React.FC = () => {
         <div>
           <p className="customers">CUSTOMERS</p>
           {custemersItem.map((item, index) => (
-            <Link to={`${item.navlink}`} className="linkStyle">
+            <Link   key={index.toString()} to={`${item.navlink}`} className="linkStyle">
               <div
                 className="dashBoard"
-                key={index.toString()}
+              
                 onClick={() => setPageName(item.title)}
                 onMouseEnter={() => {
                   setMyIndex(index);
@@ -241,11 +241,11 @@ const SideNavigation: React.FC = () => {
         <div>
           <p className="customers">BUSINESS</p>
           {businessItem.map((item, index) => (
-            <Link to={`${item.navlink}`} className="linkStyle">
+            <Link key={index.toString()} to={`${item.navlink}`} className="linkStyle">
               <div
                 className="dashBoard"
                 onClick={() => setPageName(item.title)}
-                key={index.toString()}
+                
                 tabIndex={1}
                 ref={pageName === item.title ? popupRef : undefined}
                 onMouseEnter={() => {
