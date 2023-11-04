@@ -15,21 +15,38 @@
   /* Add more font formats if necessary */
 }
 @font-face {
-  font-family: "AvenirMedium";
+  font-family: "AvernirMedium";
 
   src: url("../../fonts/avirnirReplica/Metropolis-Medium.otf") format("otf");
   /* Add more font formats if necessary */
 }
 
+
+
 // BREAK POINTS
 @mixin respond($breakpoint) {
-  @if ($breakpoint == medium) {
-    @media (max-width: 900px) {
+  @if ($breakpoint == "sm") {
+    @media (max-width: 640px) {
       @content;
     }
   }
-  @if ($breakpoint == small) {
-    @media (max-width: 600px) {
+  @if ($breakpoint == "md") {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == "lg") {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == "xl") {
+    @media (max-width: 1280px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == "2xl") {
+    @media (max-width: 1536px) {
       @content;
     }
   }
@@ -41,10 +58,10 @@
   height: 100vh;
 
   padding: 0 50px 0 50px;
-  @include respond(medium) {
+  @include respond("lg") {
     padding: 0 30px 0 30px;
   }
-  @include respond(small) {
+  @include respond("sm") {
     padding: 0 20px 0 20px;
   }
 }
@@ -70,12 +87,12 @@
   height: 500px;
   grid-template-columns: auto auto;
   grid-column-gap: 150px;
-  @include respond(medium) {
+  @include respond("lg") {
     height: 300px;
     margin-top: 100px;
     grid-column-gap: 100px;
   }
-  @include respond(small) {
+  @include respond("sm") {
     grid-template-columns: auto;
     height: 300px;
     grid-column-gap: unset;
@@ -91,10 +108,10 @@
   background-position: left top;
   background-repeat: no-repeat;
 
-  @include respond(medium) {
+  @include respond("lg") {
     margin-top: 50px;
   }
-  @include respond(small) {
+  @include respond("sm") {
     display: none;
   }
 }
@@ -106,7 +123,7 @@
   justify-content: end;
 
 
-  @include respond(small) {
+  @include respond("sm") {
     justify-content: start;
   }
   .formSubContainer {
@@ -129,11 +146,11 @@
       border-radius: 5px;
       border: 1px solid #ff7fa9;
 
-      @include respond(medium) {
+      @include respond("lg") {
         font-size: 14px;
         width: 100%;
       }
-      @include respond(small) {
+      @include respond("sm") {
         font-size: 14px;
         
         width: 100%;
@@ -161,11 +178,11 @@
       border-radius: 5px;
       border: 1px solid #FBFBFB;
 
-      @include respond(medium) {
+      @include respond("lg") {
         font-size: 14px;
         width: 100%;
       }
-      @include respond(small) {
+      @include respond("sm") {
         font-size: 14px;
         
         width: 100%;
@@ -187,10 +204,10 @@
 
     width: 100%;
  
-    // @include respond(medium) {
+    // @include respond("lg") {
     //   width: 100%;
     // }
-    @include respond(small) {
+    @include respond("sm") {
       width: 100%;
     }
     .welcome {
@@ -200,10 +217,10 @@
       font-style: normal;
       font-weight: 700;
       line-height: normal;
-      @include respond(medium) {
+      @include respond("lg") {
         font-size: 30px;
       }
-      @include respond(small) {
+      @include respond("sm") {
         font-size: 20px;
       }
     }
@@ -217,10 +234,10 @@
       line-height: normal;
       
 
-      @include respond(medium) {
+      @include respond("lg") {
         font-size: 16px;
       }
-      @include respond(small) {
+      @include respond("sm") {
         font-size: 16px;
      
       }
@@ -239,11 +256,11 @@
       background: #fff;
       margin-bottom: 20px;
 
-      @include respond(medium) {
+      @include respond("lg") {
         height: 45px;
         width: 100%;
       }
-      @include respond(small) {
+      @include respond("sm") {
         width: 100%;
         height: 40px;
       }
@@ -260,10 +277,10 @@
         letter-spacing: 1.2px;
         text-transform: uppercase;
         cursor: pointer;
-        @include respond(medium) {
+        @include respond("lg") {
           font-size: 11px;
         }
-        @include respond(small) {
+        @include respond("sm") {
           font-size: 11px;
         }
       }
@@ -297,10 +314,10 @@
       text-transform: uppercase;
       cursor: pointer;
 
-      @include respond(medium) {
+      @include respond("lg") {
         font-size: 11px;
       }
-      @include respond(small) {
+      @include respond("sm") {
         font-size: 11px;
       }
     }
@@ -324,7 +341,7 @@
       margin-top: 20px;
       // TEXT STYLE
       color: #fff;
-      font-family: "AvenirMedium", sans-serif;
+      font-family: "AvernirMedium", sans-serif;
       font-size: 14px;
       font-style: normal;
       font-weight: 600;
@@ -333,12 +350,12 @@
       text-transform: uppercase;
       cursor: pointer;
 
-      @include respond(medium) {
+      @include respond("lg") {
         height: 45px;
         width: 100%;
         font-size: 12px;
       }
-      @include respond(small) {
+      @include respond("sm") {
         width: 100%;
         height: 40px;
         font-size: 12px;
