@@ -27,12 +27,31 @@
     }
   }
 
-  .container{
-    width: 180px;
-height: 130px;
+  .user_more_items_container{
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 130px;
+height: 80px;
 flex-shrink: 0;
 border-radius: 4px;
 border: 1px solid rgba(84, 95, 125, 0.04);
 background: #FFF;
 box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04); 
+padding: 20px;
+.viewContainer{
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 16px;
+  cursor: pointer;
+
+
+  .viewContainer_img{
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+}
   }
