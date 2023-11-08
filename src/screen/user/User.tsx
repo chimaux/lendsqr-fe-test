@@ -17,10 +17,9 @@ import { UseGlobalContext } from "../../Context";
 import FilterComponent from "./filterComponent/FilterComponent";
 import Dexie from "dexie";
 import { useLiveQuery } from "dexie-react-hooks";
-
+import UserMoreItems from "./userMoreItem/UserMoreItems";
 
 const User = () => {
-
   const userDB = new Dexie("user_database");
 
   userDB.version(2).stores({
@@ -29,23 +28,21 @@ const User = () => {
     guarantorsTable:
       "++id,user_id,guarantor_name,guarantor_phone_number,guarantor_email,guarantor_relationship",
   });
-  
-  
-  
+
   const customersData1 = userDB.table("customersData");
-  
+
   const items = useLiveQuery(() => customersData1.toArray(), []);
   const itemsLengths = items?.length === undefined ? 1 : items.length;
-  
+
   interface paginationComponentProps {
     itemsLength: number;
   }
-  
+
   const paginationProbs: paginationComponentProps = {
     // itemsLength:2,
     itemsLength: itemsLengths,
   };
-  
+
   // USERS, ACTIVE USERS, USERS WITH LOANS, USERS WITH SAVINGS
   const tabContent = [
     {
@@ -69,21 +66,28 @@ const User = () => {
       number: "2,453",
     },
   ];
-  
-  
+
   function Items({
     usersData,
     setShowFilter,
     showFilter,
+    setToggleUserDataMoreItems,
+    setMoreIndex_b,
+    setBtnOff3,
+    btnOff3
   }: {
     usersData: any[] | undefined;
     setShowFilter: Dispatch<React.SetStateAction<boolean>>;
     showFilter: boolean;
+    setToggleUserDataMoreItems: Dispatch<React.SetStateAction<boolean>>;
+    setMoreIndex_b: Dispatch<React.SetStateAction<string>>;
+    btnOff3:boolean;
+    setBtnOff3: Dispatch<React.SetStateAction<boolean>>;
   }) {
     const showFilterBoxHandler = () => {
       setShowFilter((prev) => !prev);
     };
-  
+
     return (
       <>
         <div className="secondContainer">
@@ -134,7 +138,7 @@ const User = () => {
                 </th>
               </tr>
             </thead>
-  
+
             <tbody>
               {usersData &&
                 usersData.map((item, index) => (
@@ -160,6 +164,7 @@ const User = () => {
                     </td>
                     <td>
                       <div className="tdata ">
+                        <UserMoreItems moreIndex_a={index.toString()} />
                         <div
                           className={`tdata2 ${
                             item.status === "inactive"
@@ -173,7 +178,23 @@ const User = () => {
                         >
                           {item.status}
                         </div>
-                        <img className="icon" src={more} alt=" " />
+                        <button
+                         className="user_more_Btn "
+                          disabled={btnOff3}
+                          onClick={() => {
+                            setBtnOff3(true);
+                            setMoreIndex_b(index.toString());
+                            setToggleUserDataMoreItems((prev) => !prev);
+                          }}
+                        >
+
+<img
+                          className="user_more_icon"
+                          src={more}
+                          alt=" "
+                        />
+                        </button>
+
                       </div>
                     </td>
                   </tr>
@@ -184,38 +205,51 @@ const User = () => {
       </>
     );
   }
-  
+
   function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
-  
+
     // Simulate fetching items from another resources.
     // (This could be items from props; or items loaded in a local state
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const usersData = items?.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(items?.length === undefined ? 1 : items.length / itemsPerPage);
-  
+    const pageCount = Math.ceil(
+      items?.length === undefined ? 1 : items.length / itemsPerPage
+    );
+
     // Invoke when user click to request another page.
     const handlePageClick = (event: { selected: number }) => {
-      const newLength = items?.length === undefined ? 1 : items.length
+      const newLength = items?.length === undefined ? 1 : items.length;
       const newOffset = (event.selected * itemsPerPage) % newLength;
       console.log(
         `User requested page number ${event.selected}, which is offset ${newOffset}`
       );
       setItemOffset(newOffset);
     };
-  
-    const { setShowFilter, showFilter } = UseGlobalContext();
-  
+
+    const {
+      setShowFilter,
+      showFilter,
+      setToggleUserDataMoreItems,
+      setMoreIndex_b,
+      setBtnOff3,
+      btnOff3
+    } = UseGlobalContext();
+
     return (
       <>
         <Items
           usersData={usersData}
           setShowFilter={setShowFilter}
           showFilter={showFilter}
+          setToggleUserDataMoreItems={setToggleUserDataMoreItems}
+          setMoreIndex_b={setMoreIndex_b}
+          setBtnOff3={setBtnOff3}
+          btnOff3={btnOff3}
         />
         <div className="pagination">
           <PaginationDropdown {...paginationProbs} />
@@ -241,27 +275,17 @@ const User = () => {
       </>
     );
   }
-  
-
-
-
-
-
-
-
-
-
 
   const [check_if_DB_exist, setcheck_if_DB_exist] = useState<boolean>();
-
-
 
   const customersData = userDB.table("customersData");
   const guarantorsTable = userDB.table("guarantorsTable");
 
   const customerDataList = useLiveQuery(() => customersData.toArray(), []);
-  const customerGuarantorsList = useLiveQuery(() => guarantorsTable.toArray(), []);
-
+  const customerGuarantorsList = useLiveQuery(
+    () => guarantorsTable.toArray(),
+    []
+  );
 
   // CHECK IF INDEX DB CONTAINS DATA UP TO 500
   const test_for_db = () => {
@@ -287,7 +311,7 @@ const User = () => {
     test_for_db();
   }, [customerDataList?.length]);
 
-// LOAD 500 USER DATA INTO INDEX DB
+  // LOAD 500 USER DATA INTO INDEX DB
   useEffect(() => {
     if (check_if_DB_exist === false) {
       const customersData = userDB.table("customersData");
@@ -303,7 +327,15 @@ const User = () => {
             email: `kemi@gmail.com${val}`,
             phone_number: `09076543566${val}`,
             date_joined: `22-10-2023${val}`,
-            status: `${val <= 150 ? "pending" : val > 150 && val <= 300 ? "active" :  val > 300 && val < 450 ? "inactive": "blacklist"}`,
+            status: `${
+              val <= 150
+                ? "pending"
+                : val > 150 && val <= 300
+                ? "active"
+                : val > 300 && val < 450
+                ? "inactive"
+                : "blacklist"
+            }`,
             full_name: `Kemi Fumilayo${val}`,
             users_tier: `${val < 150 ? "2" : val > 400 ? "1" : "3"}`,
             amount: `200000${val}`,

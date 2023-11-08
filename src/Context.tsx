@@ -3,7 +3,7 @@ import React, {
   createContext,
   useContext,
   ReactNode,
-  useEffect
+  useEffect,
 } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -26,6 +26,13 @@ type MyType = {
   setShowFilter:React.Dispatch<React.SetStateAction<boolean>>;
   btnOff2: boolean;
   setBtnOff2:React.Dispatch<React.SetStateAction<boolean>>;
+  toggleUserDataMoreItems: boolean;
+  setToggleUserDataMoreItems:React.Dispatch<React.SetStateAction<boolean>>;
+  moreIndex_b:string;
+  setMoreIndex_b:React.Dispatch<React.SetStateAction<string>>;
+  btnOff3:boolean;
+  setBtnOff3:React.Dispatch<React.SetStateAction<boolean>>;
+  
 };
 
 export const Context = createContext<MyType>({} as MyType);
@@ -69,6 +76,16 @@ const [showFilter,setShowFilter] =useState<boolean>(false)
 // SHOW FILTER STARTS HERE
 const [  btnOff2,setBtnOff2] =useState<boolean>(false)
 // SHOW FILTER ENDS HERE
+// SHOW PENDING ACTIVE BLACKLIST AND INACTIVE MORE COMPONENT STARTS HERE
+const [  btnOff3,setBtnOff3] =useState<boolean>(false)
+//SHOW PENDING ACTIVE BLACKLIST AND INACTIVE MORE COMPONENT STARTSENDS HERE
+// PENDING ACTIVATE BLACKLIST INACTIVE STARTS HERE
+const [  toggleUserDataMoreItems,setToggleUserDataMoreItems] =useState<boolean>(false)
+// PENDING ACTIVATE BLACKLIST INACTIVE STARTS HERE
+
+// PENDING ACTIVATE BLACKLIST INACTIVE STARTS HERE
+const [  moreIndex_b,setMoreIndex_b] =useState<string>("")
+// PENDING ACTIVATE BLACKLIST INACTIVE STARTS HERE
 
 
 
@@ -88,7 +105,12 @@ const store = {
   showFilter,
   setShowFilter,
   btnOff2,
-  setBtnOff2
+  setBtnOff2,
+  toggleUserDataMoreItems,
+  setToggleUserDataMoreItems,
+  moreIndex_b,
+  setMoreIndex_b,
+  btnOff3,setBtnOff3
 }
   return (
     <Context.Provider value={store}>
