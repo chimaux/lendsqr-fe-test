@@ -20,18 +20,18 @@ import { useLiveQuery } from "dexie-react-hooks";
 import UserMoreItems from "./userMoreItem/UserMoreItems";
 
 const User = () => {
-  const userDB = new Dexie("user_database");
+  const userDatabase = new Dexie("user_db");
 
-  userDB.version(2).stores({
-    customersData:
+  userDatabase.version(1).stores({
+    customerData:
       "++id,user_id,organization,username,email,phone_number,date_joined,status,full_name,users_tier,amount,bank_name,bank_account_number,bvn,gender,marital_status,children,type_of_residence,education,employment,sector_of_employment,duration_of_employment,office_email,monthly_income,loan_repayment,twitter,facebook,instagram",
-    guarantorsTable:
+    guarantorTable:
       "++id,user_id,guarantor_name,guarantor_phone_number,guarantor_email,guarantor_relationship",
   });
 
-  const customersData1 = userDB.table("customersData");
+  const customerData1 = userDatabase.table("customerData");
 
-  const items = useLiveQuery(() => customersData1.toArray(), []);
+  const items = useLiveQuery(() => customerData1.toArray(), []);
   const itemsLengths = items?.length === undefined ? 1 : items.length;
 
   interface paginationComponentProps {
@@ -276,36 +276,44 @@ const User = () => {
     );
   }
 
-  const [check_if_DB_exist, setcheck_if_DB_exist] = useState<boolean>();
+    // CHECK IF INDEX DB CONTAINS DATA UP TO 500
+    const test_for_db = () => {
+      const db_state_string = localStorage.getItem("db_state");
+      const dbState = db_state_string ? JSON.parse(db_state_string) : "false"; 
+  
+     return dbState
+  
+      // console.log(customerDataList, "list list");
+  
+      // if (
+      //   customerDataList?.length === 500 &&
+      //   customerGuarantorsList?.length === 500
+      // ) {
+      //   setcheck_if_DB_exist(true);
+      //   console.log("true meme");
+      // } else if (
+      //   customerDataList?.length === 0 &&
+      //   customerGuarantorsList?.length === 0
+      // ) {
+      //   setcheck_if_DB_exist(false);
+      //   console.log("false meme");
+      // }
+      // console.log(check_if_DB_exist, " you sure!!");
+    };
 
-  const customersData = userDB.table("customersData");
-  const guarantorsTable = userDB.table("guarantorsTable");
 
-  const customerDataList = useLiveQuery(() => customersData.toArray(), []);
-  const customerGuarantorsList = useLiveQuery(
-    () => guarantorsTable.toArray(),
-    []
-  );
+  const [check_if_DB_exist, setcheck_if_DB_exist] = useState<string>(test_for_db());
 
-  // CHECK IF INDEX DB CONTAINS DATA UP TO 500
-  const test_for_db = () => {
-    console.log(customerDataList, "list list");
+  const customerData = userDatabase.table("customerData");
+  // const guarantorTable = userDatabase.table("guarantorTable");
 
-    if (
-      customerDataList?.length === 500 &&
-      customerGuarantorsList?.length === 500
-    ) {
-      setcheck_if_DB_exist(true);
-      console.log("true meme");
-    } else if (
-      customerDataList?.length === 0 &&
-      customerGuarantorsList?.length === 0
-    ) {
-      setcheck_if_DB_exist(false);
-      console.log("false meme");
-    }
-    console.log(check_if_DB_exist, " you sure!!");
-  };
+  const customerDataList = useLiveQuery(() => customerData.toArray(), []);
+  // const customerGuarantorsList = useLiveQuery(
+  //   () => guarantorTable.toArray(),
+  //   []
+  // );
+
+
 
   useEffect(() => {
     test_for_db();
@@ -313,14 +321,14 @@ const User = () => {
 
   // LOAD 500 USER DATA INTO INDEX DB
   useEffect(() => {
-    if (check_if_DB_exist === false) {
-      const customersData = userDB.table("customersData");
-      const guarantorsTable = userDB.table("guarantorsTable");
+    if (check_if_DB_exist === "false") {
+      const customerData = userDatabase.table("customerData");
+      const guarantorTable = userDatabase.table("guarantorTable");
 
       let i = 1;
       const loop = setInterval(() => {
         const addCDL = async (val: number) => {
-          await customersData.add({
+          await customerData.add({
             user_id: `xxxx${val}`,
             organization: `Lenders${val}`,
             username: `kemi${val}`,
@@ -367,7 +375,7 @@ const User = () => {
             facebook: `facebook.com/kemis${val}`,
             instagram: `instagram.com/kemis${val}`,
           });
-          await guarantorsTable.add({
+          await guarantorTable.add({
             user_id: `xxxx${val}`,
             guarantor_name: `Shola Fumilayo${val}`,
             guarantor_phone_number: `0908788876${val}`,
@@ -380,6 +388,8 @@ const User = () => {
         i++;
         if (i === 501) {
           clearTimeout(loop);
+          setcheck_if_DB_exist("true")
+          localStorage.setItem("db_state", JSON.stringify("true"));
         }
       }, 10);
       return () => {
