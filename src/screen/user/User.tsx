@@ -17,7 +17,8 @@ import Dexie from "dexie";
 import { useLiveQuery } from "dexie-react-hooks";
 import UserMoreItems from "./userMoreItem/UserMoreItems";
 import FocusFix1 from "./FocusFix1";
-
+import { Spinner } from "react-activity";
+import "react-activity/dist/library.css";
 const User = () => {
   const userDatabase = new Dexie("user_db");
 
@@ -76,7 +77,8 @@ const User = () => {
     set_active_page_number,
     linesPerPage,
     itemOffset,
-    toggleUserDataMoreItems
+    toggleUserDataMoreItems,
+    itemsLengths
   }: {
     usersData: any[] | undefined;
     setShowFilter: Dispatch<React.SetStateAction<boolean>>;
@@ -92,6 +94,7 @@ const User = () => {
     active_page_number: number;
     linesPerPage: number;
     itemOffset: number;
+    itemsLengths: number;
     handlePageClick:(event: {
       selected: number;
   }) => void;
@@ -153,7 +156,6 @@ const User = () => {
                 </th>
               </tr>
             </thead>
-
             <tbody>
               {usersData &&
                 usersData.map((item, index) => (
@@ -220,7 +222,26 @@ const User = () => {
                   </tr>
                 ))}
             </tbody>
+          
           </table>
+  {
+            itemsLengths === 0 ? 
+            <div
+            style={{
+              display:"flex",
+              flexDirection:"column",
+              alignItems:"center"
+            }}
+            >
+              <Spinner animating={itemsLengths === 0 ? true : false} />
+              <div 
+              style={{
+                marginTop:10,
+                color:"rgb(73,74,77)"
+              }}
+              >Loading data fron IndexDB may be slow on Chrome, Safari and IE. data will be up in a bit</div>
+            </div>:""
+  }
         </div>
       </>
     );
@@ -280,6 +301,7 @@ const User = () => {
           setItemOffset = {setItemOffset}
           handlePageClick = {handlePageClick}
           set_active_page_number={set_active_page_number}
+          itemsLengths={itemsLengths}
 
         />
         <div className="pagination">
@@ -410,7 +432,7 @@ const User = () => {
           });
         };
         addCDL(i);
-        console.log(i);
+        // console.log(i);
         i++;
         if (i === 501) {
           clearTimeout(loop);
