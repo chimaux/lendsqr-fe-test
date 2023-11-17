@@ -26,13 +26,16 @@ type MyType = {
   setShowFilter:React.Dispatch<React.SetStateAction<boolean>>;
   btnOff2: boolean;
   setBtnOff2:React.Dispatch<React.SetStateAction<boolean>>;
-  toggleUserDataMoreItems: boolean;
-  setToggleUserDataMoreItems:React.Dispatch<React.SetStateAction<boolean>>;
-  moreIndex_b:string;
-  setMoreIndex_b:React.Dispatch<React.SetStateAction<string>>;
+  toggleUserDataMoreItems: null| boolean;
+  setToggleUserDataMoreItems:React.Dispatch<React.SetStateAction<null|  boolean>>;
+  moreIndex_b:number;
+  setMoreIndex_b:React.Dispatch<React.SetStateAction<number>>;
   btnOff3:boolean;
   setBtnOff3:React.Dispatch<React.SetStateAction<boolean>>;
-  
+  set_user_more_overlay:React.Dispatch<React.SetStateAction<boolean>>;
+  user_more_overlay:boolean;
+  active_page_number:number;
+  set_active_page_number:React.Dispatch<React.SetStateAction<number>>
 };
 
 export const Context = createContext<MyType>({} as MyType);
@@ -50,7 +53,7 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
 
     const initialPageLoad = ()=>{
       isLogged === true ? navigate("/user"): navigate("/");
-      console.log(isLogged,"Chima")
+      
      }
 
     useEffect(()=>{
@@ -80,12 +83,21 @@ const [  btnOff2,setBtnOff2] =useState<boolean>(false)
 const [  btnOff3,setBtnOff3] =useState<boolean>(false)
 //SHOW PENDING ACTIVE BLACKLIST AND INACTIVE MORE COMPONENT STARTSENDS HERE
 // PENDING ACTIVATE BLACKLIST INACTIVE STARTS HERE
-const [  toggleUserDataMoreItems,setToggleUserDataMoreItems] =useState<boolean>(false)
+const [  toggleUserDataMoreItems,setToggleUserDataMoreItems] =useState<null|  boolean>(null)
 // PENDING ACTIVATE BLACKLIST INACTIVE STARTS HERE
 
 // PENDING ACTIVATE BLACKLIST INACTIVE STARTS HERE
-const [  moreIndex_b,setMoreIndex_b] =useState<string>("")
+const [  moreIndex_b,setMoreIndex_b] =useState<number>(0)
 // PENDING ACTIVATE BLACKLIST INACTIVE STARTS HERE
+
+// USER MORE OVERLAY STARTS HERE
+const [ user_more_overlay, set_user_more_overlay] =useState<boolean>(false)
+// USER MORE OVERLAY ENDS  HERE
+
+// USER MORE OVERLAY STARTS HERE
+const [ active_page_number, set_active_page_number] =useState<number>(0)
+// USER MORE OVERLAY ENDS  HERE
+
 
 
 
@@ -110,7 +122,12 @@ const store = {
   setToggleUserDataMoreItems,
   moreIndex_b,
   setMoreIndex_b,
-  btnOff3,setBtnOff3
+  btnOff3,setBtnOff3,
+  set_user_more_overlay,
+  user_more_overlay,
+  active_page_number, set_active_page_number
+  
+
 }
   return (
     <Context.Provider value={store}>

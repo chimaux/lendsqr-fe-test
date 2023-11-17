@@ -12,7 +12,7 @@ interface childProbs{
 }
 
 const PaginationDropdown: React.FC<childProbs> =({itemsLength})=> {
-    const { linesPerPage, setLinesPerPage } = UseGlobalContext();
+    const { linesPerPage, setLinesPerPage,set_active_page_number } = UseGlobalContext();
  const [show, setShow]= useState<boolean>(false)
     const showList = ()=>{
       setShow((prev)=>!prev)
@@ -28,27 +28,27 @@ const PaginationDropdown: React.FC<childProbs> =({itemsLength})=> {
         { show === true ? <img className="icon" src={arrowup} alt=" " /> : <img className="icon" src={arrowdown} alt=" " />}
         <div className={`dropDown ${show === true ? "dropDownActive":""}`}>
  <div 
- onClick={()=> setLinesPerPage(100)}
+ onClick={()=> {setLinesPerPage(100); set_active_page_number(0)}}
  className='number'>
 100
  </div>
  <div 
-  onClick={()=> setLinesPerPage(200)}
+  onClick={()=> {setLinesPerPage(200); set_active_page_number(0)}}
  className='number'>
 200
  </div>
  <div 
-  onClick={()=> setLinesPerPage(300)}
+  onClick={()=> {setLinesPerPage(300); set_active_page_number(0)}}
  className='number'>
 300
  </div>
  <div 
-  onClick={()=> setLinesPerPage(400)}
+  onClick={()=> {setLinesPerPage(400); set_active_page_number(0)}}
  className='number'>
 400
  </div>
  <div 
-  onClick={()=> setLinesPerPage(500)}
+  onClick={()=> {setLinesPerPage(500); set_active_page_number(0)}}
  className='number'>
 500
  </div>

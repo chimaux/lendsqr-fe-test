@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useEffect, useRef, useState } from "react";
 import ReactPaginate from "react-paginate";
 import "./user.scss";
 import Layout from "../../layout/Layout";
@@ -7,9 +7,7 @@ import tabIcon2 from "./images/tabIcon2.png";
 import tabIcon3 from "./images/tabIcon3.png";
 import tabIcon4 from "./images/tabIcon4.png";
 import filter from "./images/filterBtn.png";
-// import nextInactive from './images/nextBtnInactive.png'
 import nextActive from "./images/nextBtnActive.png";
-// import prevInactive from './images/prevBtnInactive.png'
 import prevActive from "./images/prevBtnActive.png";
 import more from "./images/more.png";
 import PaginationDropdown from "./paginationDropdown/PaginationDropdown";
@@ -18,6 +16,7 @@ import FilterComponent from "./filterComponent/FilterComponent";
 import Dexie from "dexie";
 import { useLiveQuery } from "dexie-react-hooks";
 import UserMoreItems from "./userMoreItem/UserMoreItems";
+import FocusFix1 from "./FocusFix1";
 
 const User = () => {
   const userDatabase = new Dexie("user_db");
@@ -73,30 +72,46 @@ const User = () => {
     showFilter,
     setToggleUserDataMoreItems,
     setMoreIndex_b,
-    setBtnOff3,
-    btnOff3
+    set_user_more_overlay,
+    set_active_page_number,
+    linesPerPage,
+    itemOffset,
+    toggleUserDataMoreItems
   }: {
     usersData: any[] | undefined;
     setShowFilter: Dispatch<React.SetStateAction<boolean>>;
     showFilter: boolean;
-    setToggleUserDataMoreItems: Dispatch<React.SetStateAction<boolean>>;
-    setMoreIndex_b: Dispatch<React.SetStateAction<string>>;
-    btnOff3:boolean;
+    toggleUserDataMoreItems: null | boolean;
+    setToggleUserDataMoreItems: Dispatch<React.SetStateAction<null | boolean>>;
+    setMoreIndex_b: Dispatch<React.SetStateAction<number>>;
+    setItemOffset: Dispatch<React.SetStateAction<number>>;
+    btnOff3: boolean;
     setBtnOff3: Dispatch<React.SetStateAction<boolean>>;
+    set_user_more_overlay: Dispatch<React.SetStateAction<boolean>>;
+    set_active_page_number: Dispatch<React.SetStateAction<number>>;
+    active_page_number: number;
+    linesPerPage: number;
+    itemOffset: number;
+    handlePageClick:(event: {
+      selected: number;
+  }) => void;
+
   }) {
     const showFilterBoxHandler = () => {
       setShowFilter((prev) => !prev);
     };
+    const targetElementRef = useRef<HTMLButtonElement | null>(null);
+    const tableRef = useRef<HTMLTableElement | null>(null);
 
     return (
       <>
-        <div className="secondContainer">
+        <div className="secondContainer" >
           {showFilter && <FilterComponent />}
           <table>
             <thead>
               <tr className="tr">
                 <th>
-                  <div onClick={showFilterBoxHandler} className="thead">
+                  <div onClick={showFilterBoxHandler} className="thead" ref={tableRef}>
                     ORGANIZATION
                     <img className="icon" src={filter} alt=" " />
                   </div>
@@ -143,7 +158,7 @@ const User = () => {
               {usersData &&
                 usersData.map((item, index) => (
                   <tr
-                    key={index.toString()}
+                    key={index}
                     id={`data${index}`}
                     className="tableData"
                   >
@@ -164,7 +179,8 @@ const User = () => {
                     </td>
                     <td>
                       <div className="tdata ">
-                        <UserMoreItems moreIndex_a={index.toString()} />
+                        <UserMoreItems moreIndex_a={(linesPerPage * (itemOffset/linesPerPage)) +index} />
+                        <FocusFix1 moreIndex_a={(linesPerPage * (itemOffset/linesPerPage)) +index} />
                         <div
                           className={`tdata2 ${
                             item.status === "inactive"
@@ -179,22 +195,26 @@ const User = () => {
                           {item.status}
                         </div>
                         <button
-                         className="user_more_Btn "
-                          disabled={btnOff3}
+                          ref={targetElementRef}
+                          className="user_more_Btn "
+                      
                           onClick={() => {
-                            setBtnOff3(true);
-                            setMoreIndex_b(index.toString());
-                            setToggleUserDataMoreItems((prev) => !prev);
+                      
+                            setMoreIndex_b((linesPerPage * (itemOffset/linesPerPage)) +index);
+                   
+                            if (toggleUserDataMoreItems === null || toggleUserDataMoreItems === false){
+                              setToggleUserDataMoreItems(true)
+                            }
+                            else{
+                              setToggleUserDataMoreItems(false)
+                            }
+                            
+                            set_user_more_overlay((prev) => !prev)
+                            set_active_page_number(itemOffset/linesPerPage)
                           }}
                         >
-
-<img
-                          className="user_more_icon"
-                          src={more}
-                          alt=" "
-                        />
+                          <img className="user_more_icon" src={more} alt=" " />
                         </button>
-
                       </div>
                     </td>
                   </tr>
@@ -205,17 +225,24 @@ const User = () => {
       </>
     );
   }
-
+  const [itemOffset, setItemOffset] = useState(0);
   function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
-    // Here we use item offsets; we could also use page offsets
-    // following the API or data you're working with.
-    const [itemOffset, setItemOffset] = useState(0);
 
-    // Simulate fetching items from another resources.
-    // (This could be items from props; or items loaded in a local state
-    // from an API endpoint with useEffect and useState)
+    const {
+      setShowFilter,
+      showFilter,
+      setToggleUserDataMoreItems,
+      setMoreIndex_b,
+      setBtnOff3,
+      btnOff3,
+      set_user_more_overlay,
+      active_page_number,
+      toggleUserDataMoreItems,
+      set_active_page_number
+
+    } = UseGlobalContext();
+
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const usersData = items?.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(
       items?.length === undefined ? 1 : items.length / itemsPerPage
@@ -225,21 +252,16 @@ const User = () => {
     const handlePageClick = (event: { selected: number }) => {
       const newLength = items?.length === undefined ? 1 : items.length;
       const newOffset = (event.selected * itemsPerPage) % newLength;
-      console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );
+      // console.log(
+      //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+      // );
       setItemOffset(newOffset);
+      set_active_page_number(newOffset/itemsPerPage)
+    
+    
     };
 
-    const {
-      setShowFilter,
-      showFilter,
-      setToggleUserDataMoreItems,
-      setMoreIndex_b,
-      setBtnOff3,
-      btnOff3
-    } = UseGlobalContext();
-
+   
     return (
       <>
         <Items
@@ -247,9 +269,18 @@ const User = () => {
           setShowFilter={setShowFilter}
           showFilter={showFilter}
           setToggleUserDataMoreItems={setToggleUserDataMoreItems}
+          toggleUserDataMoreItems={toggleUserDataMoreItems}
           setMoreIndex_b={setMoreIndex_b}
           setBtnOff3={setBtnOff3}
           btnOff3={btnOff3}
+          set_user_more_overlay={set_user_more_overlay}
+          active_page_number={active_page_number}
+          linesPerPage={linesPerPage}
+          itemOffset={itemOffset}
+          setItemOffset = {setItemOffset}
+          handlePageClick = {handlePageClick}
+          set_active_page_number={set_active_page_number}
+
         />
         <div className="pagination">
           <PaginationDropdown {...paginationProbs} />
@@ -270,49 +301,44 @@ const User = () => {
             pageLinkClassName="eachPageNum"
             nextClassName="previousLi"
             breakClassName="previousLi eachPageNum"
+            forcePage={active_page_number !== null ? active_page_number : 0} 
           />
         </div>
       </>
     );
   }
 
-    // CHECK IF INDEX DB CONTAINS DATA UP TO 500
-    const test_for_db = () => {
-      const db_state_string = localStorage.getItem("db_state");
-      const dbState = db_state_string ? JSON.parse(db_state_string) : "false"; 
-  
-     return dbState
-  
-      // console.log(customerDataList, "list list");
-  
-      // if (
-      //   customerDataList?.length === 500 &&
-      //   customerGuarantorsList?.length === 500
-      // ) {
-      //   setcheck_if_DB_exist(true);
-      //   console.log("true meme");
-      // } else if (
-      //   customerDataList?.length === 0 &&
-      //   customerGuarantorsList?.length === 0
-      // ) {
-      //   setcheck_if_DB_exist(false);
-      //   console.log("false meme");
-      // }
-      // console.log(check_if_DB_exist, " you sure!!");
-    };
+  // CHECK IF INDEX DB CONTAINS DATA UP TO 500
+  const test_for_db = () => {
+    const db_state_string = localStorage.getItem("db_state");
+    const dbState = db_state_string ? JSON.parse(db_state_string) : "false";
+    return dbState;
 
 
-  const [check_if_DB_exist, setcheck_if_DB_exist] = useState<string>(test_for_db());
+    // if (
+    //   customerDataList?.length === 500 &&
+    //   customerGuarantorsList?.length === 500
+    // ) {
+    //   setcheck_if_DB_exist(true);
+    //   console.log("true meme");
+    // } else if (
+    //   customerDataList?.length === 0 &&
+    //   customerGuarantorsList?.length === 0
+    // ) {
+    //   setcheck_if_DB_exist(false);
+    //   console.log("false meme");
+    // }
+    // console.log(check_if_DB_exist, " you sure!!");
+  };
+
+  const [check_if_DB_exist, setcheck_if_DB_exist] = useState<string>(
+    test_for_db()
+  );
 
   const customerData = userDatabase.table("customerData");
-  // const guarantorTable = userDatabase.table("guarantorTable");
+
 
   const customerDataList = useLiveQuery(() => customerData.toArray(), []);
-  // const customerGuarantorsList = useLiveQuery(
-  //   () => guarantorTable.toArray(),
-  //   []
-  // );
-
 
 
   useEffect(() => {
@@ -388,7 +414,7 @@ const User = () => {
         i++;
         if (i === 501) {
           clearTimeout(loop);
-          setcheck_if_DB_exist("true")
+          setcheck_if_DB_exist("true");
           localStorage.setItem("db_state", JSON.stringify("true"));
         }
       }, 10);
@@ -398,7 +424,15 @@ const User = () => {
     }
   }, [check_if_DB_exist]);
 
-  const { linesPerPage } = UseGlobalContext();
+  const { linesPerPage, active_page_number } = UseGlobalContext();
+
+  useEffect(() => {
+    // Update the forcePage prop when active_page_number changes
+    if (active_page_number !== null) {
+      const newOffset = active_page_number * linesPerPage;
+      setItemOffset(newOffset);
+    }
+  }, [active_page_number, linesPerPage]);
   return (
     <Layout>
       <div className="userText">Users</div>
