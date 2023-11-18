@@ -49,29 +49,11 @@
       font-weight: 600;
       color: #545f7d;
       margin-bottom: 10px;
-    }
-    .status_dropdown {
-      position: absolute;
-      font-size: 14px;
-      border-radius: 4px;
-      border: 1px solid rgba(84, 95, 125, 0.04);
-      background: #fff;
-      box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
-      padding: 20px;
-      margin-left: 5px;
-      width: 230px;
-      color: #545f7d;
-
-      .sd_child{
-        margin-top: 5px;
-        margin-bottom: 5px;
-        cursor: pointer;
+      @include respond("sm"){
+        font-size: 13px;
       }
- 
     }
-    .status_dropdown .sd_child_color:hover{
-      color: rgb(223, 9, 9);
-    }
+
     .search1 {
       overflow: hidden;
       position: relative;
@@ -142,7 +124,29 @@
         }
         @include respond("sm") {
           padding-right: 30px;
+          font-size: 13px;
         }
+      }
+    }
+    .status_dropdown {
+      position: absolute;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(84, 95, 125, 0.04);
+      background: #fff;
+      box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
+      padding: 20px;
+      margin-left: 5px;
+      width: 230px;
+      color: #545f7d;
+
+      .sd_child {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        cursor: pointer;
+      }
+      .sd_child:hover {
+        color: rgb(46, 46, 46)
       }
     }
 
@@ -177,6 +181,12 @@
       color: #545f7d;
       font-size: 14px;
       font-weight: 600;
+
+      @include respond("sm"){
+        font-size: 13px;
+        width: 90px;
+        height: 38px;
+      }
     }
     .filterBtn {
       cursor: pointer;
@@ -193,6 +203,12 @@
       color: #fff;
       font-size: 14px;
       font-weight: 600;
+      
+      @include respond("sm"){
+        font-size: 13px;
+        width: 90px;
+        height: 38px;
+      }
     }
   }
 }

@@ -160,7 +160,7 @@ const FilterComponent: React.FC = () => {
               type="text"
               placeholder="Select"
               className="search2"
-              required
+              disabled
             />
             <div className="searchIcon" onClick={status_dropdown_handler}>
               <span>
