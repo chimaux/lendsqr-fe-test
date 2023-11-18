@@ -239,7 +239,7 @@ const User = () => {
                 marginTop:10,
                 color:"rgb(73,74,77)"
               }}
-              >Loading data fron IndexDB may be slow on Chrome, Safari and IE. Data will be up in a minute.</div>
+              >Loading data from IndexDB may be slow on Chrome, Safari and IE. Data will be up in a minute.</div>
             </div>:""
   }
         </div>
@@ -382,7 +382,15 @@ const User = () => {
             username: `kemi${val}`,
             email: `kemi@gmail.com${val}`,
             phone_number: `09076543566${val}`,
-            date_joined: `22-10-2023${val}`,
+            date_joined:`${
+              val <= 150
+                ? "03 / 20 / 2023"
+                : val > 150 && val <= 300
+                ? "05 / 13 / 2023"
+                : val > 300 && val < 450
+                ? "10 / 10 / 2023"
+                : "11 / 20 / 2023"
+            }`,
             status: `${
               val <= 150
                 ? "pending"
