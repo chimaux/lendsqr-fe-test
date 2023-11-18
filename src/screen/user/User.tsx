@@ -239,7 +239,7 @@ const User = () => {
                 marginTop:10,
                 color:"rgb(73,74,77)"
               }}
-              >Loading data fron IndexDB may be slow on Chrome, Safari and IE. data will be up in a bit</div>
+              >Loading data fron IndexDB may be slow on Chrome, Safari and IE. Data will be up in a minute.</div>
             </div>:""
   }
         </div>

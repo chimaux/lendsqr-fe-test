@@ -60,11 +60,6 @@ export const UserMoreItems:React.FC<LayoutProps>= ({moreIndex_a}) => {
 
 
 
-
-
-
-
-
   return (
       
         toggleUserDataMoreItems === true && moreIndex_a === moreIndex_b ? <div
