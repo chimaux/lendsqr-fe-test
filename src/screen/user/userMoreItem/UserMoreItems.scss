@@ -40,14 +40,19 @@ border: 1px solid rgba(84, 95, 125, 0.04);
 background: #FFF;
 box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04); 
 padding: 20px;
+@include respond("sm"){
+  padding: 15px;
+}
 .viewContainer{
   display: flex;
   align-items: center;
   font-weight: 600;
   margin-bottom: 16px;
   cursor: pointer;
-
-
+  font-size: 12px;
+  @include respond("sm"){
+    font-size: 11px;
+  }
   .viewContainer_img{
     width: 16px;
     height: 16px;
