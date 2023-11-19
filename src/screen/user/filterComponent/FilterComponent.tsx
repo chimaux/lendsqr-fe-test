@@ -16,7 +16,7 @@ const FilterComponent: React.FC = () => {
 
   });
 
-  const customerData1 = userDatabase.table("customerData");
+  // const customerData1 = userDatabase.table("customerData");
 
 
   const { setShowFilter } = UseGlobalContext();
