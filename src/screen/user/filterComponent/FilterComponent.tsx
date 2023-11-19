@@ -2,8 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import "./FilterComponent.scss";
 
 import { UseGlobalContext } from "../../../Context";
+import Dexie from "dexie";
 
 const FilterComponent: React.FC = () => {
+
+
+
+  const userDatabase = new Dexie("user_db");
+
+  userDatabase.version(1).stores({
+    customerData:
+      "++id,user_id,organization,username,email,phone_number,date_joined,status,full_name,users_tier,amount,bank_name,bank_account_number,bvn,gender,marital_status,children,type_of_residence,education,employment,sector_of_employment,duration_of_employment,office_email,monthly_income,loan_repayment,twitter,facebook,instagram",
+
+  });
+
+  // const customerData1 = userDatabase.table("customerData");
+
+
   const { setShowFilter } = UseGlobalContext();
   // ISFOCUSED STATE STARTS HERE
   const [isFocused, setIsFocused] = useState<number[]>([]);
@@ -13,6 +28,37 @@ const FilterComponent: React.FC = () => {
   const [status_dropdown, set_status_dropdown] = useState<boolean>(false);
   // ISFOCUSED STATE ENDS HERE
 
+
+
+
+  interface filter_input_state_type{
+    organization:string,
+    Username:string,
+    email:string,
+    date:string,
+    phone_number:string,
+    status:string,
+  }
+  // FILTER INPUTS STATE STARTS HERE
+  const [filter_input_state, set_filter_input_state] = useState<filter_input_state_type>({
+    organization: "",
+    Username: "",
+    email: "",
+    date: "",
+    phone_number: "",
+    status: "",
+  });
+  // FILTER INPUTS STATE ENDS HERE
+  const { organization, Username, email, date, phone_number, status } =
+    filter_input_state;
+    
+  // const handle_filter_input = (e: { target: { name: string; value: string; }; }) => {
+  const handle_filter_input = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const {name,value}=e.target
+    set_filter_input_state({...filter_input_state,[name]:value})
+  };
+
+  console.log(filter_input_state)
   const filterFunction = () => {
     setShowFilter((prev) => !prev);
   };
@@ -54,9 +100,12 @@ const FilterComponent: React.FC = () => {
           >
             <input
               type="text"
+              name="organization"
+              value={organization}
+              onChange={handle_filter_input}
               placeholder="Select"
               className="search2"
-              required
+              disabled
             />
             <div className="searchIcon">
               <span>
@@ -81,9 +130,11 @@ const FilterComponent: React.FC = () => {
           >
             <input
               type="text"
-              placeholder="User"
+              name="Username"
+              value={Username}
+              onChange={handle_filter_input}
+              placeholder="user"
               className="search2"
-              required
             />
           </div>
           {/* SEARCH INPUT ENDS*/}
@@ -99,9 +150,11 @@ const FilterComponent: React.FC = () => {
           >
             <input
               type="email"
+              name="email"
               placeholder="Email"
               className="search2"
-              required
+              value={email}
+              onChange={handle_filter_input}
             />
           </div>
           {/* SEARCH INPUT ENDS*/}
@@ -117,15 +170,12 @@ const FilterComponent: React.FC = () => {
           >
             <input
               type="date"
+              name="date"
               placeholder="Date"
               className="search2"
-              required
+              value={date}
+              onChange={handle_filter_input}
             />
-            {/* <div className="searchIcon">
-                  <span>
-                    <img src={calender}  className="arrowDown" alt=""  />
-                  </span>
-                </div> */}
           </div>
           {/* SEARCH INPUT ENDS*/}
         </div>
@@ -140,9 +190,11 @@ const FilterComponent: React.FC = () => {
           >
             <input
               type="text"
+              name="phone_number"
+              value={phone_number}
+              onChange={handle_filter_input}
               placeholder="Phone Number"
               className="search2"
-              required
             />
           </div>
           {/* SEARCH INPUT ENDS*/}
@@ -158,6 +210,9 @@ const FilterComponent: React.FC = () => {
           >
             <input
               type="text"
+              name="status"
+              value={status}
+              onChange={handle_filter_input}
               placeholder="Select"
               className="search2"
               disabled
