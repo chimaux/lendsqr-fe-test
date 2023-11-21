@@ -19,7 +19,10 @@ import UserMoreItems from "./userMoreItem/UserMoreItems";
 import FocusFix1 from "./FocusFix1";
 import { Spinner } from "react-activity";
 import "react-activity/dist/library.css";
+import StatusUpdatePopup from "./status_update_popup/StatusUpdatePopup";
 const User = () => {
+
+  const {items,itemOffset, setItemOffset} = UseGlobalContext()
   const userDatabase = new Dexie("user_db");
 
   userDatabase.version(1).stores({
@@ -29,10 +32,15 @@ const User = () => {
       "++id,user_id,guarantor_name,guarantor_phone_number,guarantor_email,guarantor_relationship",
   });
 
-  const customerData1 = userDatabase.table("customerData");
+  // const customerData1 = userDatabase.table("customerData");
 
-  const items = useLiveQuery(() => customerData1.toArray(), []);
-  const itemsLengths = items?.length === undefined ? 1 : items.length;
+ 
+
+
+
+
+
+  const itemsLengths = items?.length === undefined ? 0 : items.length;
 
   interface paginationComponentProps {
     itemsLength: number;
@@ -42,28 +50,31 @@ const User = () => {
     // itemsLength:2,
     itemsLength: itemsLengths,
   };
+// FILTER OUT ACTIVE USERS STARTS HERE
+const active_users = items?.filter((item)=> item.status === "active")
+// FILTER OUT ACTIVE USERS ENDS HERE
 
   // USERS, ACTIVE USERS, USERS WITH LOANS, USERS WITH SAVINGS
   const tabContent = [
     {
       icon: tabIcon1,
       title: "USERS",
-      number: "2,453",
+      number: `${itemsLengths === undefined ? 0 : itemsLengths}`,
     },
     {
       icon: tabIcon2,
       title: "ACTIVE USERS",
-      number: "2,453",
+      number:  `${active_users?.length === undefined ? 0 : active_users?.length}`,
     },
     {
       icon: tabIcon3,
       title: "USERS WITH LOANS",
-      number: "2,453",
+      number: "467",
     },
     {
       icon: tabIcon4,
       title: "USERS WITH SAVINGS",
-      number: "2,453",
+      number: "338",
     },
   ];
 
@@ -85,7 +96,7 @@ const User = () => {
     showFilter: boolean;
     toggleUserDataMoreItems: null | boolean;
     setToggleUserDataMoreItems: Dispatch<React.SetStateAction<null | boolean>>;
-    setMoreIndex_b: Dispatch<React.SetStateAction<number>>;
+    setMoreIndex_b: Dispatch<React.SetStateAction<string>>;
     setItemOffset: Dispatch<React.SetStateAction<number>>;
     btnOff3: boolean;
     setBtnOff3: Dispatch<React.SetStateAction<boolean>>;
@@ -105,11 +116,14 @@ const User = () => {
     };
     const targetElementRef = useRef<HTMLButtonElement | null>(null);
     const tableRef = useRef<HTMLTableElement | null>(null);
-
+ console.log("na am",usersData)
     return (
-      <>
+    
+      
         <div className="secondContainer" >
+          <StatusUpdatePopup/>
           {showFilter && <FilterComponent />}
+
           <table>
             <thead>
               <tr className="tr">
@@ -181,8 +195,9 @@ const User = () => {
                     </td>
                     <td>
                       <div className="tdata ">
-                        <UserMoreItems moreIndex_a={(linesPerPage * (itemOffset/linesPerPage)) +index} />
-                        <FocusFix1 moreIndex_a={(linesPerPage * (itemOffset/linesPerPage)) +index} />
+                        {/* <UserMoreItems moreIndex_a={(linesPerPage * (itemOffset/linesPerPage)) +index} /> */}
+                        <UserMoreItems moreIndex_a={item.user_id} />
+                        <FocusFix1 moreIndex_a={item.user_id} />
                         <div
                           className={`tdata2 ${
                             item.status === "inactive"
@@ -202,8 +217,8 @@ const User = () => {
                       
                           onClick={() => {
                       
-                            setMoreIndex_b((linesPerPage * (itemOffset/linesPerPage)) +index);
-                   
+                            setMoreIndex_b(item.user_id);
+                     console.log(item.user_id," ",item.status)
                             if (toggleUserDataMoreItems === null || toggleUserDataMoreItems === false){
                               setToggleUserDataMoreItems(true)
                             }
@@ -243,10 +258,10 @@ const User = () => {
             </div>:""
   }
         </div>
-      </>
+      
     );
   }
-  const [itemOffset, setItemOffset] = useState(0);
+
   function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
 
     const {
@@ -454,15 +469,20 @@ const User = () => {
     }
   }, [check_if_DB_exist]);
 
-  const { linesPerPage, active_page_number } = UseGlobalContext();
+  const { linesPerPage, active_page_number,showFilter} = UseGlobalContext();
 
   useEffect(() => {
     // Update the forcePage prop when active_page_number changes
     if (active_page_number !== null) {
       const newOffset = active_page_number * linesPerPage;
-      setItemOffset(newOffset);
+
+        setItemOffset(newOffset);
+   
+      
+      console.log(showFilter,newOffset," vvv")
     }
   }, [active_page_number, linesPerPage]);
+  console.log(showFilter,itemOffset," vvv2")
   return (
     <Layout>
       <div className="userText">Users</div>
