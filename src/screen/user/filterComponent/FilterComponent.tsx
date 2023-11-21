@@ -3,23 +3,26 @@ import "./FilterComponent.scss";
 
 import { UseGlobalContext } from "../../../Context";
 import Dexie from "dexie";
+import { useLiveQuery } from "dexie-react-hooks";
 
 const FilterComponent: React.FC = () => {
-
-
-
   const userDatabase = new Dexie("user_db");
 
   userDatabase.version(1).stores({
     customerData:
       "++id,user_id,organization,username,email,phone_number,date_joined,status,full_name,users_tier,amount,bank_name,bank_account_number,bvn,gender,marital_status,children,type_of_residence,education,employment,sector_of_employment,duration_of_employment,office_email,monthly_income,loan_repayment,twitter,facebook,instagram",
-
   });
 
-  // const customerData1 = userDatabase.table("customerData");
+  const customerData1 = userDatabase.table("customerData");
+
+  const indexDB_items = useLiveQuery(() => customerData1.toArray(), []);
+
+  const { setShowFilter,set_items, setItemOffset,filter_component_function,filter_input_state, set_filter_input_state} = UseGlobalContext();
+ 
 
 
-  const { setShowFilter } = UseGlobalContext();
+
+ 
   // ISFOCUSED STATE STARTS HERE
   const [isFocused, setIsFocused] = useState<number[]>([]);
   // ISFOCUSED STATE ENDS HERE
@@ -29,39 +32,35 @@ const FilterComponent: React.FC = () => {
   // ISFOCUSED STATE ENDS HERE
 
 
-
-
-  interface filter_input_state_type{
-    organization:string,
-    Username:string,
-    email:string,
-    date:string,
-    phone_number:string,
-    status:string,
-  }
-  // FILTER INPUTS STATE STARTS HERE
-  const [filter_input_state, set_filter_input_state] = useState<filter_input_state_type>({
-    organization: "",
-    Username: "",
-    email: "",
-    date: "",
-    phone_number: "",
-    status: "",
-  });
-  // FILTER INPUTS STATE ENDS HERE
   const { organization, Username, email, date, phone_number, status } =
     filter_input_state;
+
+
+    const filter_component_reset_function=()=>{
+      set_items(indexDB_items)
+      setShowFilter((prev) => !prev);
+      set_filter_input_state({ organization:"", Username:"", email:"", date:"", phone_number:"", status:"" });
+      setItemOffset(0)
+      }
     
   // const handle_filter_input = (e: { target: { name: string; value: string; }; }) => {
-  const handle_filter_input = (e:React.ChangeEvent<HTMLInputElement>) => {
-    const {name,value}=e.target
-    set_filter_input_state({...filter_input_state,[name]:value})
+  const handle_filter_input = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    set_filter_input_state({ ...filter_input_state, [name]: value });
   };
 
-  console.log(filter_input_state)
-  const filterFunction = () => {
-    setShowFilter((prev) => !prev);
+  const handle_filter_input2 = (event:React.MouseEvent<HTMLDivElement>) => {
+    const {textContent,title}=event.currentTarget
+
+    // console.log(title, "e don burst");
+
+    set_filter_input_state({...filter_input_state,[title]:textContent})
+     set_status_dropdown((prev) => !prev);
+
   };
+  
+  console.log(filter_input_state);
+ 
 
   const handleFocus = (index: number) => {
     if (!isFocused.includes(index)) {
@@ -207,17 +206,23 @@ const FilterComponent: React.FC = () => {
             className={`search1 ${isFocused.includes(6) ? "focus" : "blur"}`}
             onFocus={() => handleFocus(6)}
             onBlur={() => handleBlur(6)}
+            
           >
+            <div 
+            onClick={status_dropdown_handler}
+         className="status_box_overlay_fix"
+            >
+
+            </div>
             <input
               type="text"
-              name="status"
               value={status}
               onChange={handle_filter_input}
               placeholder="Select"
               className="search2"
               disabled
             />
-            <div className="searchIcon" onClick={status_dropdown_handler}>
+            <div className="searchIcon" >
               <span>
                 {status_dropdown === false ? (
                   <img
@@ -237,10 +242,18 @@ const FilterComponent: React.FC = () => {
           </div>
           {status_dropdown && (
             <div className="status_dropdown">
-              <div className="sd_child">Inactive user</div>
-              <div className="sd_child">Pending user</div>
-              <div className="sd_child">Active user</div>
-              <div className="sd_child">Blaklisted user</div>
+              <div onClick={handle_filter_input2} title="status" className="sd_child">
+                Inactive user
+              </div>
+              <div onClick={handle_filter_input2} title="status" className="sd_child">
+                Pending user
+              </div>
+              <div onClick={handle_filter_input2} title="status" className="sd_child">
+                Active user
+              </div>
+              <div onClick={handle_filter_input2} title="status" className="sd_child">
+                Blacklisted user
+              </div>
             </div>
           )}
 
@@ -248,8 +261,10 @@ const FilterComponent: React.FC = () => {
         </div>
 
         <div className="filterBtnContainer">
-          <div className="resetBtn">Reset</div>
-          <div className="filterBtn" onClick={filterFunction}>
+          <div className="resetBtn"
+          onClick={filter_component_reset_function}
+          >Reset</div>
+          <div className="filterBtn" onClick={filter_component_function}>
             Filter
           </div>
         </div>

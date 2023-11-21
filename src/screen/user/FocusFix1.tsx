@@ -6,7 +6,7 @@ import { UseGlobalContext } from "../../Context";
 
 interface LayoutProps {
 
-    moreIndex_a: number; // Define the type of children
+    moreIndex_a: string; // Define the type of children
 
   }
 

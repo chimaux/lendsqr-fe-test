@@ -7,7 +7,7 @@ import Dexie from "dexie";
 
 interface LayoutProps {
 
-    moreIndex_a: number; // Define the type of children
+    moreIndex_a: string; // Define the type of children
 
   }
 
@@ -26,7 +26,7 @@ export const UserMoreItems:React.FC<LayoutProps>= ({moreIndex_a}) => {
   const customerData1 = userDatabase.table("customerData");
 
 
-  const {  toggleUserDataMoreItems, moreIndex_b, setToggleUserDataMoreItems}=UseGlobalContext()
+  const {  set_status_update_popup,toggleUserDataMoreItems, moreIndex_b, setToggleUserDataMoreItems, items}=UseGlobalContext()
 
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -48,13 +48,35 @@ export const UserMoreItems:React.FC<LayoutProps>= ({moreIndex_a}) => {
   }
 
   const blacklist_user = async ()=>{
-    await customerData1.update(moreIndex_a+1,{status:"blacklist"})
-    setToggleUserDataMoreItems((prev) => !prev);
+    // await customerData1.update(moreIndex_a+1,{status:"blacklist"})
+try{
+  const new_value:string[]|undefined = items?.find(data => data.user_id === moreIndex_b)
+  console.log("before",new_value)
+  const updated_data = {...new_value,status:"blacklist"}
+  console.log("after",updated_data)
+   await customerData1.put(updated_data)
+  setToggleUserDataMoreItems((prev) => !prev);
+  set_status_update_popup(true)
+}
+catch(e){
+ console.log(e)
+}
+finally{
+  console.log("finally")
+}
+  
   }
 
   const activate_user = async ()=>{
-    await customerData1.update(moreIndex_a+1,{status:"active"})
+    const new_value:string[]|undefined = items?.find(data => data.user_id === moreIndex_b)
+    console.log("before",new_value)
+    const updated_data = {...new_value,status:"active"}
+    console.log("after",updated_data)
+     await customerData1.put(updated_data)
     setToggleUserDataMoreItems((prev) => !prev);
+    set_status_update_popup(true)
+
+  
   }
 
 
