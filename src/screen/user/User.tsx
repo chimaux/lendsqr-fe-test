@@ -37,9 +37,12 @@ const User = () => {
  
 
 
+const userPageTabContent = userDatabase.table("customerData")
+
+const uptcIndexDB = useLiveQuery(()=> userPageTabContent.toArray(),[] )
 
 
-
+  const itemsLengths2 = uptcIndexDB?.length === undefined ? 0 : uptcIndexDB.length;
   const itemsLengths = items?.length === undefined ? 0 : items.length;
 
   interface paginationComponentProps {
@@ -51,7 +54,7 @@ const User = () => {
     itemsLength: itemsLengths,
   };
 // FILTER OUT ACTIVE USERS STARTS HERE
-const active_users = items?.filter((item)=> item.status === "active")
+const active_users = uptcIndexDB?.filter((item)=> item.status === "active")
 // FILTER OUT ACTIVE USERS ENDS HERE
 
   // USERS, ACTIVE USERS, USERS WITH LOANS, USERS WITH SAVINGS
@@ -59,7 +62,7 @@ const active_users = items?.filter((item)=> item.status === "active")
     {
       icon: tabIcon1,
       title: "USERS",
-      number: `${itemsLengths === undefined ? 0 : itemsLengths}`,
+      number: `${itemsLengths2 === undefined ? 0 : itemsLengths2}`,
     },
     {
       icon: tabIcon2,
@@ -89,7 +92,8 @@ const active_users = items?.filter((item)=> item.status === "active")
     linesPerPage,
     itemOffset,
     toggleUserDataMoreItems,
-    itemsLengths
+    itemsLengths,
+    set_popup_check
   }: {
     usersData: any[] | undefined;
     setShowFilter: Dispatch<React.SetStateAction<boolean>>;
@@ -102,6 +106,7 @@ const active_users = items?.filter((item)=> item.status === "active")
     setBtnOff3: Dispatch<React.SetStateAction<boolean>>;
     set_user_more_overlay: Dispatch<React.SetStateAction<boolean>>;
     set_active_page_number: Dispatch<React.SetStateAction<number>>;
+    set_popup_check: Dispatch<React.SetStateAction<string>>;
     active_page_number: number;
     linesPerPage: number;
     itemOffset: number;
@@ -113,15 +118,23 @@ const active_users = items?.filter((item)=> item.status === "active")
   }) {
     const showFilterBoxHandler = () => {
       setShowFilter((prev) => !prev);
+      set_popup_check("notFound")
     };
     const targetElementRef = useRef<HTMLButtonElement | null>(null);
     const tableRef = useRef<HTMLTableElement | null>(null);
- console.log("na am",usersData)
+
+    function capitalizeFirstLetter(str:string) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+//  console.log("na am",usersData)
     return (
     
       
-        <div className="secondContainer" >
-          <StatusUpdatePopup/>
+        <div className="secondContainer" > 
+          <StatusUpdatePopup 
+          value="Status updated succesfully"
+          buttonText="Continue"
+          />
           {showFilter && <FilterComponent />}
 
           <table>
@@ -179,13 +192,13 @@ const active_users = items?.filter((item)=> item.status === "active")
                     className="tableData"
                   >
                     <td>
-                      <span className="tdata">{item.organization}</span>
+                      <span className="tdata">{capitalizeFirstLetter(item.organization)}</span>
                     </td>
                     <td>
-                      <span className="tdata">{item.username}</span>
+                      <span className="tdata">{capitalizeFirstLetter(item.username)}</span>
                     </td>
                     <td>
-                      <span className="tdata">{item.email}</span>
+                      <span className="tdata">{item.email.trim().toLowerCase()}</span>
                     </td>
                     <td>
                       <span className="tdata">{item.phone_number}</span>
@@ -218,9 +231,10 @@ const active_users = items?.filter((item)=> item.status === "active")
                           onClick={() => {
                       
                             setMoreIndex_b(item.user_id);
-                     console.log(item.user_id," ",item.status)
+                    //  console.log(item.user_id," ",item.status)
                             if (toggleUserDataMoreItems === null || toggleUserDataMoreItems === false){
                               setToggleUserDataMoreItems(true)
+                              set_popup_check("user")
                             }
                             else{
                               setToggleUserDataMoreItems(false)
@@ -274,7 +288,8 @@ const active_users = items?.filter((item)=> item.status === "active")
       set_user_more_overlay,
       active_page_number,
       toggleUserDataMoreItems,
-      set_active_page_number
+      set_active_page_number,
+      set_popup_check
 
     } = UseGlobalContext();
 
@@ -317,6 +332,7 @@ const active_users = items?.filter((item)=> item.status === "active")
           handlePageClick = {handlePageClick}
           set_active_page_number={set_active_page_number}
           itemsLengths={itemsLengths}
+          set_popup_check={set_popup_check}
 
         />
         <div className="pagination">
@@ -347,25 +363,11 @@ const active_users = items?.filter((item)=> item.status === "active")
 
   // CHECK IF INDEX DB CONTAINS DATA UP TO 500
   const test_for_db = () => {
-    const db_state_string = localStorage.getItem("db_state");
+    const db_state_string = localStorage.getItem("db_state1");
     const dbState = db_state_string ? JSON.parse(db_state_string) : "false";
     return dbState;
 
 
-    // if (
-    //   customerDataList?.length === 500 &&
-    //   customerGuarantorsList?.length === 500
-    // ) {
-    //   setcheck_if_DB_exist(true);
-    //   console.log("true meme");
-    // } else if (
-    //   customerDataList?.length === 0 &&
-    //   customerGuarantorsList?.length === 0
-    // ) {
-    //   setcheck_if_DB_exist(false);
-    //   console.log("false meme");
-    // }
-    // console.log(check_if_DB_exist, " you sure!!");
   };
 
   const [check_if_DB_exist, setcheck_if_DB_exist] = useState<string>(
@@ -384,7 +386,7 @@ const active_users = items?.filter((item)=> item.status === "active")
 
   // LOAD 500 USER DATA INTO INDEX DB
   useEffect(() => {
-    if (check_if_DB_exist === "false") {
+    if (check_if_DB_exist === "false" && customerDataList?.length === 0 || check_if_DB_exist === "false" && customerDataList?.length === undefined) {
       const customerData = userDatabase.table("customerData");
       const guarantorTable = userDatabase.table("guarantorTable");
 
@@ -393,7 +395,7 @@ const active_users = items?.filter((item)=> item.status === "active")
         const addCDL = async (val: number) => {
           await customerData.add({
             user_id: `xxxx${val}`,
-            organization: `Lenders${val}`,
+            organization: `lenders${val}`,
             username: `kemi${val}`,
             email: `kemi@gmail.com${val}`,
             phone_number: `09076543566${val}`,
@@ -415,27 +417,27 @@ const active_users = items?.filter((item)=> item.status === "active")
                 ? "inactive"
                 : "blacklist"
             }`,
-            full_name: `Kemi Fumilayo${val}`,
+            full_name: `kemi kumilayo${val}`,
             users_tier: `${val < 150 ? "2" : val > 400 ? "1" : "3"}`,
             amount: `200000${val}`,
             bank_name: `${
               val < 150
-                ? "Providus Bank"
+                ? "providus bank"
                 : val > 400
-                ? "Zenith Bank"
-                : "Union Bank"
+                ? "zenith bank"
+                : "union bank"
             }`,
             bank_account_number: `098765467${val}`,
             bvn: `767656563${val}`,
             gender: `${val < 150 ? "m" : "f"}`,
-            marital_status: `${val < 150 ? "Single" : "Married"}`,
+            marital_status: `${val < 150 ? "single" : "married"}`,
             children: `0${val}`,
             type_of_residence: `${
-              val < 150 ? "Parents house" : "Personal apartment"
+              val < 150 ? "parents house" : "personal apartment"
             }`,
-            education: `${val < 150 ? "PHD" : val > 400 ? "BSC" : "HND"}`,
+            education: `${val < 150 ? "phd" : val > 400 ? "bsc" : "hnd"}`,
             employment: `${val < 150 ? "yes" : "no"}`,
-            sector_of_employment: `Finance${val}`,
+            sector_of_employment: `finance${val}`,
             duration_of_employment: `${
               val < 150 ? "2" : val > 400 ? "3" : "5"
             }`,
@@ -448,7 +450,7 @@ const active_users = items?.filter((item)=> item.status === "active")
           });
           await guarantorTable.add({
             user_id: `xxxx${val}`,
-            guarantor_name: `Shola Fumilayo${val}`,
+            guarantor_name: `shola fumilayo${val}`,
             guarantor_phone_number: `0908788876${val}`,
             guarantor_email: `shola111@gmail.com${val}`,
             guarantor_relationship: `${val < 150 ? "brother" : "sister"}`,
@@ -460,7 +462,7 @@ const active_users = items?.filter((item)=> item.status === "active")
         if (i === 501) {
           clearTimeout(loop);
           setcheck_if_DB_exist("true");
-          localStorage.setItem("db_state", JSON.stringify("true"));
+          localStorage.setItem("db_state1", JSON.stringify("true"));
         }
       }, 10);
       return () => {
@@ -469,7 +471,7 @@ const active_users = items?.filter((item)=> item.status === "active")
     }
   }, [check_if_DB_exist]);
 
-  const { linesPerPage, active_page_number,showFilter} = UseGlobalContext();
+  const { linesPerPage, active_page_number} = UseGlobalContext();
 
   useEffect(() => {
     // Update the forcePage prop when active_page_number changes
@@ -479,10 +481,10 @@ const active_users = items?.filter((item)=> item.status === "active")
         setItemOffset(newOffset);
    
       
-      console.log(showFilter,newOffset," vvv")
+      // console.log(showFilter,newOffset," vvv")
     }
   }, [active_page_number, linesPerPage]);
-  console.log(showFilter,itemOffset," vvv2")
+  // console.log(showFilter,itemOffset," vvv2")
   return (
     <Layout>
       <div className="userText">Users</div>
