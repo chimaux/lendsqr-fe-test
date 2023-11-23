@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useState } from "react";
 import "./FilterComponent.scss";
 
 import { UseGlobalContext } from "../../../Context";
 import Dexie from "dexie";
 import { useLiveQuery } from "dexie-react-hooks";
+
 
 const FilterComponent: React.FC = () => {
   const userDatabase = new Dexie("user_db");
@@ -17,7 +18,15 @@ const FilterComponent: React.FC = () => {
 
   const indexDB_items = useLiveQuery(() => customerData1.toArray(), []);
 
-  const { setShowFilter,set_items, setItemOffset,filter_component_function,filter_input_state, set_filter_input_state} = UseGlobalContext();
+  const { setShowFilter,
+    set_items,
+    setItemOffset,
+    // filter_component_function,
+    // filter_input_state,
+    set_filter_input_state22,
+    set_active_page_number,
+    set_status_update_popup,
+  } = UseGlobalContext();
  
 
 
@@ -32,34 +41,128 @@ const FilterComponent: React.FC = () => {
   // ISFOCUSED STATE ENDS HERE
 
 
+
+  interface filter_input_state_type {
+    organization: string;
+    Username: string;
+    email: string;
+    date: string;
+    phone_number: string;
+    status: string;
+  }
+
+  // FILTER INPUTS STATE STARTS HERE
+  const [filter_input_state, set_filter_input_state] =
+    useState<filter_input_state_type>({
+      organization: "",
+      Username: "",
+      email: "",
+      date: "",
+      phone_number: "",
+      status: "",
+    });
+  // FILTER INPUTS STATE ENDS HERE
+
+  const for_filtered_items = useLiveQuery(() => customerData1.toArray(), []);
+
   const { organization, Username, email, date, phone_number, status } =
     filter_input_state;
+  const filter_component_function = () => {
+    let status_new_value: string;
+    switch (status) {
+      case "Inactive user":
+        status_new_value = "inactive";
+        break;
+      case "Pending user":
+        status_new_value = "pending";
+        break;
+      case "Active user":
+        status_new_value = "active";
+        break;
+      case "Blacklisted user":
+        status_new_value = "blacklist";
+        break;
+      default:
+        status_new_value = "";
+    }
+
+    if (
+      status_new_value !== "" ||
+      phone_number !== "" ||
+      email !== "" ||
+      date !== "" ||
+      Username !== "" ||
+      organization !== ""
+    ) {
+    
+      const sorted_status = for_filtered_items?.filter((data) => {
+        const new_value =
+          (status_new_value !== "" ? data.status.trim().toLowerCase() === status_new_value.trim().toLowerCase() : true) &&
+          (phone_number !== "" ? data.phone_number.trim().toLowerCase() === phone_number.trim().toLowerCase() : true) &&
+          (date !== "" ? data.date_joined.trim().toLowerCase() === date.trim().toLowerCase() : true) &&
+          (email !== "" ? data.email.trim().toLowerCase() === email.trim().toLowerCase() : true) &&
+          (organization !== "" ? data.organization.trim().toLowerCase() === organization.trim().toLowerCase() : true) &&
+          (Username !== "" ? data.username.trim().toLowerCase() === Username.trim().toLowerCase() : true);
+        // console.log(new_value, "new valve");
+        return new_value;
+      });
+      // console.log(sorted_status);
+      // console.log(new_value);
+      if (sorted_status?.length !== 0) {
+        set_items(sorted_status);
+        setShowFilter((prev) => !prev);
+        setItemOffset(0);
+        set_active_page_number(0);
+        set_filter_input_state22(filter_input_state)
+        // set_status_update_popup(false)
+      }
+      else if (sorted_status?.length === 0){
+        set_status_update_popup(true)
+      }
+    }
+  };
+
+
+
+  // const { organization, Username, email, date, phone_number, status } =
+  //   filter_input_state;
 
 
     const filter_component_reset_function=()=>{
       set_items(indexDB_items)
       setShowFilter((prev) => !prev);
-      set_filter_input_state({ organization:"", Username:"", email:"", date:"", phone_number:"", status:"" });
+
+      set_filter_input_state({
+        organization: "",
+        Username: "",
+        email: "",
+        date: "",
+        phone_number: "",
+        status: "",
+      })
       setItemOffset(0)
+      set_active_page_number(0)
       }
     
   // const handle_filter_input = (e: { target: { name: string; value: string; }; }) => {
   const handle_filter_input = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    set_filter_input_state({ ...filter_input_state, [name]: value });
+    set_filter_input_state({...filter_input_state,[name]:value})
   };
 
   const handle_filter_input2 = (event:React.MouseEvent<HTMLDivElement>) => {
     const {textContent,title}=event.currentTarget
-
+    const name = title
+    const value = textContent === null ? "":textContent
     // console.log(title, "e don burst");
 
-    set_filter_input_state({...filter_input_state,[title]:textContent})
+    set_filter_input_state({...filter_input_state,[name]:value})
+    
      set_status_dropdown((prev) => !prev);
 
   };
   
-  console.log(filter_input_state);
+  // console.log(filter_input_state);
  
 
   const handleFocus = (index: number) => {
@@ -77,18 +180,24 @@ const FilterComponent: React.FC = () => {
   const status_dropdown_handler = () => {
     set_status_dropdown((prev) => !prev);
   };
-  const popupRef = useRef<HTMLDivElement>(null);
+  // const popupRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (popupRef.current) {
-      popupRef.current.focus();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (popupRef.current) {
+  //     popupRef.current.focus();
+  //   }
+  // }, []);
+
+
 
   return (
     <>
-      <div className="filterContainer">
-        {/* ORGANISATION */}
+      <div className="filterContainer"
+
+      >
+
+                  
+       {/* ORGANISATION */}
         <div className="inputContainer">
           <div className="title"> Organization</div>
           {/* SEARCH INPUT */}
@@ -104,7 +213,7 @@ const FilterComponent: React.FC = () => {
               onChange={handle_filter_input}
               placeholder="Select"
               className="search2"
-              disabled
+              // disabled
             />
             <div className="searchIcon">
               <span>
@@ -217,7 +326,7 @@ const FilterComponent: React.FC = () => {
             <input
               type="text"
               value={status}
-              onChange={handle_filter_input}
+              // onChange={handle_filter_input}
               placeholder="Select"
               className="search2"
               disabled

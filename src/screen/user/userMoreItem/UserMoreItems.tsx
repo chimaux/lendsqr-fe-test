@@ -26,7 +26,7 @@ export const UserMoreItems:React.FC<LayoutProps>= ({moreIndex_a}) => {
   const customerData1 = userDatabase.table("customerData");
 
 
-  const {  set_status_update_popup,toggleUserDataMoreItems, moreIndex_b, setToggleUserDataMoreItems, items}=UseGlobalContext()
+  const {set_status_update_popup,toggleUserDataMoreItems, moreIndex_b, setToggleUserDataMoreItems, items}=UseGlobalContext()
 
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +39,7 @@ export const UserMoreItems:React.FC<LayoutProps>= ({moreIndex_a}) => {
 
 
   const handleClose =()=>{
-  console.log("onBlur block")
+  // console.log("onBlur block")
       setToggleUserDataMoreItems((prev) => !prev);
 
    
@@ -51,30 +51,39 @@ export const UserMoreItems:React.FC<LayoutProps>= ({moreIndex_a}) => {
     // await customerData1.update(moreIndex_a+1,{status:"blacklist"})
 try{
   const new_value:string[]|undefined = items?.find(data => data.user_id === moreIndex_b)
-  console.log("before",new_value)
+  // console.log("before",new_value)
   const updated_data = {...new_value,status:"blacklist"}
-  console.log("after",updated_data)
+  // console.log("after",updated_data)
    await customerData1.put(updated_data)
   setToggleUserDataMoreItems((prev) => !prev);
   set_status_update_popup(true)
+
 }
 catch(e){
  console.log(e)
 }
-finally{
-  console.log("finally")
-}
+// finally{
+//   console.log("finally")
+// }
   
   }
 
   const activate_user = async ()=>{
-    const new_value:string[]|undefined = items?.find(data => data.user_id === moreIndex_b)
-    console.log("before",new_value)
+    try{
+      const new_value:string[]|undefined = items?.find(data => data.user_id === moreIndex_b)
+    // console.log("before",new_value)
     const updated_data = {...new_value,status:"active"}
-    console.log("after",updated_data)
+    // console.log("after",updated_data)
      await customerData1.put(updated_data)
     setToggleUserDataMoreItems((prev) => !prev);
     set_status_update_popup(true)
+    }
+    catch(e){
+      console.log(e)
+    }
+    // finally{
+    //   console.log("finally")
+    // }
 
   
   }
@@ -89,7 +98,7 @@ finally{
         onBlur={handleClose}
         className='user_more_items_container'>
 
-<div className="viewContainer">
+<div className="viewContainer2">
 <img className="viewContainer_img" src="./assets/images/user/view_details.png" alt=""  />
 <div>View Details</div>
 </div>
