@@ -3,6 +3,8 @@ import "./UserMoreItems.scss"
 import { UseGlobalContext } from "../../../Context"
 import { useEffect, useRef } from "react";
 import Dexie from "dexie";
+import { useNavigate } from "react-router-dom";
+
 
 
 interface LayoutProps {
@@ -87,8 +89,10 @@ catch(e){
 
   
   }
-
-
+const navigate = useNavigate()
+ const view_more_details=(id:string)=>{
+  navigate(`/details/${id}`)
+ }
 
 
   return (
@@ -98,7 +102,9 @@ catch(e){
         onBlur={handleClose}
         className='user_more_items_container'>
 
-<div className="viewContainer2">
+<div className="viewContainer"
+onClick={()=>view_more_details(moreIndex_a)}
+>
 <img className="viewContainer_img" src="./assets/images/user/view_details.png" alt=""  />
 <div>View Details</div>
 </div>
