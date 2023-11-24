@@ -268,7 +268,7 @@ const active_users = uptcIndexDB?.filter((item)=> item.status === "active")
                 marginTop:10,
                 color:"rgb(73,74,77)"
               }}
-              >Loading data from IndexDB may be slow on Chrome, Safari and IE. Data will be up in a minute.</div>
+              >Loading data from IndexDB may be slow on Chrome, Safari and IE. Data will be up in a minute. Clear the local storage and indexDB for this website if data is taking longer than 2 minutes to come up. You should have no error if this is your initial visit to the website.</div>
             </div>:""
   }
         </div>
@@ -364,15 +364,10 @@ const active_users = uptcIndexDB?.filter((item)=> item.status === "active")
   // CHECK IF INDEX DB CONTAINS DATA UP TO 500
   const test_for_db = () => {
     const db_state_string = localStorage.getItem("db_state1");
-    const db_state_string2 = localStorage.getItem("db_state");
-   if (db_state_string2){
-    const dbState = db_state_string ? JSON.parse(db_state_string) : "true";
-    return dbState;
-   }
-   else if (!db_state_string2){
+  
     const dbState = db_state_string ? JSON.parse(db_state_string) : "false";
     return dbState;
-   }
+
 
 
   };

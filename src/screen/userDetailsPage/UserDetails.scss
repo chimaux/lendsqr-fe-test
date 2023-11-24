@@ -1,0 +1,46 @@
+// BREAK POINTS
+@mixin respond($breakpoint) {
+  @if ($breakpoint == "sm") {
+    @media (max-width: 640px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == "md") {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == "lg") {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == "xl") {
+    @media (max-width: 1280px) {
+      @content;
+    }
+  }
+  @if ($breakpoint == "2xl") {
+    @media (max-width: 1536px) {
+      @content;
+    }
+  }
+}
+
+.user_details_container {
+  .udc_back_container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .udc_back_container img {
+    width: 30px;
+    height: auto;
+  }
+  .udc_back_container div {
+    color: #545f7d;
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 10px;
+  }
+}
