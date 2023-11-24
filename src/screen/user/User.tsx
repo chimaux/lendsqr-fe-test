@@ -364,15 +364,10 @@ const active_users = uptcIndexDB?.filter((item)=> item.status === "active")
   // CHECK IF INDEX DB CONTAINS DATA UP TO 500
   const test_for_db = () => {
     const db_state_string = localStorage.getItem("db_state1");
-    const db_state_string2 = localStorage.getItem("db_state");
-   if (db_state_string2){
-    const dbState = db_state_string ? JSON.parse(db_state_string) : "true";
-    return dbState;
-   }
-   else if (!db_state_string2){
+  
     const dbState = db_state_string ? JSON.parse(db_state_string) : "false";
     return dbState;
-   }
+
 
 
   };
