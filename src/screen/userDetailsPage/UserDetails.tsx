@@ -1,10 +1,10 @@
 import React from 'react'
 import "./UserDetails.scss"
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import Layout from '../../layout/Layout'
 
 export const UserDetails:React.FC=()=>{
-    const {id}=useParams<{id:string}>()
+    // const {id}=useParams<{id:string}>()
     const navigate = useNavigate()
   return (
     <Layout>
