@@ -6,6 +6,7 @@ import Dashboard from './screen/dashboard/Dashboard';
 import Login from './screen/login/Login';
 import Guarantors from './screen/guarantors/Guarantors';
 import Organisation from './screen/organisation/Organization';
+import UserDetails from './screen/userDetailsPage/UserDetails';
 
 const Router: React.FC  = () => {
   return (
@@ -17,6 +18,7 @@ const Router: React.FC  = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/guarantors" element={<Guarantors />} />
             <Route path="/organization" element={<Organisation />} />
+            <Route path="/details/:id" element={<UserDetails />} />
         </Routes>
 </div>
    
