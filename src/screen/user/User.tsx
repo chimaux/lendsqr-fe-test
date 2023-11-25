@@ -479,7 +479,7 @@ const User = () => {
             bvn: `${767656563+val}`,
             gender: `${val < 150 ? "m" : "f"}`,
             marital_status: `${val < 150 ? "single" : "married"}`,
-            children: `0${val}`,
+            children: `${val === 0 ? "None":val}`,
             type_of_residence: `${
               val < 150 ? "parents house" : "personal apartment"
             }`,
