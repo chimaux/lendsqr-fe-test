@@ -17,16 +17,13 @@ const More :React.FC = () => {
   const {
     
     setMoreopen,
-    setBtnOff
+   
+    setIsLogged
   
   } = UseGlobalContext();
    
 const handleBlur =()=>{
   setMoreopen((prev)=> !prev)
-
-  setTimeout(() => {
-    setBtnOff(false)
-  }, 200);
   
 }
 
@@ -38,7 +35,10 @@ const handleBlur =()=>{
     >
 <div >
 <div className='moreText'><PiUserCirclePlus className="icon" size={20} />Update Profile</div>
-<div className='moreText'><IoIosLogOut className="icon" size={20} />Logout</div>
+<div className='moreText' onClick={()=> {
+  handleBlur()
+  setIsLogged(false)
+}}><IoIosLogOut className="icon" size={20} />Logout</div>
 <div className='moreText'>v1.2.0</div>
 </div>
     </div>

@@ -166,7 +166,7 @@ const settingsItem = [
 ];
 
 const SideNavigation: React.FC = () => {
-  const { pageName, setPageName } = UseGlobalContext();
+  const { pageName, setPageName, setIsLogged } = UseGlobalContext();
 
   const [myIndex, setMyIndex] = useState<number>();
   const [sideSection, setSideSection] = useState<string>("");
@@ -307,7 +307,7 @@ const SideNavigation: React.FC = () => {
         </div>
       </div>
       <div className="logoutItem">
-        <div className="logout">
+        <div className="logout" onClick={()=>  setIsLogged(false)}>
           <IoIosLogOut className="icon"  />
           Logout
         </div>

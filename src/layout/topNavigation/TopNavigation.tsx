@@ -11,7 +11,7 @@ import More from "./component/more/More";
 import { UseGlobalContext } from "../../Context";
 
 const TopNavigation: React.FC = () => {
-  const { moreOpen, setMoreopen, setBtnOff, btnOff, setShowMobileNav } = UseGlobalContext();
+  const { moreOpen, setMoreopen,  setShowMobileNav } = UseGlobalContext();
 
 
   // ISFOCUSED STATE STARTS HERE
@@ -81,10 +81,10 @@ const TopNavigation: React.FC = () => {
 
               <button
                 className="avatarRole moreBtn"
-                disabled={btnOff}
+            
                 onClick={() => {
                   setMoreopen((prev) => !prev);
-                  setBtnOff(true);
+              
                 }}
               >
                 <div>Chima</div>
@@ -94,10 +94,10 @@ const TopNavigation: React.FC = () => {
 
             <button
               className="moreBtn "
-              disabled={btnOff}
+          
               onClick={() => {
                 setMoreopen((prev) => !prev);
-                setBtnOff(true);
+              
               }}
             >
               <FiMoreVertical size={24} className="moreIcon" />
