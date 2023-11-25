@@ -56,7 +56,7 @@
       font-size: 24px;
       font-weight: 500;
       @include respond("sm") {
-        font-size: 20px;
+        font-size: 18px;
       }
     }
     .udc_sc_action_container {
@@ -80,8 +80,8 @@
         border-radius: 8px;
         border: 1px solid #e4033b;
         @include respond("sm") {
-          font-size: 13px;
-          width: 150px;
+          font-size: 12px;
+          width: 125px;
           height: 30px;
           border-radius: 4px;
           letter-spacing: 1px;
@@ -103,8 +103,8 @@
         font-weight: 600;
         letter-spacing: 1.4px;
         @include respond("sm") {
-          font-size: 13px;
-          width: 150px;
+            font-size: 12px;
+            width: 125px;
           height: 30px;
           border-radius: 4px;
           letter-spacing: 1px;
@@ -224,6 +224,10 @@
             height: auto;
             margin-right: 10px;
             margin-left: 10px;
+            @include respond("sm"){
+                margin-right: 5px;
+                margin-left: 5px;
+            }
           }
         }
       }
@@ -378,7 +382,28 @@
 
         }
       }
+      
+      .udcfcp_container2 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        // padding: 20px;
+
+        @include respond("md"){
+            grid-template-columns: repeat(3, 1fr);
+            row-gap: 25px;
+        }
+        @include respond("sm"){
+            grid-template-columns: repeat(2, 1fr);
+             row-gap: 20px;
+        }
     }
+    .border_bottom_last{
+        border-bottom: 1px solid #21407d3d;
+        margin-bottom: 50px;
+        padding-bottom: 20px;
+    }
+}
+
     .bottom_border_unset{
         border-bottom: unset;
     }

@@ -18,13 +18,49 @@ interface filter_input_state_type {
   status: string;
 }
 
+interface user_date_type{
+  user_id:string,
+  organization:string,
+  username:string,
+  email:string,
+  phone_number:string,
+  date_joined:string,
+  status:string,
+  full_name:string,
+  users_tier:string,
+  amount:string,
+  bank_name:string,
+  bank_account_number:string,
+  bvn:string,
+  gender:string,
+  marital_status:string,
+  children:string,
+  type_of_residence:string,
+  education:string,
+  employment:string,
+  sector_of_employment:string,
+  duration_of_employment:string,
+  office_email:string,
+  monthly_income:string,
+  loan_repayment:string,
+  twitter:string,
+  facebook:string,
+  instagram:string,
+  guarantors: [
+    {
+      guarantor_name:string,
+      guarantor_phone_number:string,
+      guarantor_email:string,
+      guarantor_relationship:string,
+    },
+  ],
+}
+
 type MyType = {
   isLogged: boolean;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
   moreOpen: boolean;
   setMoreopen: React.Dispatch<React.SetStateAction<boolean>>;
-  btnOff: boolean;
-  setBtnOff: React.Dispatch<React.SetStateAction<boolean>>;
   linesPerPage: number;
   setLinesPerPage: React.Dispatch<React.SetStateAction<number>>;
   pageName: string;
@@ -62,6 +98,8 @@ type MyType = {
   >;
   status_update_popup: boolean;
   set_status_update_popup: React.Dispatch<React.SetStateAction<boolean>>;
+  user_details_info:user_date_type;
+  set_user_details_info: React.Dispatch<React.SetStateAction<user_date_type>>;
 };
 
 export const Context = createContext<MyType>({} as MyType);
@@ -72,9 +110,45 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
   // const [ isLogged,setIsLogged] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [moreOpen, setMoreopen] = useState(false);
-  // BTN OPEN STATE STARTS HERE
-  const [btnOff, setBtnOff] = useState<boolean>(false);
-  // BTN OPEN STATE ENDS HERE
+  
+  const [user_details_info, set_user_details_info] = useState<user_date_type>({
+    user_id:"",
+    organization:"",
+    username:"",
+    email:"",
+    phone_number:"",
+    date_joined:"",
+    status:"",
+    full_name:"",
+    users_tier:"",
+    amount:"",
+    bank_name:"",
+    bank_account_number:"",
+    bvn:"",
+    gender:"",
+    marital_status:"",
+    children:"",
+    type_of_residence:"",
+    education:"",
+    employment:"",
+    sector_of_employment:"",
+    duration_of_employment:"",
+    office_email:"",
+    monthly_income:"",
+    loan_repayment:"",
+    twitter:"",
+    facebook:"",
+    instagram:"",
+    guarantors: [
+      {
+        guarantor_name:"",
+        guarantor_phone_number:"",
+        guarantor_email:"",
+        guarantor_relationship:"",
+      },
+    ],
+  });
+ 
 
   const initialPageLoad = () => {
     isLogged === true ? navigate("/user") : navigate("/");
@@ -279,8 +353,6 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
     setIsLogged,
     moreOpen,
     setMoreopen,
-    btnOff,
-    setBtnOff,
     linesPerPage,
     setLinesPerPage,
     pageName,
@@ -312,7 +384,9 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
     status_update_popup,
     set_status_update_popup,
     popup_check,
-    set_popup_check
+    set_popup_check,
+    user_details_info, 
+    set_user_details_info
   };
   return <Context.Provider value={store}>{children}</Context.Provider>;
 };
