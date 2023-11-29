@@ -28,7 +28,7 @@ export const UserMoreItems:React.FC<LayoutProps>= ({moreIndex_a}) => {
   const customerData1 = userDatabase.table("customerData");
 
 
-  const {set_status_update_popup,toggleUserDataMoreItems, moreIndex_b, setToggleUserDataMoreItems, items}=UseGlobalContext()
+  const {set_popup_check,set_status_update_popup,toggleUserDataMoreItems, moreIndex_b, setToggleUserDataMoreItems, items}=UseGlobalContext()
 
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -92,6 +92,7 @@ catch(e){
 const navigate = useNavigate()
  const view_more_details=(id:string)=>{
   navigate(`/details/${id}`)
+  setToggleUserDataMoreItems((prev) => !prev);
  }
 
 
@@ -103,7 +104,11 @@ const navigate = useNavigate()
         className='user_more_items_container'>
 
 <div className="viewContainer"
-onClick={()=>view_more_details(moreIndex_a)}
+onClick={()=>{
+  view_more_details(moreIndex_a)
+  set_popup_check("user");
+}
+}
 >
 <img className="viewContainer_img" src="./assets/images/user/view_details.png" alt=""  />
 <div>View Details</div>

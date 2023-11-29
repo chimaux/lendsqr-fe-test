@@ -18,7 +18,8 @@ const FilterComponent: React.FC = () => {
 
   const indexDB_items = useLiveQuery(() => customerData1.toArray(), []);
 
-  const { setShowFilter,
+  const { 
+    setShowFilter,
     set_items,
     setItemOffset,
     // filter_component_function,
