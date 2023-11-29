@@ -18,7 +18,8 @@ const More :React.FC = () => {
     
     setMoreopen,
    
-    setIsLogged
+    setIsLogged,
+   
   
   } = UseGlobalContext();
    

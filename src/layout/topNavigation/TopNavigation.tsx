@@ -11,7 +11,7 @@ import More from "./component/more/More";
 import { UseGlobalContext } from "../../Context";
 
 const TopNavigation: React.FC = () => {
-  const { moreOpen, setMoreopen,  setShowMobileNav } = UseGlobalContext();
+  const { moreOpen, setMoreopen,  setShowMobileNav,set_focus_fix_state } = UseGlobalContext();
 
 
   // ISFOCUSED STATE STARTS HERE
@@ -83,6 +83,7 @@ const TopNavigation: React.FC = () => {
                 className="avatarRole moreBtn"
             
                 onClick={() => {
+                  set_focus_fix_state(false)
                   setMoreopen((prev) => !prev);
               
                 }}
@@ -96,6 +97,7 @@ const TopNavigation: React.FC = () => {
               className="moreBtn "
           
               onClick={() => {
+                set_focus_fix_state(false)
                 setMoreopen((prev) => !prev);
               
               }}

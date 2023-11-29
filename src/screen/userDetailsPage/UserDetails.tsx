@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./UserDetails.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Layout from "../../layout/Layout";
 
 import backIcon from "./images/backLongArrow.png";
@@ -10,8 +10,8 @@ import starOutlineIcon from "./images/startOutline.png";
 import { UseGlobalContext } from "../../Context";
 
 export const UserDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  console.log(id);
+//   const { id } = useParams<{ id: string }>();
+//   console.log(id);
   const navigate = useNavigate();
 
   const [currentTab, setCurrentTab] = useState<string>("1");
@@ -26,10 +26,10 @@ export const UserDetails: React.FC = () => {
     return numberString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  console.log(user_details_info);
+//   console.log(user_details_info);
   const {guarantors}=user_details_info
 
-  console.log(guarantors[0],"value love")
+//   console.log(guarantors[0],"value love")
   return (
     <Layout>
       <div className="user_details_container">

@@ -100,6 +100,8 @@ type MyType = {
   set_status_update_popup: React.Dispatch<React.SetStateAction<boolean>>;
   user_details_info:user_date_type;
   set_user_details_info: React.Dispatch<React.SetStateAction<user_date_type>>;
+  focus_fix_state:boolean;
+   set_focus_fix_state:React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const Context = createContext<MyType>({} as MyType);
@@ -206,7 +208,11 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
   const [popup_check, set_popup_check] = useState("");
   // FOR PAGINATION
 
+  // this state controls the popup when a status is change
   const [status_update_popup, set_status_update_popup] = useState(false);
+
+  //This state controls the onfocus behaviour of the focusfix component in relation to the More.tsx component
+  const [focus_fix_state, set_focus_fix_state] = useState<boolean>(true);
 
   const userDatabase = new Dexie("user_db");
 
@@ -244,58 +250,6 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
 
   const { organization, Username, email, date, phone_number, status } =
     filter_input_state22;
-  // const filter_component_function = () => {
-  //   let status_new_value: string;
-  //   switch (status) {
-  //     case "Inactive user":
-  //       status_new_value = "inactive";
-  //       break;
-  //     case "Pending user":
-  //       status_new_value = "pending";
-  //       break;
-  //     case "Active user":
-  //       status_new_value = "active";
-  //       break;
-  //     case "Blacklisted user":
-  //       status_new_value = "blacklist";
-  //       break;
-  //     default:
-  //       status_new_value = "";
-  //   }
-
-  //   if (
-  //     status_new_value !== "" ||
-  //     phone_number !== "" ||
-  //     email !== "" ||
-  //     date !== "" ||
-  //     Username !== "" ||
-  //     organization !== ""
-  //   ) {
-    
-  //     const sorted_status = for_filtered_items?.filter((data) => {
-  //       const new_value =
-  //         (status_new_value !== "" ? data.status === status_new_value : true) &&
-  //         (phone_number !== "" ? data.phone_number === phone_number : true) &&
-  //         (date !== "" ? data.date_joined === date : true) &&
-  //         (email !== "" ? data.email === email : true) &&
-  //         (organization !== "" ? data.organization === organization : true) &&
-  //         (Username !== "" ? data.username === Username : true);
-  //       // console.log(new_value, "new valve");
-  //       return new_value;
-  //     });
-  //     console.log(sorted_status);
-  //     // console.log(new_value);
-  //     if (sorted_status?.length !== 0) {
-  //       set_items(sorted_status);
-  //       setShowFilter((prev) => !prev);
-  //       setItemOffset(0);
-  //       set_active_page_number(0);
-  //     }
-  //     else{
-  //       console.log("not found")
-  //     }
-  //   }
-  // };
 
   const filter_component_function2 = () => {
     let status_new_value: string;
@@ -386,7 +340,9 @@ export const GlobalContext = ({ children }: { children: ReactNode }) => {
     popup_check,
     set_popup_check,
     user_details_info, 
-    set_user_details_info
+    set_user_details_info,
+    focus_fix_state, 
+    set_focus_fix_state
   };
   return <Context.Provider value={store}>{children}</Context.Provider>;
 };

@@ -36,7 +36,7 @@ export const FocusFix1:React.FC<LayoutProps>= ({moreIndex_a}) => {
         right: 0,
         height: 1,
         width: 1,
-        backgroundColor:"rgba(0,0,0,0)",
+        backgroundColor:"rgba(0,0,0,0.0)",
        }}
        >
 

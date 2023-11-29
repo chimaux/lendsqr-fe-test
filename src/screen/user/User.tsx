@@ -128,6 +128,8 @@ const User = () => {
     itemsLengths,
     set_popup_check,
     set_user_details_info,
+    set_focus_fix_state,
+    focus_fix_state
   }: {
     usersData: any[] | undefined;
     setShowFilter: Dispatch<React.SetStateAction<boolean>>;
@@ -147,6 +149,8 @@ const User = () => {
     itemOffset: number;
     itemsLengths: number;
     handlePageClick: (event: { selected: number }) => void;
+    set_focus_fix_state:Dispatch<React.SetStateAction<boolean>>;
+    focus_fix_state:boolean
   }) {
     const showFilterBoxHandler = () => {
       setShowFilter((prev) => !prev);
@@ -159,6 +163,25 @@ const User = () => {
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
     //  console.log("na am",usersData)
+
+    const more_handler = (item:{user_id:string,}) => {
+      setMoreIndex_b(item.user_id);
+       
+      // console.log(item);
+      if (
+        toggleUserDataMoreItems === null ||
+        toggleUserDataMoreItems === false
+      ) {
+        setToggleUserDataMoreItems(true);
+        set_popup_check("user");
+      } else {
+        setToggleUserDataMoreItems(false);
+      }
+
+      set_user_more_overlay((prev) => !prev);
+      set_active_page_number(itemOffset / linesPerPage);
+      set_focus_fix_state(true)
+    }
     return (
       <div className="secondContainer">
         <StatusUpdatePopup
@@ -246,7 +269,13 @@ const User = () => {
                     <div className="tdata ">
                       {/* <UserMoreItems moreIndex_a={(linesPerPage * (itemOffset/linesPerPage)) +index} /> */}
                       <UserMoreItems moreIndex_a={item.user_id} />
-                      <FocusFix1 moreIndex_a={item.user_id} />
+                      {
+                        
+                      }
+                      {
+                        focus_fix_state === true ? <FocusFix1 moreIndex_a={item.user_id} /> : ""
+                      }
+                      
                       <div
                         className={`tdata2 ${
                           item.status === "inactive"
@@ -263,23 +292,11 @@ const User = () => {
                       <button
                         ref={targetElementRef}
                         className="user_more_Btn "
-                        onClick={() => {
-                          setMoreIndex_b(item.user_id);
-                          set_user_details_info(item);
-                          // console.log(item);
-                          if (
-                            toggleUserDataMoreItems === null ||
-                            toggleUserDataMoreItems === false
-                          ) {
-                            setToggleUserDataMoreItems(true);
-                            set_popup_check("user");
-                          } else {
-                            setToggleUserDataMoreItems(false);
+                        onClick={()=> {
+                          more_handler(item);
+                           set_user_details_info(item);
                           }
-
-                          set_user_more_overlay((prev) => !prev);
-                          set_active_page_number(itemOffset / linesPerPage);
-                        }}
+                          }
                       >
                         <img className="user_more_icon" src={more} alt=" " />
                       </button>
@@ -332,6 +349,8 @@ const User = () => {
       set_active_page_number,
       set_popup_check,
       set_user_details_info,
+      set_focus_fix_state,
+      focus_fix_state
     } = UseGlobalContext();
 
     const endOffset = itemOffset + itemsPerPage;
@@ -372,6 +391,8 @@ const User = () => {
           itemsLengths={itemsLengths}
           set_popup_check={set_popup_check}
           set_user_details_info={set_user_details_info}
+          set_focus_fix_state={set_focus_fix_state}
+          focus_fix_state={focus_fix_state}
         />
         <div className="pagination">
           <PaginationDropdown {...paginationProbs} />
@@ -484,7 +505,7 @@ const User = () => {
               val < 150 ? "parents house" : "personal apartment"
             }`,
             education: `${val < 150 ? "phd" : val > 400 ? "bsc" : "hnd"}`,
-            employment: `${val < 150 ? "yes" : "no"}`,
+            employment: `${val < 150 ? "employed" : "not employed"}`,
             sector_of_employment: `finance`,
             duration_of_employment: `${
               val < 150 ? "2" : val > 400 ? "3" : "5"
