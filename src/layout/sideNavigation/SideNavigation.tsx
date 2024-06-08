@@ -180,8 +180,8 @@ const SideNavigation: React.FC = () => {
   }, []);
 
   return (
-    <div className="TabDesign">
-      <div className="overallContainer2 hide-scrollbar ">
+    <div className="TabDesign hide-scrollbar">
+      <div className="overallContainer2  ">
         <div className="switchOrganization">
           <img className="icon" src={briefCase} alt=" " />
           <span className="text">Switch Organization</span>
