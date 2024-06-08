@@ -1,5 +1,5 @@
 # LENDSQR FRONTEND ENGINEERING TEST
-.This the live link to the project on vercel 
+.This is the live link to the project on vercel 
 https://ugorji-chimaeze-promise-lendsqr-fe-test.vercel.app/
 
 
