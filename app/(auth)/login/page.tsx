@@ -1,16 +1,43 @@
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
-import { Button, Input, Form } from "antd";
+import { Button, Input, Form, Alert } from "antd";
 import styles from "./page.module.scss";
+import type { LoginForm } from "@/lib/schemas/auth";
+import { useAuthStore } from "@/lib/stores/auth.store";
+import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/shallow";
 
-export default function LoginPage() {
+
+
+
+
+export default function login_page() {
+
+const { login, loading, error } = useAuthStore(
+  useShallow((state) => ({
+    login: state.login,
+    loading: state.loading,
+    error: state.error,
+  }))
+);
+
+const router = useRouter();
+
+
+
+
   const [showPassword, setShowPassword] = useState(false);
 
-  const onFinish = (values: { email: string; password: string }) => {
-    console.log("Login values:", values);
-  };
+const onFinish = async (values: LoginForm) => {
+  const success = await login(values);
+
+  if (success) {
+    router.replace("/dashboard");
+  }
+};
 
   return (
     <div className={styles.loginPage}>
@@ -54,6 +81,20 @@ export default function LoginPage() {
             <h1>Welcome!</h1>
             <p>Enter details to login.</p>
           </header>
+
+
+{error && (
+    <Alert 
+     title={error}
+    type="error"
+    showIcon
+    style={{ marginBottom: 24 }}
+    />
+  
+
+)}
+
+
 
           <Form
             name="login"
@@ -103,6 +144,7 @@ export default function LoginPage() {
                 block
                 size="large"
                 className={styles.submitButton}
+                loading={loading}
               >
                 LOG IN
               </Button>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./Public_pages_layout.module.scss";
 
 export default function Public_pages_layout({
@@ -10,7 +11,13 @@ export default function Public_pages_layout({
       <header className={styles.header}>
         <nav aria-label="Main navigation">
           <div className={styles.brand}>
-            <span>Lendsqr</span>
+                <Image 
+                 src="/images/logos/lendsqr-logo.svg"
+                        alt="Lendsqr"
+                        width={138}
+                        height={36}
+                        priority
+                />
           </div>
         </nav>
       </header>

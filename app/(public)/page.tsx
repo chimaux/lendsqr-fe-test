@@ -3,7 +3,7 @@ import { Button } from "antd";
 
 import styles from "./Home_page.module.scss";
 
-export default function Home_content() {
+export default function home_content() {
   return (
     <section className={styles.hero} aria-labelledby="welcome-heading">
       <article className={styles.card}>
