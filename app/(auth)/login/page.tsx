@@ -34,7 +34,13 @@ export default function login_page() {
     const success = await login(values);
 
     if (success) {
-      router.replace("/dashboard");
+          // Hard navigation (not router.replace) so the browser has fully
+    // committed the auth-token cookie the login response just set,
+    // before middleware evaluates the request for /dashboard/users.
+    // A soft client-side transition can race ahead of that commit -
+    // most visible on mobile Safari - and middleware then sees no
+    // token and bounces straight back to /login.
+    window.location.href = "/dashboard/users";
     }
   };
 
