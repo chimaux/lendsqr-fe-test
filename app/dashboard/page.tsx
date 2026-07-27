@@ -23,18 +23,8 @@ export default function dashboard() {
 
 
   return (
-    <div>
-<div>Dashboard</div>
-<Button
-  danger
-  ghost
-  icon={<LogoutOutlined />}
-  onClick={handleLogout}
-  size="large"
->
-  Logout
-</Button>
+    
+<div>DASHBOARD</div>
 
-    </div>
   )
 }

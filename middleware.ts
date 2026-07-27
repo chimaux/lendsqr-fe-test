@@ -6,18 +6,18 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Protect dashboard routes
-  if (!token && pathname.startsWith("/dashboard")) {
+  if (!token && pathname.startsWith("/dashboard/users")) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
   // Prevent logged-in users from visiting login
   if (token && pathname === "/login") {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/dashboard/users", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/dashboard/users:path*", "/login"],
 };
