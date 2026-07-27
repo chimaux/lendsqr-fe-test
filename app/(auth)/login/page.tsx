@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import Image from "next/image";
 import { Button, Input, Form, Alert } from "antd";
 import styles from "./page.module.scss";
 import type { LoginForm } from "@/lib/schemas/auth";
 import { useAuthStore } from "@/lib/stores/auth.store";
-import { useRouter } from "next/navigation";
 import { useShallow } from "zustand/shallow";
 
 
@@ -24,18 +22,20 @@ const { login, loading, error } = useAuthStore(
   }))
 );
 
-const router = useRouter();
 
 
-
-
-  const [showPassword, setShowPassword] = useState(false);
 
 const onFinish = async (values: LoginForm) => {
   const success = await login(values);
 
   if (success) {
-    router.replace("/dashboard");
+    // Hard navigation (not router.replace) so the browser has fully
+    // committed the auth-token cookie the login response just set,
+    // before middleware evaluates the request for /dashboard/users.
+    // A soft client-side transition can race ahead of that commit -
+    // most visible on mobile Safari - and middleware then sees no
+    // token and bounces straight back to /login.
+    window.location.href = "/dashboard/users";
   }
 };
 
@@ -85,7 +85,7 @@ const onFinish = async (values: LoginForm) => {
 
 {error && (
     <Alert 
-     title={error}
+     message={error}
     type="error"
     showIcon
     style={{ marginBottom: 24 }}
@@ -121,15 +121,10 @@ const onFinish = async (values: LoginForm) => {
                 size="large"
                 className={styles.input}
                 iconRender={(visible) => (
-                  <button
-                    type="button"
-                    className={styles.showButton}
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
+                  <span className={styles.showButton}>
                     {visible ? "HIDE" : "SHOW"}
-                  </button>
+                  </span>
                 )}
-                visibilityToggle={{ visible: showPassword }}
               />
             </Form.Item>
 
