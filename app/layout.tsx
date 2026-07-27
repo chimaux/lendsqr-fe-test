@@ -2,6 +2,8 @@ import Providers from "./Providers";
 import type { Metadata } from "next";
 import { avenirNext, workSans } from "./fonts";
 import "./globals.css";
+import ErrorOverlay from "./components/debug/ErrorOverlay";
+
 
 
 export const metadata: Metadata = {
@@ -18,7 +20,7 @@ export default function RootLayout({
 <html lang="en" className={`${avenirNext.variable} ${workSans.variable}`}>
       <body>
          <Providers >{children}</Providers >
-      
+      <ErrorOverlay />
         
         </body>
     </html>
