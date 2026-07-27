@@ -61,6 +61,7 @@ ${event.filename}:${event.lineno}:${event.colno}`
         overflow: "auto",
       }}
     >
+        overlay loaded
       {errors.map((error, index) => (
         <div key={index}>
           {error}
