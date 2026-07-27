@@ -17,7 +17,7 @@ export default function UserHeader({ status, onBlacklist, onActivate }: Props) {
   const router = useRouter();
 
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
-  const messageTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const messageTimeout = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const isBlacklisted = status === "Blacklisted";
   const isActive = status === "Active";
