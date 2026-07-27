@@ -161,6 +161,11 @@ export const navSections: NavSection[] = [
         href: '/dashboard/audit-logs',
         icon: AuditLogsIcon,
       },
+      {
+  label: "System Messages",
+  href: "/dashboard/system-messages",
+  icon: PreferencesIcon,
+},
     ],
   },
 ];

@@ -28,16 +28,11 @@ import {
   ChevronRight,
 } from "./components/icons";
 import styles from './UsersPage.module.scss';
+import { useRouter } from 'next/navigation';
 
 
 
 
-
-
-
-/* ==========================================================
-   Icons
-   ========================================================== */
 
 
 
@@ -93,6 +88,7 @@ const EMPTY_FILTERS: FilterState = {
    Main component
    ========================================================== */
 const UsersPage = () => {
+  const router = useRouter();
   const { users, loading, error, fetchUsers, blacklistUser, activateUser } = useUsersStore();
   const searchQuery = useSearchStore((s) => s.query);
 
@@ -334,6 +330,10 @@ const UsersPage = () => {
   const handleMenuAction = (action: 'view' | 'blacklist' | 'activate', userId: string) => {
     if (action === 'blacklist') blacklistUser(userId);
     if (action === 'activate') activateUser(userId);
+     if (action === 'view') {
+       router.push(`/dashboard/users/${userId}`);
+     }
+   
     setActiveMenu(null);
   };
 

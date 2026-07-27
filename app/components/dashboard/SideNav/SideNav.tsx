@@ -7,10 +7,23 @@ import { navSections } from './navItems';
 import { BriefcaseIcon, ChevronDownIcon } from '../icons';
 import { useMobileNav } from '../MobileNavContext';
 import styles from './SideNav.module.scss';
+import { useAuthStore } from '@/lib/stores/auth.store';
+import { LogoutOutlined } from '@ant-design/icons';
 
 const SideNav: React.FC = () => {
   const pathname = usePathname();
   const { isOpen, close } = useMobileNav();
+
+
+  // Log out function
+const logout = useAuthStore((state) => state.logout);
+
+const handleLogout = async () => {
+  await logout();
+  window.location.href = "/login";
+};
+
+
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -74,6 +87,21 @@ const SideNav: React.FC = () => {
             </div>
           ))}
         </nav>
+<div className={styles.sidebarFooter}>
+  <button
+    className={styles.logoutButton}
+    onClick={handleLogout}
+  >
+    <LogoutOutlined />
+
+    <span>Logout</span>
+  </button>
+
+  <span className={styles.version}>
+    v1.2.0
+  </span>
+</div>
+
       </aside>
     </>
   );

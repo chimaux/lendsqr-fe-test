@@ -9,3 +9,4 @@ export { default as BlacklistIcon } from "./BlacklistIcon";
 export { default as ActivateIcon } from "./ActivateIcon";
 export { default as ChevronLeft } from "./ChevronLeft";
 export { default as ChevronRight } from "./ChevronRight";
+export { default as PersonIcon } from "./PersonIcon";
