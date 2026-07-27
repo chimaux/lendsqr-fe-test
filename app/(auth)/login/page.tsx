@@ -6,6 +6,7 @@ import { Button, Input, Form, Alert } from "antd";
 import styles from "./page.module.scss";
 import type { LoginForm } from "@/lib/schemas/auth";
 import { useAuthStore } from "@/lib/stores/auth.store";
+import { useRouter } from "next/navigation";
 import { useShallow } from "zustand/shallow";
 
 
@@ -14,30 +15,28 @@ import { useShallow } from "zustand/shallow";
 
 export default function login_page() {
 
-const { login, loading, error } = useAuthStore(
-  useShallow((state) => ({
-    login: state.login,
-    loading: state.loading,
-    error: state.error,
-  }))
-);
+  const { login, loading, error } = useAuthStore(
+    useShallow((state) => ({
+      login: state.login,
+      loading: state.loading,
+      error: state.error,
+    }))
+  );
+
+  const router = useRouter();
 
 
 
 
-const onFinish = async (values: LoginForm) => {
-  const success = await login(values);
 
-  if (success) {
-    // Hard navigation (not router.replace) so the browser has fully
-    // committed the auth-token cookie the login response just set,
-    // before middleware evaluates the request for /dashboard/users.
-    // A soft client-side transition can race ahead of that commit -
-    // most visible on mobile Safari - and middleware then sees no
-    // token and bounces straight back to /login.
-    window.location.href = "/dashboard/users";
-  }
-};
+
+  const onFinish = async (values: LoginForm) => {
+    const success = await login(values);
+
+    if (success) {
+      router.replace("/dashboard");
+    }
+  };
 
   return (
     <div className={styles.loginPage}>
@@ -83,16 +82,16 @@ const onFinish = async (values: LoginForm) => {
           </header>
 
 
-{error && (
-    <Alert 
-     message={error}
-    type="error"
-    showIcon
-    style={{ marginBottom: 24 }}
-    />
-  
+          {error && (
+            <Alert
+              title={error}
+              type="error"
+              showIcon
+              style={{ marginBottom: 24 }}
+            />
 
-)}
+
+          )}
 
 
 
