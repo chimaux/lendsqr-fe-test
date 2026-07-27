@@ -51,7 +51,7 @@ ${event.filename}:${event.lineno}:${event.colno}`
         inset: "auto 8px 8px 8px",
         zIndex: 999999,
         background: "#b00020",
-        color: "#fff",
+        color: "#000",
         padding: "12px",
         borderRadius: 8,
         fontSize: 12,

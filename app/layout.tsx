@@ -20,7 +20,7 @@ export default function RootLayout({
 <html lang="en" className={`${avenirNext.variable} ${workSans.variable}`}>
       <body>
          <Providers >{children}</Providers >
-      <ErrorOverlay />
+    
         
         </body>
     </html>

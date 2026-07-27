@@ -24,12 +24,13 @@ export default function dashboard() {
 
   return (
     <div>
-Dashboard
-  <Button
-  type="default"
-  onClick={handleLogout}
-  icon={<LogoutOutlined />}
+<div>Dashboard</div>
+<Button
   danger
+  ghost
+  icon={<LogoutOutlined />}
+  onClick={handleLogout}
+  size="large"
 >
   Logout
 </Button>

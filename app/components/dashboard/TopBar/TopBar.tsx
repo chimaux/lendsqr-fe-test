@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { BellIcon, ChevronDownIcon, HamburgerIcon } from '../icons';
 import { useMobileNav } from '../MobileNavContext';
 import styles from './TopBar.module.scss';
 import Image from 'next/image';
 import { SearchOutlined } from '@ant-design/icons';
+import { useSearchStore } from '@/lib/stores/search.store';
 
 const TopBar: React.FC = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const searchValue = useSearchStore((s) => s.query);
+  const setSearchValue = useSearchStore((s) => s.setQuery);
   const { toggle } = useMobileNav();
 
   return (

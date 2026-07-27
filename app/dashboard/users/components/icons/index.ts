@@ -1,0 +1,11 @@
+export { default as UsersIcon } from "./UsersIcon";
+export { default as ActiveUsersIcon } from "./ActiveUsersIcon";
+export { default as UsersWithLoansIcon } from "./UsersWithLoansIcon";
+export { default as UsersWithSavingsIcon } from "./UsersWithSavingsIcon";
+export { default as FilterIcon } from "./FilterIcon";
+export { default as MoreIcon } from "./MoreIcon";
+export { default as ViewDetailsIcon } from "./ViewDetailsIcon";
+export { default as BlacklistIcon } from "./BlacklistIcon";
+export { default as ActivateIcon } from "./ActivateIcon";
+export { default as ChevronLeft } from "./ChevronLeft";
+export { default as ChevronRight } from "./ChevronRight";
