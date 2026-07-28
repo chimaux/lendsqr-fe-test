@@ -1,0 +1,748 @@
+@use "@/styles/mixins" as *;
+
+/* Design tokens (colors, type, spacing, radius, shadows) come from
+   app/globals.css -> ../../styles/_theme.scss, already loaded globally.
+   Not redeclared here to avoid a second, driftable copy of the same
+   custom properties. */
+
+/* ==========================================================
+   Page Layout
+   ========================================================== */
+.usersPage {
+  padding: var(--space-8);
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-page);
+  min-height: 100vh;
+
+  @include respond-to(md) {
+    padding: var(--space-4);
+  }
+
+  @include respond-to(sm) {
+    padding: var(--space-3);
+  }
+}
+
+.pageTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+  letter-spacing: -0.02em;
+
+  @include respond-to(sm) {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-5);
+  }
+}
+
+/* ==========================================================
+   Loading / Error / Empty states
+   ========================================================== */
+.loadingState,
+.errorState {
+  padding: var(--space-8) 0;
+  text-align: center;
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}
+
+.errorState {
+  color: var(--color-danger);
+}
+
+.emptyRow td {
+  padding: var(--space-8) var(--space-5) !important;
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+/* ==========================================================
+   Stats Grid
+   ========================================================== */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(sm) {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.statCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+}
+
+.statIcon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.statValue {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================
+   Table Container
+   ========================================================== */
+.tableContainer {
+  position: relative;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: visible;
+  margin-bottom: var(--space-6);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+/* ==========================================================
+   CSS-Grid table (virtualized body)
+   A real <table> can't have its rows absolutely positioned
+   (tanstack-virtual's approach) without breaking column
+   alignment between <thead> and <tbody>, so header + rows share
+   one grid-template-columns definition instead.
+   ========================================================== */
+$table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
+  minmax(130px, 1fr) minmax(160px, 1.1fr) minmax(110px, 0.8fr) 56px;
+
+.tableGrid {
+  min-width: 920px;
+  font-size: var(--font-size-sm);
+}
+
+.gridHeaderRow,
+.gridRow {
+  display: grid;
+  grid-template-columns: $table-columns;
+  align-items: center;
+}
+
+.gridRow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.virtualScrollArea {
+  position: relative;
+  height: 640px;
+  max-height: 65vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.virtualInner {
+  position: relative;
+  width: 100%;
+}
+
+.emptyState {
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.tableHeader {
+  
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+  white-space: nowrap;
+  background: var(--color-bg-card);
+}
+
+.headerButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+
+  &:hover {
+    color: var(--color-primary);
+  }
+
+  &:hover .filterIcon svg path {
+    fill: var(--color-primary);
+  }
+}
+
+.filterIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--color-bg-hover);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.tableCell {
+  padding: var(--space-4) var(--space-5);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+
+  @include respond-to(md) {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* ==========================================================
+   Status Badges
+   ========================================================== */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.01em;
+}
+
+.statusActive {
+  color: var(--color-success);
+  background-color: var(--color-success-bg);
+}
+
+.statusPending {
+  color: var(--color-warning);
+  background-color: var(--color-warning-bg);
+}
+
+.statusBlacklisted {
+  color: var(--color-danger);
+  background-color: var(--color-danger-bg);
+}
+
+.statusInactive {
+  color: var(--color-inactive);
+  background-color: var(--color-inactive-bg);
+}
+
+/* ==========================================================
+   Filter Panel
+   ========================================================== */
+.filterPanel {
+  
+ top: 55px;
+  left: var(--space-5);
+  width: 270px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-5);
+  z-index: 100;
+  animation: filterSlideIn 0.2s ease-out;
+    
+
+    
+  .ant-form-item {
+    margin-bottom: var(--space-5);
+  }
+
+  .ant-form-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .ant-form-item-label {
+    padding-bottom: var(--space-2);
+
+    > label {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      font-family: var(--font-primary);
+    }
+  }
+
+  .ant-input,
+  .ant-picker,
+  .ant-select-selector {
+    height: 40px !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-md) !important;
+    background: var(--color-bg-card) !important;
+    box-shadow: none !important;
+  }
+
+  .ant-input {
+    padding-inline: var(--space-4);
+
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
+  }
+
+  .ant-picker {
+    width: 100%;
+    padding-inline: var(--space-4);
+
+    input {
+      &::placeholder {
+        color: var(--color-text-muted);
+      }
+    }
+  }
+
+  .ant-select {
+    width: 100%;
+  }
+
+  .ant-select-selector {
+    padding-inline: var(--space-4) !important;
+  }
+
+  .ant-input:hover,
+  .ant-picker:hover,
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: var(--color-primary) !important;
+  }
+
+  .ant-input:focus,
+  .ant-input-focused,
+  .ant-picker-focused,
+  .ant-select-focused .ant-select-selector {
+    border-color: var(--color-primary) !important;
+    box-shadow: none !important;
+  }
+
+  .ant-btn {
+    height: 40px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+   
+
+   
+
+  @keyframes filterSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @include respond-to(sm) {
+    left: var(--space-3);
+    right: var(--space-3);
+    width: auto;
+  }
+}
+
+  .ant-popover-inner {
+    padding: 0;
+    border-radius: var(--radius-md);
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .ant-popover-arrow {
+    display: none;
+  }
+
+.filterField {
+  margin-bottom: var(--space-4);
+
+
+  &:last-of-type {
+    margin-bottom: var(--space-5);
+  }
+
+  label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    background: var(--color-bg-card);
+    font-family: var(--font-primary);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &::placeholder {
+      color: var(--color-text-placeholder);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-border-focus);
+      box-shadow: 0 0 0 3px rgba(57, 205, 204, 0.1);
+    }
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23545F7D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: var(--space-8);
+    cursor: pointer;
+  }
+}
+
+.dateInputWrapper {
+  position: relative;
+
+  input {
+    padding-right: var(--space-8);
+  }
+
+  svg {
+    position: absolute;
+    right: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
+
+.filterActions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.resetButton {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-card);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: var(--color-bg-hover);
+    border-color: var(--color-text-primary);
+    color: var(--color-text-primary);
+  }
+}
+
+.filterButton {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+
+  &:active {
+    background: var(--color-primary-active);
+    border-color: var(--color-primary-active);
+  }
+}
+
+/* ==========================================================
+   Action Menu
+   ========================================================== */
+.actionWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  padding: var(--space-1);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--color-bg-hover);
+  }
+}
+
+.actionMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 180px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  overflow: hidden;
+  animation: menuSlideIn 0.15s ease-out;
+
+  @keyframes menuSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: none;
+    background: none;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-family: var(--font-primary);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background-color: var(--color-bg-hover);
+      color: var(--color-text-primary);
+    }
+
+    svg path {
+      fill: currentColor;
+    }
+  }
+}
+
+/* ==========================================================
+   Pagination
+   ========================================================== */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) 0;
+
+  @include respond-to(md) {
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+}
+
+.rowsPerPage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+
+  select {
+    padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-primary);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23545F7D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-border-focus);
+    }
+  }
+}
+
+.pageControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.pageButton {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg-hover);
+    border-color: var(--color-text-secondary);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.pageNumber {
+  min-width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0 var(--space-2);
+
+  &:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-text-primary);
+  }
+}
+
+.pageNumberActive {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+
+  &:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+}
+
+.ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+.tableContent {
+  position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
