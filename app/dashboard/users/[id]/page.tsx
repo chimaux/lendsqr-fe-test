@@ -16,12 +16,15 @@ import Savings from "./components/Savings";
 import AppsSystem from "./components/AppsSystem";
 
 import { useUsersStore } from "@/lib/stores/users.store";
+import { useAuthStore } from "@/lib/stores/auth.store";
 
 export default function UserDetailsPage() {
   const params = useParams();
 
   const { users, loading, error, fetchUsers, blacklistUser, activateUser } =
     useUsersStore();
+  const canBlacklist = useAuthStore((s) => s.canBlacklistUser());
+  const canActivate = useAuthStore((s) => s.canActivateUser());
 
   const [activeTab, setActiveTab] = useState<UserTab>(USER_TABS[0]);
 
@@ -54,6 +57,8 @@ export default function UserDetailsPage() {
         status={user.status}
         onBlacklist={() => blacklistUser(user.id)}
         onActivate={() => activateUser(user.id)}
+        canBlacklist={canBlacklist}
+        canActivate={canActivate}
       />
 
       <UserSummary user={user} />

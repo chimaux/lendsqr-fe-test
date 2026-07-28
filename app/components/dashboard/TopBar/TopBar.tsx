@@ -8,11 +8,13 @@ import styles from './TopBar.module.scss';
 import Image from 'next/image';
 import { SearchOutlined } from '@ant-design/icons';
 import { useSearchStore } from '@/lib/stores/search.store';
+import { useAuthStore } from '@/lib/stores/auth.store';
 
 const TopBar: React.FC = () => {
   const searchValue = useSearchStore((s) => s.query);
   const setSearchValue = useSearchStore((s) => s.setQuery);
   const { toggle } = useMobileNav();
+  const firstName = useAuthStore((s) => s.user?.first_name);
 
   return (
     <header className={styles.topbar}>
@@ -74,12 +76,12 @@ const TopBar: React.FC = () => {
             <div className={styles.avatar}>
               <img
                 src="https://i.pravatar.cc/150?img=12"
-                alt="Adedeji profile"
+                alt={firstName ? `${firstName} profile` : 'Profile'}
                 width={40}
                 height={40}
               />
             </div>
-            <span className={styles.profileName}>Adedeji</span>
+            <span className={styles.profileName}>{firstName ?? 'Guest'}</span>
             <ChevronDownIcon className={styles.profileChevron} />
           </div>
         </div>

@@ -11,9 +11,17 @@ type Props = {
   status: UserStatus;
   onBlacklist: () => void;
   onActivate: () => void;
+  canBlacklist: boolean;
+  canActivate: boolean;
 };
 
-export default function UserHeader({ status, onBlacklist, onActivate }: Props) {
+export default function UserHeader({
+  status,
+  onBlacklist,
+  onActivate,
+  canBlacklist,
+  canActivate,
+}: Props) {
   const router = useRouter();
 
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
@@ -31,13 +39,13 @@ export default function UserHeader({ status, onBlacklist, onActivate }: Props) {
   useEffect(() => () => clearTimeout(messageTimeout.current), []);
 
   const handleBlacklist = () => {
-    if (isBlacklisted) return;
+    if (isBlacklisted || !canBlacklist) return;
     onBlacklist();
     flashMessage("User blacklisted.");
   };
 
   const handleActivate = () => {
-    if (isActive) return;
+    if (isActive || !canActivate) return;
     onActivate();
     flashMessage("User activated.");
   };
@@ -65,8 +73,14 @@ export default function UserHeader({ status, onBlacklist, onActivate }: Props) {
           <button
             type="button"
             className={styles.blacklistButton}
-            disabled={isBlacklisted}
-            title={isBlacklisted ? "User is already blacklisted" : undefined}
+            disabled={isBlacklisted || !canBlacklist}
+            title={
+              !canBlacklist
+                ? "You don't have permission to blacklist users"
+                : isBlacklisted
+                ? "User is already blacklisted"
+                : undefined
+            }
             onClick={handleBlacklist}
           >
             Blacklist User
@@ -75,8 +89,14 @@ export default function UserHeader({ status, onBlacklist, onActivate }: Props) {
           <button
             type="button"
             className={styles.activateButton}
-            disabled={isActive}
-            title={isActive ? "User is already active" : undefined}
+            disabled={isActive || !canActivate}
+            title={
+              !canActivate
+                ? "You don't have permission to activate users"
+                : isActive
+                ? "User is already active"
+                : undefined
+            }
             onClick={handleActivate}
           >
             Activate User

@@ -13,6 +13,7 @@ import {
 import dayjs from "dayjs";
 import { useSearchStore } from '@/lib/stores/search.store';
 import { useUsersStore } from '@/lib/stores/users.store';
+import { useAuthStore } from '@/lib/stores/auth.store';
 import type { UserStatus } from '@/lib/schemas/users';
 import {
   UsersIcon,
@@ -91,6 +92,8 @@ const UsersPage = () => {
   const router = useRouter();
   const { users, loading, error, fetchUsers, blacklistUser, activateUser } = useUsersStore();
   const searchQuery = useSearchStore((s) => s.query);
+  const canBlacklist = useAuthStore((s) => s.canBlacklistUser());
+  const canActivate = useAuthStore((s) => s.canActivateUser());
 
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -328,8 +331,11 @@ const UsersPage = () => {
   );
 
   const handleMenuAction = (action: 'view' | 'blacklist' | 'activate', userId: string) => {
-    if (action === 'blacklist') blacklistUser(userId);
-    if (action === 'activate') activateUser(userId);
+    // Belt-and-braces: the buttons below are already hidden/disabled when the
+    // signed-in admin lacks the permission, but we guard here too in case
+    // this handler is ever wired up elsewhere.
+    if (action === 'blacklist' && canBlacklist) blacklistUser(userId);
+    if (action === 'activate' && canActivate) activateUser(userId);
      if (action === 'view') {
        router.push(`/dashboard/users/${userId}`);
      }
@@ -488,12 +494,16 @@ const UsersPage = () => {
                                   <button type="button" onClick={() => handleMenuAction('view', user.id)}>
                                     <ViewDetailsIcon /> View Details
                                   </button>
-                                  <button type="button" onClick={() => handleMenuAction('blacklist', user.id)}>
-                                    <BlacklistIcon /> Blacklist User
-                                  </button>
-                                  <button type="button" onClick={() => handleMenuAction('activate', user.id)}>
-                                    <ActivateIcon /> Activate User
-                                  </button>
+                                  {canBlacklist && (
+                                    <button type="button" onClick={() => handleMenuAction('blacklist', user.id)}>
+                                      <BlacklistIcon /> Blacklist User
+                                    </button>
+                                  )}
+                                  {canActivate && (
+                                    <button type="button" onClick={() => handleMenuAction('activate', user.id)}>
+                                      <ActivateIcon /> Activate User
+                                    </button>
+                                  )}
                                 </div>
                               )}
                             </div>
