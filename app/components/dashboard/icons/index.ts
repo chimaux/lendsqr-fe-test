@@ -25,3 +25,4 @@ export { default as BellIcon } from './BellIcon';
 export { default as ChevronDownIcon } from './ChevronDownIcon';
 export { default as BriefcaseIcon } from './BriefcaseIcon';
 export { default as HamburgerIcon } from './HamburgerIcon';
+export { default as SignOutIcon } from './SignOutIcon';

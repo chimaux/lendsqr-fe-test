@@ -4,11 +4,10 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navSections } from './navItems';
-import { BriefcaseIcon, ChevronDownIcon } from '../icons';
+import { BriefcaseIcon, ChevronDownIcon, SignOutIcon } from '../icons';
 import { useMobileNav } from '../MobileNavContext';
 import styles from './SideNav.module.scss';
 import { useAuthStore } from '@/lib/stores/auth.store';
-import { LogoutOutlined } from '@ant-design/icons';
 
 const SideNav: React.FC = () => {
   const pathname = usePathname();
@@ -92,7 +91,7 @@ const handleLogout = async () => {
     className={styles.logoutButton}
     onClick={handleLogout}
   >
-    <LogoutOutlined />
+    <SignOutIcon className={styles.logoutIcon} />
 
     <span>Logout</span>
   </button>
