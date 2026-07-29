@@ -212,6 +212,10 @@ const UsersPage = () => {
     setActiveFilterCol(null);
   };
 
+  // ================================================
+  // FILTER FUNCTION
+  // =====================================================
+
   const filterContent = (
     <div className={styles.filterPanel}>
       <Form layout="vertical">

@@ -42,7 +42,7 @@ Use either of the accounts below on the login page. Both accounts can view the d
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/lendsqr-fe.git
+git clone git@github.com:chimaux/lendsqr-fe-test.git
 cd lendsqr-fe
 
 # Install dependencies
@@ -68,7 +68,7 @@ npm run lint
 npm run generate:users
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Open [http://localhost:3000] to view the application.
 
 ### Logging In Locally
 
