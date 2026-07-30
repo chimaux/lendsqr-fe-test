@@ -191,7 +191,6 @@ $table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
 }
 
 .tableHeader {
-  
   padding: var(--space-4) var(--space-5);
   text-align: left;
   font-size: var(--font-size-xs);
@@ -300,8 +299,7 @@ $table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
    Filter Panel
    ========================================================== */
 .filterPanel {
-  
- top: 55px;
+  top: 55px;
   left: var(--space-5);
   width: 270px;
   background: var(--color-bg-card);
@@ -312,6 +310,13 @@ $table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
   z-index: 100;
   animation: filterSlideIn 0.2s ease-out;
     
+    @include respond-to(md) {
+    width: 320px;
+  }
+
+  @include respond-to(sm) {
+    width: 320px;
+  }
 
     
   .ant-form-item {
@@ -333,9 +338,9 @@ $table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
     }
   }
 
-  .ant-input,
-  .ant-picker,
-  .ant-select-selector {
+  :global(.ant-input),
+  :global(.ant-picker),
+  :global(.ant-select-selector) {
     height: 40px !important;
     border: 1px solid var(--color-border) !important;
     border-radius: var(--radius-md) !important;
@@ -343,7 +348,7 @@ $table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
     box-shadow: none !important;
   }
 
-  .ant-input {
+  :global(.ant-input) {
     padding-inline: var(--space-4);
 
     &::placeholder {
@@ -351,40 +356,51 @@ $table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
     }
   }
 
-  .ant-picker {
+  :global(.ant-picker) {
     width: 100%;
     padding-inline: var(--space-4);
+    align-items: center;
 
     input {
+      height: 100%;
+
       &::placeholder {
         color: var(--color-text-muted);
       }
     }
   }
 
-  .ant-select {
+  :global(.ant-select) {
     width: 100%;
   }
 
-  .ant-select-selector {
+  :global(.ant-select-selector) {
     padding-inline: var(--space-4) !important;
+    display: flex !important;
+    align-items: center;
   }
 
-  .ant-input:hover,
-  .ant-picker:hover,
-  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+  :global(.ant-select-selection-search-input),
+  :global(.ant-select-selection-item),
+  :global(.ant-select-selection-placeholder) {
+    line-height: 38px !important;
+  }
+
+  :global(.ant-input):hover,
+  :global(.ant-picker):hover,
+  :global(.ant-select):not(:global(.ant-select-disabled)):hover :global(.ant-select-selector) {
     border-color: var(--color-primary) !important;
   }
 
-  .ant-input:focus,
-  .ant-input-focused,
-  .ant-picker-focused,
-  .ant-select-focused .ant-select-selector {
+  :global(.ant-input):focus,
+  :global(.ant-input-focused),
+  :global(.ant-picker-focused),
+  :global(.ant-select-focused) :global(.ant-select-selector) {
     border-color: var(--color-primary) !important;
     box-shadow: none !important;
   }
 
-  .ant-btn {
+  :global(.ant-btn) {
     height: 40px;
     border-radius: var(--radius-md);
     font-size: var(--font-size-sm);
@@ -411,17 +427,6 @@ $table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
     width: auto;
   }
 }
-
-  .ant-popover-inner {
-    padding: 0;
-    border-radius: var(--radius-md);
-    box-shadow: none;
-    background: transparent;
-  }
-
-  .ant-popover-arrow {
-    display: none;
-  }
 
 .filterField {
   margin-bottom: var(--space-4);
@@ -731,18 +736,3 @@ $table-columns: minmax(140px, 1.2fr) minmax(120px, 1fr) minmax(190px, 1.5fr)
 .tableContent {
   position: relative;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -218,7 +218,7 @@ const UsersPage = () => {
 
   const filterContent = (
     <div className={styles.filterPanel}>
-      <Form layout="vertical">
+      <Form layout="vertical" size="large">
         <Form.Item
           label="Organization"
           className={styles.filterField}
@@ -420,14 +420,26 @@ const UsersPage = () => {
                   { key: 'date', label: 'Date Joined' },
                   { key: 'status', label: 'Status' },
                 ].map((col) => (
-                  <div key={col.key} className={styles.tableHeader} role="columnheader">
+                  <div
+                    key={col.key}
+                    className={styles.tableHeader}
+                    role="columnheader"
+                  >
                     <Popover
                       trigger="click"
                       open={activeFilterCol === col.key}
                       onOpenChange={(open) => setActiveFilterCol(open ? col.key : null)}
                       placement="bottomLeft"
                       content={filterContent}
-                      overlayClassName={styles.filterPopover}
+                      arrow={false}
+                      styles={{
+                        container: {
+                          padding: 0,
+                          background: 'transparent',
+                          boxShadow: 'none',
+                          borderRadius: 'var(--radius-md)',
+                        },
+                      }}
                     >
                       <button
                         type="button"
